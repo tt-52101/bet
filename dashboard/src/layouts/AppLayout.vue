@@ -139,6 +139,11 @@ watch(
           </a>
         </li>
       </template>
+      <template #bottom-links>
+        <li>
+          <UserProfileDropdown up />
+        </li>
+      </template>
     </Sidebar>
 
     <transition name="slide-x">

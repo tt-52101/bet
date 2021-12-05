@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useHead } from '@vueuse/head'
+import {ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+import {useHead} from '@vueuse/head'
 
-import { isDark, toggleDarkModeHandler } from '/@src/state/darkModeState'
-import { useUserSession } from '/@src/stores/userSession'
+import {isDark, toggleDarkModeHandler} from '/@src/state/darkModeState'
+import {useUserSession} from '/@src/stores/userSession'
 import useNotyf from '/@src/composable/useNotyf'
-import sleep from '/@src/utils/sleep'
+import Auth from '/@src/repositories/Auth'
 
 const isLoading = ref(false)
 const router = useRouter()
@@ -14,166 +14,134 @@ const route = useRoute()
 const notif = useNotyf()
 const userSession = useUserSession()
 const redirect = route.query.redirect as string
+const auth = new Auth()
+
+const properties = ref({
+  username: '',
+  password: ''
+});
 
 const handleLogin = async () => {
   if (!isLoading.value) {
     isLoading.value = true
 
-    await sleep(2000)
-    userSession.setToken('logged-in')
+    auth.login(properties.value.username, properties.value.password).then(response => {
+      userSession.setToken(response.data.access_token, response.data.refresh_token)
+      notif.dismissAll()
 
-    notif.dismissAll()
-    notif.success('Welcome back, Erik Kovalsky')
+      notif.success('Welcome back')
 
-    if (redirect) {
-      router.push(redirect)
-    } else {
-      router.push({
-        name: 'app',
-      })
-    }
+      if (redirect) {
+        router.push(redirect)
+      } else {
+        router.push({
+          name: 'app',
+        })
+      }
+
+    }).catch(err => {
+      notif.error(err.response.data.message)
+    });
 
     isLoading.value = false
   }
 }
 
 useHead({
-  title: 'Auth Login - Vuero',
+  title: 'Auth Login 3 - Vuero',
 })
 </script>
 
 <template>
-  <div class="auth-wrapper-inner columns is-gapless">
-    <!-- Image section (hidden on mobile) -->
-    <div
-      class="
-        column
-        login-column
-        is-8
-        h-hidden-mobile h-hidden-tablet-p
-        hero-banner
-      "
-    >
-      <div class="hero login-hero is-fullheight is-app-grey">
-        <div class="hero-body">
-          <div class="columns">
-            <div class="column is-10 is-offset-1">
-              <img
-                class="light-image has-light-shadow has-light-border"
-                src="/@src/assets/illustrations/apps/vuero-banking-light.png?format=webp"
-                alt=""
-              />
-              <img
-                class="dark-image has-light-shadow"
-                src="/@src/assets/illustrations/apps/vuero-banking-dark.png?format=webp"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-        <div class="hero-footer">
-          <p class="has-text-centered"></p>
-        </div>
+  <div class="auth-wrapper-inner is-single">
+    <!--Fake navigation-->
+    <div class="auth-nav">
+      <div class="left"></div>
+      <div class="center">
+        <RouterLink :to="{ name: 'index' }" class="header-item">
+          <AnimatedLogo width="38px" height="38px"/>
+        </RouterLink>
+      </div>
+      <div class="right">
+        <label class="dark-mode ml-auto">
+          <input
+            type="checkbox"
+            :checked="!isDark"
+            @change="toggleDarkModeHandler"
+          />
+          <span></span>
+        </label>
       </div>
     </div>
 
-    <!-- Form section -->
-    <div class="column is-4">
-      <div class="hero is-fullheight is-white">
-        <div class="hero-heading">
-          <label class="dark-mode ml-auto">
-            <input
-              type="checkbox"
-              :checked="!isDark"
-              @change="toggleDarkModeHandler"
-            />
-            <span></span>
-          </label>
-          <div class="auth-logo">
-            <RouterLink :to="{ name: 'index' }">
-              <AnimatedLogo width="36px" height="36px" />
-            </RouterLink>
-          </div>
+    <!--Single Centered Form-->
+    <div class="single-form-wrap">
+      <div class="inner-wrap">
+        <!--Form Title-->
+        <div class="auth-head">
+          <h2>Welcome</h2>
+          <p>Please sign in to your account</p>
         </div>
-        <div class="hero-body">
-          <div class="container">
-            <div class="columns">
-              <div class="column is-12">
-                <div class="auth-content">
-                  <h2>Welcome Back.</h2>
-                  <p>Please sign in to your account</p>
-                  <RouterLink :to="{ name: 'auth-signup' }">
-                    I do not have an account yet
-                  </RouterLink>
+
+        <!--Form-->
+        <div class="form-card">
+          <form @submit.prevent="handleLogin">
+            <div class="login-form">
+              <VField>
+                <VControl icon="feather:user">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Username"
+                    autocomplete="username"
+                    v-model="properties.username"
+                  />
+                </VControl>
+              </VField>
+              <VField>
+                <VControl icon="feather:lock">
+                  <input
+                    class="input"
+                    type="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    v-model="properties.password"
+                  />
+                </VControl>
+              </VField>
+
+              <!-- Switch -->
+              <VControl class="setting-item">
+                <label for="remember-me" class="form-switch is-primary">
+                  <input id="remember-me" type="checkbox" class="is-switch"/>
+                  <i aria-hidden="true"></i>
+                </label>
+                <div class="setting-meta">
+                  <label for="remember-me">
+                    <span>Remember Me</span>
+                  </label>
                 </div>
-                <div class="auth-form-wrapper">
-                  <!-- Login Form -->
-                  <form @submit.prevent="handleLogin">
-                    <div class="login-form">
-                      <!-- Username -->
-                      <VField>
-                        <VControl icon="feather:user">
-                          <input
-                            class="input"
-                            type="text"
-                            placeholder="Username"
-                            autocomplete="username"
-                          />
-                        </VControl>
-                      </VField>
+              </VControl>
 
-                      <!-- Password -->
-                      <VField>
-                        <VControl icon="feather:lock">
-                          <input
-                            class="input"
-                            type="password"
-                            placeholder="Password"
-                            autocomplete="current-password"
-                          />
-                        </VControl>
-                      </VField>
-
-                      <!-- Switch -->
-                      <VControl class="setting-item">
-                        <label for="remember-me" class="form-switch is-primary">
-                          <input
-                            id="remember-me"
-                            type="checkbox"
-                            class="is-switch"
-                          />
-                          <i aria-hidden="true"></i>
-                        </label>
-                        <div class="setting-meta">
-                          <label for="remember-me">
-                            <span>Remember Me</span>
-                          </label>
-                        </div>
-                      </VControl>
-
-                      <!-- Submit -->
-                      <VControl class="login">
-                        <VButton
-                          :loading="isLoading"
-                          color="primary"
-                          type="submit"
-                          bold
-                          fullwidth
-                          raised
-                        >
-                          Sign In
-                        </VButton>
-                      </VControl>
-
-                      <div class="forgot-link has-text-centered">
-                        <a>Forgot Password?</a>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              <!-- Submit -->
+              <VControl class="login">
+                <VButton
+                  :loading="isLoading"
+                  type="submit"
+                  color="primary"
+                  bold
+                  fullwidth
+                  raised
+                >
+                  Sign In
+                </VButton>
+              </VControl>
             </div>
-          </div>
+          </form>
+        </div>
+
+        <div class="forgot-link has-text-centered">
+          <a>Forgot Password?</a>
         </div>
       </div>
     </div>

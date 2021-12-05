@@ -7,8 +7,9 @@ use App\Core\Auth\Models\User;
 use App\Core\Auth\Resources\User as UserResource;
 
 use App\Http\Controllers\Controller;
+use App\Core\Controllers\ApiController;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
 
     public function show(User $user)
@@ -28,12 +29,18 @@ class AuthController extends Controller
             'password'
         ]));
 
+        if($token == ""){
+            return $this->respondForbidden('Wrong Credentials');
+        }
+
         return $token;
     }
 
     public function logout(){
         // :Todo Logout Implementation
-        return "";
+        return $this->respond([
+            'message' => 'Logged Out Successfully'
+        ]);
     }
 
     public function me()

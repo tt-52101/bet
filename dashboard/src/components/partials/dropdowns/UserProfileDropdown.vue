@@ -32,38 +32,6 @@
 
       <hr class="dropdown-divider" />
 
-      <a href="#" role="menuitem" class="dropdown-item is-media">
-        <div class="icon">
-          <i aria-hidden="true" class="lnil lnil-briefcase"></i>
-        </div>
-        <div class="meta">
-          <span>Projects</span>
-          <span>All my projects</span>
-        </div>
-      </a>
-
-      <a href="#" role="menuitem" class="dropdown-item is-media">
-        <div class="icon">
-          <i aria-hidden="true" class="lnil lnil-users-alt"></i>
-        </div>
-        <div class="meta">
-          <span>Team</span>
-          <span>Manage your team</span>
-        </div>
-      </a>
-
-      <hr class="dropdown-divider" />
-
-      <a href="#" role="menuitem" class="dropdown-item is-media">
-        <div class="icon">
-          <i aria-hidden="true" class="lnil lnil-cog"></i>
-        </div>
-        <div class="meta">
-          <span>Settings</span>
-          <span>Account settings</span>
-        </div>
-      </a>
-
       <hr class="dropdown-divider" />
 
       <div class="dropdown-item is-button">
@@ -74,6 +42,7 @@
           role="menuitem"
           raised
           fullwidth
+          @click="logout"
         >
           Logout
         </VButton>
@@ -81,3 +50,24 @@
     </template>
   </VDropdown>
 </template>
+
+<script setup lang="ts">
+import Auth from '/@src/repositories/Auth'
+import {useUserSession} from '/@src/stores/userSession'
+import {useRouter, useRoute} from 'vue-router'
+import useNotyf from "/@src/composable/useNotyf";
+
+const router = useRouter()
+const userSession = useUserSession();
+const auth = new Auth();
+const notif = useNotyf()
+
+const logout = (() => {
+  auth.logout().then(response => {
+    userSession.logoutUser();
+    router.push('/auth/login')
+  }).catch(err => {
+    notif.error(err.response.data.message)
+  })
+})
+</script>
