@@ -18,6 +18,12 @@ const emit = defineEmits(['close'])
             Home
           </RouterLink>
         </li>
+        <li>
+          <RouterLink :to="{ path: '/pages/auth/default' }">
+            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
+            Generated
+          </RouterLink>
+        </li>
       </ul>
     </div>
   </div>

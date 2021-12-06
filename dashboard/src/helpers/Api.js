@@ -1,21 +1,24 @@
 import axios from "axios";
-
+import {useUserSession} from "../stores/userSession";
 
 class Api {
-  constructor(name, authorized = true, server = "") {
+  constructor(name, authorized = true, session = useUserSession()) {
 
-    if (!server) {
-      server ='http://localhost/auth';
-    }
+    let server = 'http://localhost/auth';
 
     this.server = server;
     this.endpoint = `${name}`;
     this.headers = {};
+
+    if (authorized) {
+      axios.defaults.headers.common["authorization"] =
+        "Bearer " + session.token.access;
+    }
   }
 
-  get(filters = {}, page = 1, url = "", custom_url = false) {
+  get(filters = {}, page = 1, url = "", other_domain = false) {
     let params = this.genParams(filters, page);
-    if (!custom_url) {
+    if (!other_domain) {
       url = this.getUrl(url);
     }
 
@@ -26,9 +29,9 @@ class Api {
     });
   }
 
-  post(data = {}, filters = {}, url = "", custom_url = false) {
+  post(data = {}, filters = {}, url = "", other_domain = false) {
     let params = this.genParams(filters, 1);
-    if (!custom_url) {
+    if (!other_domain) {
       url = this.getUrl(url);
     }
     return axios({
@@ -39,8 +42,8 @@ class Api {
     });
   }
 
-  upload(data = {}, url = "", custom_url = false) {
-    if (!custom_url) {
+  upload(data = {}, url = "", other_domain = false) {
+    if (!other_domain) {
       url = this.getUrl(url);
     }
 
@@ -51,10 +54,10 @@ class Api {
     });
   }
 
-  update(data = {}, id = "", filters = {}, url = "", custom_url = false) {
+  update(data = {}, id = "", filters = {}, url = "", other_domain = false) {
     let params = this.genParams(filters, 1);
 
-    if (!custom_url) {
+    if (!other_domain) {
       url = this.getUrl(url) + `/${id}`;
     }
 
@@ -63,19 +66,11 @@ class Api {
     return axios.patch(url + params, data);
   }
 
-  updateMany(data = {}, url = "", custom_url = false) {
-    data["_method"] = "PATCH";
-    if (!custom_url) {
-      url = this.getUrl(url);
-    }
-    return axios.patch(url, data);
-  }
-
-  delete(id, url = "", custom_url = false) {
+  delete(id, url = "", other_domain = false) {
     let data = {
       _method: "DELETE"
     };
-    if (!custom_url) {
+    if (!other_domain) {
       url = this.getUrl(url) + "/" + id;
     }
 
