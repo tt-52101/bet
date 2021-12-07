@@ -12,7 +12,8 @@
  */
 
 import { createApp } from './app'
-
+import GlobalComponents from '/@src/globalComponents'
+import _ from 'lodash';
 /**
  * We create our app and mount it when it is ready
  *
@@ -33,6 +34,7 @@ createApp({
     const tooltip = (await import('./directives/tooltip')).default
 
     app.use(VCalendar)
+    app.use(GlobalComponents)
     app.use(VueTippy, {
       defaultProps: {
         theme: 'light',

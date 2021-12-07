@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "benbodan/laravel-jwt": "dev-main",
+        "benbodan/bet-ui": "dev-main",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "kalnoy/nestedset": "^6.0",
@@ -26,6 +27,10 @@
         {
             "type": "vcs",
             "url": "git@github.com:benbodan/laravel-jwt.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:benbodan/bet-ui.git"
         }
     ],
     "autoload": {

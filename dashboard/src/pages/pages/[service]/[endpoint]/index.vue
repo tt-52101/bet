@@ -1,17 +1,10 @@
 <template>
   <AppLayout>
-    <VCard radius="small" v-for="item in page.data" :key="item.id">
-      <h3 class="title is-5 mb-2">{{item.email}}</h3>
-      <p>
-        {{item.name}}
-      </p>
-    </VCard>
-    <!-- Content Wrapper -->
-    <RouterView v-slot="{ Component }">
-      <transition name="fade-fast" mode="out-in">
-        <component :is="Component" :key="route.fullPath"/>
-      </transition>
-    </RouterView>
+    <component
+      :is="item.component"
+      :properties="item.props"
+      v-for="(item,i) in page.data.props.children" :key="i">
+    </component>
   </AppLayout>
 </template>
 <script setup lang="ts">
@@ -20,7 +13,13 @@ import {onMounted, reactive} from 'vue'
 import Api from '/@src/helpers/Api'
 
 const route = useRoute()
-const page = reactive({})
+const page = reactive({
+  data: {
+    props: {
+      children: []
+    }
+  }
+})
 
 const props = defineProps({
   service: {
@@ -33,7 +32,7 @@ const props = defineProps({
   },
 })
 
-const api = new Api(`/api/user`)
+const api = new Api(`/api/page/user`)
 
 onMounted(() => {
   get()
@@ -41,7 +40,7 @@ onMounted(() => {
 
 const get = async () => {
   api.get().then((response: any) => {
-    page.data = response.data.data
+    page.data = response.data
   })
 }
 
