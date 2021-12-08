@@ -1,22 +1,23 @@
 <?php
 
 namespace App\Core\Pages\User;
+
 use App\Core\Controllers\ApiController;
 use BenBodan\BetUi\Components\{ButtonGroup, Page, Flex, FlexItem, Card, Row, Column, Button};
 
-class UserPageController extends ApiController{
-    public function page(){
+class UserPageController extends ApiController
+{
+    public function page()
+    {
         $page = new Page(
             children: [
                 new Row(
-                    desktop: 0,
-                    tablet: 0,
                     children: [
                         new Column(
                             desktop: 6,
                             children: [
                                 new Card(
-                                    children: [
+                                    header_left: [
                                         new ButtonGroup(
                                             children: [
                                                 new Button(
@@ -31,6 +32,14 @@ class UserPageController extends ApiController{
                                                 ),
                                             ]
                                         )
+                                    ],
+                                    footer_right: [
+                                        new Button(
+                                            title: 'test',
+                                            rounded: true,
+                                            icon: 'fa fa-check',
+                                            align: 'right'
+                                        ),
                                     ]
                                 )
                             ]
@@ -57,28 +66,19 @@ class UserPageController extends ApiController{
                         new FlexItem(
                             grow: 1,
                             children: [
-                                new Card(
-                                    radius: 'small',
-                                    color: 'primary'
-                                )
+                                new Card()
                             ]
                         ),
                         new FlexItem(
                             grow: 1,
                             children: [
-                                new Card(
-                                    radius: 'small',
-                                    color: 'primary'
-                                )
+                                new Card()
                             ]
                         ),
                         new FlexItem(
                             grow: 1,
                             children: [
-                                new Card(
-                                    radius: 'small',
-                                    color: 'primary'
-                                )
+                                new Card()
                             ]
                         )
                     ]
@@ -88,19 +88,13 @@ class UserPageController extends ApiController{
                         new FlexItem(
                             grow: 1,
                             children: [
-                                new Card(
-                                    radius: 'small',
-                                    color: 'primary'
-                                )
+                                new Card()
                             ]
                         ),
                         new FlexItem(
                             grow: 1,
                             children: [
-                                new Card(
-                                    radius: 'small',
-                                    color: 'primary'
-                                )
+                                new Card()
                             ]
                         )
                     ]

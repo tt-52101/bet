@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script setup="slots" lang="ts">
+
 export type VCardAdvancedRadius = 'regular' | 'smooth' | 'rounded'
 export interface VCardAdvancedProps {
   radius?: VCardAdvancedRadius
@@ -7,6 +8,7 @@ export interface VCardAdvancedProps {
 const props = withDefaults(defineProps<VCardAdvancedProps>(), {
   radius: 'regular',
 })
+
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const props = withDefaults(defineProps<VCardAdvancedProps>(), {
       props.radius === 'rounded' && 'l-card-advanced',
     ]"
   >
-    <div class="card-head">
+    <div class="card-head" v-if="$slots['header-left'] || $slots['header-right']">
       <div class="left">
         <slot name="header-left"></slot>
       </div>
@@ -28,7 +30,7 @@ const props = withDefaults(defineProps<VCardAdvancedProps>(), {
     <div class="card-body">
       <slot name="content"></slot>
     </div>
-    <div class="card-foot">
+    <div class="card-foot" v-if="$slots['footer-left'] || $slots['footer-right']">
       <div class="left">
         <slot name="footer-left"></slot>
       </div>

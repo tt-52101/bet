@@ -1,14 +1,41 @@
 <template>
-  <vCard
-    :radius="config.radius"
-    :elevated="config.elevated"
-    :color="config.color">
-    <component
-      :is="item.component"
-      :properties="item.props"
-      v-for="(item,i) in properties.children" :key="i">
-    </component>
-  </vCard>
+  <VCardAdvanced  :radius="config.radius">
+    <template #header-left v-if="config.header_left.length">
+      <component
+        :is="item.component"
+        :properties="item.props"
+        v-for="(item,i) in config.header_left" :key="i">
+      </component>
+    </template>
+    <template #header-right v-if="config.header_right.length">
+      <component
+        :is="item.component"
+        :properties="item.props"
+        v-for="(item,i) in config.header_right" :key="i">
+      </component>
+    </template>
+    <template #content>
+      <component
+        :is="item.component"
+        :properties="item.props"
+        v-for="(item,i) in config.children" :key="i">
+      </component>
+    </template>
+    <template #footer-left v-if="config.footer_left.length">
+      <component
+        :is="item.component"
+        :properties="item.props"
+        v-for="(item,i) in config.footer_left" :key="i">
+      </component>
+    </template>
+    <template #footer-right v-if="config.footer_right.length">
+      <component
+        :is="item.component"
+        :properties="item.props"
+        v-for="(item,i) in config.footer_right" :key="i">
+      </component>
+    </template>
+  </VCardAdvanced>
 </template>
 
 <script setup lang="ts">
@@ -25,9 +52,13 @@ const props = defineProps({
 });
 
 const config = reactive({
-  radius: 'small',
-  elevated: false,
-  color: ''
+  radius: 'regular',
+  header_left: [],
+  header_right: [],
+  children: [],
+  footer_left: [],
+  footer_right: [],
+
 })
 
 </script>
