@@ -3,7 +3,16 @@
 namespace App\Core\Pages\User;
 
 use App\Core\Controllers\ApiController;
-use BenBodan\BetUi\Components\{ButtonGroup, Page, Flex, FlexItem, Card, Row, Column, Button};
+use BenBodan\BetUi\Components\{ButtonGroup,
+    Page,
+    Flex,
+    FlexItem,
+    Card,
+    Row,
+    Column,
+    Button,
+    Avatar
+};
 
 class UserPageController extends ApiController
 {
@@ -33,6 +42,14 @@ class UserPageController extends ApiController
                                             ]
                                         )
                                     ],
+                                    header_right: [
+                                        new Avatar(
+                                            dot: true,
+                                            color: 'info',
+                                            initials: 'BB',
+                                            size: 'large',
+                                        )
+                                    ],
                                     footer_right: [
                                         new Button(
                                             title: 'test',
@@ -48,6 +65,14 @@ class UserPageController extends ApiController
                             desktop: 6,
                             children: [
                                 new Card(
+                                    header_left: [
+                                        new Avatar(
+                                            dot: true,
+                                            dot_color: 'danger',
+                                            size: 'large',
+                                            picture: 'https://vuero.cssninja.io/demo/avatars/5.jpg'
+                                        )
+                                    ],
                                     children: [
                                         new Button(
                                             title: 'test',

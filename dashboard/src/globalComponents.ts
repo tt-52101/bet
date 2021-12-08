@@ -5,6 +5,7 @@ import Row from '/@src/generated/components/Row.vue'
 import Column from '/@src/generated/components/Column.vue'
 import Button from '/@src/generated/components/Button.vue'
 import ButtonGroup from '/@src/generated/components/ButtonGroup.vue'
+import Avatar from '/@src/generated/components/Avatar.vue'
 
 const GlobalComponents = {
   install(app: any) {
@@ -15,6 +16,7 @@ const GlobalComponents = {
     app.component(Column.name, Column)
     app.component(Button.name, Button)
     app.component(ButtonGroup.name, ButtonGroup)
+    app.component(Avatar.name, Avatar)
   }
 }
 
