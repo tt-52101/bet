@@ -2,7 +2,7 @@
 
 namespace App\Core\Pages\User;
 use App\Core\Controllers\ApiController;
-use BenBodan\BetUi\Components\{Page, Flex, FlexItem, Card, Row, Column};
+use BenBodan\BetUi\Components\{ButtonGroup, Page, Flex, FlexItem, Card, Row, Column, Button};
 
 class UserPageController extends ApiController{
     public function page(){
@@ -15,13 +15,39 @@ class UserPageController extends ApiController{
                         new Column(
                             desktop: 6,
                             children: [
-                                new Card()
+                                new Card(
+                                    children: [
+                                        new ButtonGroup(
+                                            children: [
+                                                new Button(
+                                                    title: 'test',
+                                                    rounded: true,
+                                                    icon: 'fa fa-check'
+                                                ),
+                                                new Button(
+                                                    title: 'test',
+                                                    rounded: true,
+                                                    icon: 'fa fa-check'
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
                             ]
                         ),
                         new Column(
                             desktop: 6,
                             children: [
-                                new Card()
+                                new Card(
+                                    children: [
+                                        new Button(
+                                            title: 'test',
+                                            rounded: true,
+                                            icon: 'fa fa-check',
+                                            align: 'right'
+                                        ),
+                                    ]
+                                )
                             ]
                         ),
                     ]
