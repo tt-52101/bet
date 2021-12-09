@@ -6,6 +6,9 @@ import Column from '/@src/generated/components/Column.vue'
 import Button from '/@src/generated/components/Button.vue'
 import ButtonGroup from '/@src/generated/components/ButtonGroup.vue'
 import Avatar from '/@src/generated/components/Avatar.vue'
+import DropDown from '/@src/generated/components/DropDown.vue';
+import DropDownItem from '/@src/generated/components/DropDownItem.vue';
+import Text from '/@src/generated/components/Text.vue';
 
 const GlobalComponents = {
   install(app: any) {
@@ -17,6 +20,9 @@ const GlobalComponents = {
     app.component(Button.name, Button)
     app.component(ButtonGroup.name, ButtonGroup)
     app.component(Avatar.name, Avatar)
+    app.component(DropDown.name, DropDown)
+    app.component(DropDownItem.name, DropDownItem)
+    app.component(Text.name, Text)
   }
 }
 
