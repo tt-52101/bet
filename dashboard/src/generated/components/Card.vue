@@ -69,7 +69,6 @@ const config = reactive({
   children: [],
   footer_left: [],
   footer_right: [],
-
 })
 
 </script>

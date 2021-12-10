@@ -5,6 +5,7 @@ namespace App\Core\Pages\User;
 use App\Core\Controllers\ApiController;
 use BenBodan\BetUi\Components\{Builder,
     ButtonGroup,
+    Input,
     Page,
     Flex,
     FlexItem,
@@ -15,8 +16,7 @@ use BenBodan\BetUi\Components\{Builder,
     Avatar,
     DropDown,
     DropDownItem,
-    Text
-};
+    Text};
 use BenBodan\BetUi\Repositories\{RestRepo, StateRepo};
 
 class UserPageController extends ApiController
@@ -32,6 +32,22 @@ class UserPageController extends ApiController
                             children: [
                                 new Row(
                                     children: [
+                                        new Column(
+                                            children: [
+                                                new Input(
+                                                    placeholder: 'Search',
+                                                    focus: 'primary',
+                                                    icon: 'fab fa-twitter',
+                                                    help: 'Search using keywords',
+                                                    addons: [
+                                                        new Button(
+                                                            title: 'Search',
+                                                            type: 'primary'
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        ),
                                         new Builder(
                                             repository: new RestRepo('/api/user'),
                                             children: [
@@ -39,6 +55,28 @@ class UserPageController extends ApiController
                                                     desktop: 6,
                                                     children: [
                                                         new Card(
+                                                            header_left: [
+                                                                new ButtonGroup(
+                                                                    children: [
+                                                                        new Button(
+                                                                            title: 'Update',
+                                                                            rounded: true,
+                                                                            icon: 'fa fa-check'
+                                                                        ),
+                                                                        new Button(
+                                                                            title: 'test',
+                                                                            rounded: true,
+                                                                            icon: 'fa fa-check'
+                                                                        ),
+                                                                    ]
+                                                                )
+                                                            ],
+                                                            header_right: [
+                                                                new Avatar(
+                                                                    dot: true,
+                                                                    picture: 'https://vuero.cssninja.io/demo/avatars/5.jpg'
+                                                                )
+                                                            ],
                                                             children: [
                                                                 new Text('$email'),
                                                                 new Text('$name')
@@ -59,12 +97,7 @@ class UserPageController extends ApiController
                             children: [
                                 new Card(
                                     header_left: [
-                                        new Avatar(
-                                            dot: true,
-                                            dot_color: 'danger',
-                                            size: 'large',
-                                            picture: 'https://vuero.cssninja.io/demo/avatars/5.jpg'
-                                        )
+
                                     ],
                                     header_right: [
                                         new Avatar(

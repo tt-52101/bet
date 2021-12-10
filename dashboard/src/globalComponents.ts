@@ -10,6 +10,7 @@ import DropDown from '/@src/generated/components/DropDown.vue';
 import DropDownItem from '/@src/generated/components/DropDownItem.vue';
 import Text from '/@src/generated/components/Text.vue';
 import Builder from '/@src/generated/components/Builder.vue';
+import Input from '/@src/generated/components/Input.vue';
 
 const GlobalComponents = {
   install(app: any) {
@@ -25,6 +26,7 @@ const GlobalComponents = {
     app.component(DropDownItem.name, DropDownItem)
     app.component(Text.name, Text)
     app.component(Builder.name, Builder)
+    app.component(Input.name, Input)
   }
 }
 
