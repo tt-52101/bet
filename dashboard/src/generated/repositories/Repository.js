@@ -1,5 +1,5 @@
-import RestRepo from '/@src/generated/repositories/RestRepo.js'
-import StateRepo from '/@src/generated/repositories/StateRepo.js'
+import RestRepo from '/@src/generated/repositories/RestRepo'
+import StateRepo from '/@src/generated/repositories/StateRepo'
 
 class Repository {
   constructor(props, default_value = null) {
