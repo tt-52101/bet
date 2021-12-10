@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import {defineProps, onMounted, reactive, toRefs} from "vue";
-import useProperties from "/@src/generated/functions/useProperties";
+import {apply} from "/@src/generated/composable/useProperties";
 
 const props = defineProps({
   properties: {
@@ -71,15 +71,13 @@ const config = reactive({
   footer_right: [],
 })
 
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
+})
 </script>
 
 <script lang="ts">
-import Properties from '/@src/generated/mixins/Properties'
 export default {
-  name: 'gCard',
-  mixins: [Properties],
-  mounted(){
-    this.apply(this.properties)
-  }
+  name: 'gCard'
 }
 </script>

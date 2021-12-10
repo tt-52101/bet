@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import {computed, defineProps, onMounted, reactive, toRefs} from "vue";
-import useProperties from "/@src/generated/functions/useProperties";
+import {apply} from "/@src/generated/composable/useProperties";
 
 const props = defineProps({
   properties: {
@@ -33,6 +33,10 @@ const config = reactive({
   mobile: 3,
   tablet: 3,
   desktop: 3
+})
+
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
 })
 
 const classes = computed(()=>  {
@@ -57,12 +61,7 @@ const classes = computed(()=>  {
 </script>
 
 <script lang="ts">
-import Properties from '/@src/generated/mixins/Properties'
 export default {
-  name: 'gRow',
-  mixins: [Properties],
-  mounted(){
-    this.apply(this.properties)
-  }
+  name: 'gRow'
 }
 </script>

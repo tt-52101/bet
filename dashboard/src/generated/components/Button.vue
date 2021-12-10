@@ -10,10 +10,17 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, reactive} from "vue";
+import {defineProps, onMounted, reactive} from "vue";
+import {apply} from "/@src/generated/composable/useProperties";
 
 const props = defineProps({
   properties: {
+    type: Object,
+    default(){
+      return {}
+    }
+  },
+  scope: {
     type: Object,
     default(){
       return {}
@@ -31,15 +38,13 @@ const config = reactive({
   outlined: false,
 })
 
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
+})
 </script>
 
 <script lang="ts">
-import Properties from '/@src/generated/mixins/Properties'
 export default {
-  name: 'gButton',
-  mixins: [Properties],
-  mounted(){
-    this.apply(this.properties)
-  }
+  name: 'gButton'
 }
 </script>

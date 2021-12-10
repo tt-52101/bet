@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import {computed, defineProps, onMounted, reactive} from "vue";
 import {useScope} from '/@src/generated/composable/useScope'
+import {apply} from "/@src/generated/composable/useProperties";
 
 // Props
 const props = defineProps({
@@ -29,6 +30,10 @@ const config = reactive({
   title: '',
 })
 
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
+})
+
 const {process}  = useScope(props.scope);
 const text = computed(()=>{
   return process(config.title)
@@ -36,18 +41,7 @@ const text = computed(()=>{
 </script>
 
 <script lang="ts">
-import Properties from '/@src/generated/mixins/Properties'
 export default {
-  name: 'gText',
-  mixins: [Properties],
-  mounted(){
-    this.apply(this.properties)
-  },
-  scope: {
-    type: Object,
-    default(){
-      return {}
-    }
-  }
+  name: 'gText'
 }
 </script>

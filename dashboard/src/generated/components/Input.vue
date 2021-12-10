@@ -25,10 +25,9 @@
 
 <script setup lang="ts">
 import {computed, defineProps, onMounted, reactive, watch} from 'vue'
-import Repository from '/@src/generated/repositories/Repository'
-import store from '/@src/stores/GlobalStore'
+import Repository from '/@src/generated/repositories/Repository.js'
+import {apply} from '/@src/generated/composable/useProperties'
 import _ from "lodash";
-
 // Props
 const props = defineProps({
   properties: {
@@ -51,6 +50,7 @@ const state = reactive({
 
 const config = reactive({
   value: 'test',
+  name: '',
   rounded: false,
   focus: '',
   help: '',
@@ -59,13 +59,20 @@ const config = reactive({
   error: false,
   icon: '',
   addons: [],
-  repo: {}
+  repo: {
+    key: ''
+  }
+})
+
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
 })
 
 watch(
   config,
   (newVal, oldVal) => {
-    state.repo = new Repository(config.repo)
+    let def = _.get(props.scope, config.name)
+    state.repo = new Repository(config.repo, def)
   },
   {
     immediate: false,
@@ -75,8 +82,11 @@ watch(
 
 const value = computed({
   get() {
-    const result = store.getters['components/data']
-    return _.get(result, 'value')
+    if(state.repo.get){
+      return state.repo.get()
+    }
+
+    return ''
   },
   set(value): void {
     state.repo.set(value)
@@ -97,20 +107,7 @@ const classes = computed(() => {
 </script>
 
 <script lang="ts">
-import Properties from '/@src/generated/mixins/Properties'
-import {computed, reactive} from "vue";
-
 export default {
-  name: 'gInput',
-  mixins: [Properties],
-  mounted() {
-    this.apply(this.properties)
-  },
-  scope: {
-    type: Object,
-    default() {
-      return {}
-    }
-  }
+  name: 'gInput'
 }
 </script>

@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, reactive} from "vue";
+import {defineProps, onMounted, reactive} from "vue";
+import {apply} from "/@src/generated/composable/useProperties";
 
 const props = defineProps({
   properties: {
@@ -29,16 +30,14 @@ const config = reactive({
   children: []
 })
 
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
+})
+
 </script>
 
 <script lang="ts">
-import Properties from '/@src/generated/mixins/Properties'
-
 export default {
-  name: 'gDropDown',
-  mixins: [Properties],
-  mounted(){
-    this.apply(this.properties)
-  }
+  name: 'gDropDown'
 }
 </script>

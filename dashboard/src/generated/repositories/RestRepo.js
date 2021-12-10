@@ -1,7 +1,7 @@
 import Api from '/@src/helpers/Api'
 
 class RestRepo {
-  constructor(props) {
+  constructor(props, default_value = {}) {
     this.api  = new Api(props.url)
   }
 

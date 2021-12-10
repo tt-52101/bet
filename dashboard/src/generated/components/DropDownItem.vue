@@ -14,7 +14,8 @@
   </a>
 </template>
 <script setup lang="ts">
-import {computed, defineProps, reactive} from "vue";
+import {computed, defineProps, onMounted, reactive} from "vue";
+import {apply} from "/@src/generated/composable/useProperties";
 
 const props = defineProps({
   properties: {
@@ -32,6 +33,10 @@ const config = reactive({
   meta: []
 })
 
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
+})
+
 const classes = computed(()=>  {
   let classes: any =  {
     'dropdown-item': true,
@@ -44,13 +49,8 @@ const classes = computed(()=>  {
 </script>
 
 <script lang="ts">
-import Properties from '/@src/generated/mixins/Properties'
 
 export default {
-  name: 'gDropDownItem',
-  mixins: [Properties],
-  mounted(){
-    this.apply(this.properties)
-  }
+  name: 'gDropDownItem'
 }
 </script>

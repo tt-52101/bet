@@ -1,21 +1,28 @@
 <template>
-  <template v-for="(scope,index) in state.items.data" :key="index">
-    <component
+  <div>
+      <component
       :is="item.component"
       :properties="item.props"
       :scope="scope"
       v-for="(item,i) in config.children" :key="i">
     </component>
-  </template>
+    <div class="is-divider"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps, onMounted, reactive, watch} from "vue";
-import Repository from '/@src/generated/repositories/Repository';
-import {apply} from "/@src/generated/composable/useProperties";
+import {defineProps, onMounted, reactive, watch} from 'vue'
+import Repository from '/@src/generated/repositories/Repository'
+import {apply} from '/@src/generated/composable/useProperties'
 
 const props = defineProps({
   properties: {
+    type: Object,
+    default() {
+      return {}
+    }
+  },
+  scope: {
     type: Object,
     default() {
       return {}
@@ -35,14 +42,7 @@ const state = reactive({
 
 function initRepository() {
   state.repo = new Repository(config.repo)
-  state.repo.get().then(res => {
-    state.items = res
-  })
 }
-
-onMounted(() => {
-  config.value = apply(props.properties, config)
-})
 
 watch(
   config,
@@ -55,12 +55,15 @@ watch(
   }
 )
 
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
+})
+
 </script>
 
 <script lang="ts">
-
 export default {
-  name: 'gBuilder',
+  name: 'gForm',
   inheritAttrs: false
 }
 </script>
