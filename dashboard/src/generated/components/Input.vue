@@ -1,7 +1,7 @@
 <template>
-  <VField :addons="config.addons.length">
+  <VField :addons="config.addons.length > 0">
     <VControl
-      :expanded="config.addons.length"
+      :expanded="config.addons.length > 0"
       :has-error="config.error === true"
       :icon="config.icon">
       <input
@@ -12,7 +12,7 @@
         :placeholder="config.placeholder"
       />
     </VControl>
-    <VControl v-if="config.addons.length">
+    <VControl v-if="config.addons.length > 0">
       <component
         :is="item.component"
         :properties="item.props"

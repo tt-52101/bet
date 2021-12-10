@@ -1,5 +1,5 @@
 <template>
-  <template v-for="scope in state.items.data">
+  <template v-for="(scope,index) in state.items.data" :key="index">
     <component
       :is="item.component"
       :properties="item.props"
@@ -34,7 +34,7 @@ const state = reactive({
 
 function initRepository() {
   state.repo = new Repository(config.repo)
-  state.repo.get().then(res=>{
+  state.repo.get().then(res => {
     state.items = res
   })
 }
@@ -58,6 +58,7 @@ import {onMounted} from "vue";
 
 export default {
   name: 'gBuilder',
+  inheritAttrs: false,
   mixins: [Properties],
   mounted() {
     this.apply(this.properties)
