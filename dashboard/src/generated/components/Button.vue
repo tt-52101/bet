@@ -21,10 +21,11 @@ const props = defineProps({
   }
 });
 
+
 const config = reactive({
   title: '',
   icon: '',
-  type: 'default',
+  type: 'primary',
   align: '',
   rounded: false,
   outlined: false,

@@ -4,6 +4,7 @@
       <component
         :is="item.component"
         :properties="item.props"
+        :scope="scope"
         v-for="(item,i) in config.header_left" :key="i">
       </component>
     </template>
@@ -11,6 +12,7 @@
       <component
         :is="item.component"
         :properties="item.props"
+        :scope="scope"
         v-for="(item,i) in config.header_right" :key="i">
       </component>
     </template>
@@ -18,6 +20,7 @@
       <component
         :is="item.component"
         :properties="item.props"
+        :scope="scope"
         v-for="(item,i) in config.children" :key="i">
       </component>
     </template>
@@ -25,6 +28,7 @@
       <component
         :is="item.component"
         :properties="item.props"
+        :scope="scope"
         v-for="(item,i) in config.footer_left" :key="i">
       </component>
     </template>
@@ -32,6 +36,7 @@
       <component
         :is="item.component"
         :properties="item.props"
+        :scope="scope"
         v-for="(item,i) in config.footer_right" :key="i">
       </component>
     </template>
@@ -44,6 +49,12 @@ import useProperties from "/@src/generated/functions/useProperties";
 
 const props = defineProps({
   properties: {
+    type: Object,
+    default(){
+      return {}
+    }
+  },
+  scope: {
     type: Object,
     default(){
       return {}

@@ -3,6 +3,7 @@
     <component
       :is="item.component"
       :properties="item.props"
+      :scope="scope"
       v-for="(item,i) in properties.children" :key="i">
     </component>
   </div>
@@ -14,6 +15,12 @@ import useProperties from "/@src/generated/functions/useProperties";
 
 const props = defineProps({
   properties: {
+    type: Object,
+    default(){
+      return {}
+    }
+  },
+  scope: {
     type: Object,
     default(){
       return {}

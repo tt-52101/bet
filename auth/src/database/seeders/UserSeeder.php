@@ -24,6 +24,12 @@ class UserSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $user = User::create([
+            'name' => 'BetMixer',
+            'email' => 'betmixer@gmail.com',
+            'password' =>'winter'
+        ]);
+
+        $user = User::create([
             'name' => 'Ben Bodan',
             'email' => 'ben.bodan@gmail.com',
             'password' =>'winter'

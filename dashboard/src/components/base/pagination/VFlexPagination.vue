@@ -132,7 +132,7 @@ zh-CN:
 
       <li v-if="pages.length === 0 || pages[0] > 2">
         <span class="pagination-ellipsis">…</span>
-      </li>
+      </li>g9
 
       <li v-for="page in pages" :key="page">
         <RouterLink
