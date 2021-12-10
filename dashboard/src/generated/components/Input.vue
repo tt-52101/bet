@@ -24,7 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import {computed, defineProps, reactive} from "vue";
+import {computed, defineProps, onMounted, reactive, watch} from 'vue'
+import Repository from '/@src/generated/repositories/Repository'
+import store from '/@src/stores/GlobalStore'
+import _ from "lodash";
 
 // Props
 const props = defineProps({
@@ -42,6 +45,10 @@ const props = defineProps({
   }
 })
 
+const state = reactive({
+  repo: {},
+})
+
 const config = reactive({
   value: 'test',
   rounded: false,
@@ -51,15 +58,28 @@ const config = reactive({
   disabled: false,
   error: false,
   icon: '',
-  addons: []
+  addons: [],
+  repo: {}
 })
 
+watch(
+  config,
+  (newVal, oldVal) => {
+    state.repo = new Repository(config.repo)
+  },
+  {
+    immediate: false,
+    deep: true
+  }
+)
+
 const value = computed({
-  get(): IBook {
-    return config.value
+  get() {
+    const result = store.getters['components/data']
+    return _.get(result, 'value')
   },
   set(value): void {
-    config.value = value
+    state.repo.set(value)
   },
 });
 
@@ -74,7 +94,6 @@ const classes = computed(() => {
 
   return classes
 })
-
 </script>
 
 <script lang="ts">

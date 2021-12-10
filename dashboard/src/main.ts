@@ -13,7 +13,7 @@
 
 import { createApp } from './app'
 import GlobalComponents from '/@src/globalComponents'
-import _ from 'lodash';
+import store from '/@src/stores/GlobalStore.js'
 /**
  * We create our app and mount it when it is ready
  *
@@ -40,7 +40,7 @@ createApp({
         theme: 'light',
       },
     })
-
+    app.use(store)
     app.component(VueMultiselect.name, VueMultiselect)
     app.component(VueSlider.name, VueSlider)
 

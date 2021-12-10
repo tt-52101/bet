@@ -37,6 +37,7 @@ class UserPageController extends ApiController
                                                 new Input(
                                                     placeholder: 'Search',
                                                     focus: 'primary',
+                                                    name: 'email',
                                                     icon: 'fab fa-twitter',
                                                     help: 'Search using keywords',
                                                     addons: [
