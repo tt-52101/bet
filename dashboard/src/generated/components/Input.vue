@@ -26,8 +26,10 @@
 <script setup lang="ts">
 import {computed, defineProps, onMounted, reactive, watch} from 'vue'
 import Repository from '/@src/generated/repositories/Repository.js'
-import {apply} from '/@src/generated/composable/useProperties'
 import _ from "lodash";
+import useProperties from "/@src/generated/composable/useProperties";
+const {apply} = useProperties();
+
 // Props
 const props = defineProps({
   properties: {

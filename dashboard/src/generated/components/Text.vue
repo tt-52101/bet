@@ -7,7 +7,8 @@
 <script setup lang="ts">
 import {computed, defineProps, onMounted, reactive} from "vue";
 import {useScope} from '/@src/generated/composable/useScope'
-import {apply} from "/@src/generated/composable/useProperties";
+import useProperties from "/@src/generated/composable/useProperties";
+const {apply} = useProperties();
 
 // Props
 const props = defineProps({

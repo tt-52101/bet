@@ -1,32 +1,40 @@
 import _ from 'lodash'
-import {onMounted} from "vue";
+import {defineProps} from "vue";
 
-export function apply(properties: any, config: any, scope: any = {}) {
-  Object.keys(properties).forEach((el) => {
-    _.set(config, el, process(properties[el], scope))
-  });
+export default function useProperties() {
 
-  return config
-}
+  const apply = (properties: any, config: any, scope: any = {}) => {
+    Object.keys(properties).forEach((el) => {
+      _.set(config, el, replaceVarInString(properties[el], scope))
+    });
 
-export function process(prop: any, scope: any) {
-  let text = JSON.parse(JSON.stringify(prop))
-  if (typeof text === 'string') {
-    Object.keys(scope).forEach(k => {
-      text = text.replace(`$${k}`, _.get(scope, k))
-    })
-  } else if (typeof text === 'object') {
-    text = processObject(prop, scope)
+    return config
   }
-  return text
+
+  const replaceVarInString = (prop: any, scope: any) => {
+    let text = JSON.parse(JSON.stringify(prop))
+    if (typeof text === 'string') {
+      Object.keys(scope).forEach(k => {
+        text = text.replace(`$${k}`, _.get(scope, k))
+      })
+    } else if (typeof text === 'object') {
+      text = replaceVarInObject(prop, scope)
+    }
+    return text
+  }
+
+  const replaceVarInObject = (prop: any, scope: any) =>{
+    const text = JSON.parse(JSON.stringify(prop))
+    Object.keys(text).forEach(k => {
+      if (text[k]) {
+        text[k] = replaceVarInString(text[k], scope)
+      }
+    })
+    return text
+  }
+
+  return {
+    apply
+  }
 }
 
-export function processObject(prop: any, scope: any) {
-  const text = JSON.parse(JSON.stringify(prop))
-  Object.keys(text).forEach(k => {
-    if (text[k]) {
-      text[k] = process(text[k], scope)
-    }
-  })
-  return text
-}

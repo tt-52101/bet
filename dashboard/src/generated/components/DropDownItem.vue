@@ -15,7 +15,8 @@
 </template>
 <script setup lang="ts">
 import {computed, defineProps, onMounted, reactive} from "vue";
-import {apply} from "/@src/generated/composable/useProperties";
+import useProperties from "/@src/generated/composable/useProperties";
+const {replaceVariables} = useProperties();
 
 const props = defineProps({
   properties: {
