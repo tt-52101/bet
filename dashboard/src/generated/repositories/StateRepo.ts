@@ -21,6 +21,13 @@ class StateRepo implements StateInterface {
     })
   }
 
+  set(value: any) {
+    store.commit('components/bind', {
+      key: this.key,
+      value: value
+    })
+  }
+
   get(): any {
     let result = store.getters['components/data']
     return _.get(result, this.key)

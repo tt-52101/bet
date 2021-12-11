@@ -11,9 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import {watch, defineProps, onMounted, reactive} from "vue";
+import {defineProps, onMounted, reactive} from "vue";
 import useProperties from "/@src/generated/composable/useProperties";
-import useTopic from "/@src/generated/composable/useTopic";
+import useEvents from "/@src/generated/composable/useEvents";
 
 const {apply} = useProperties();
 
@@ -43,44 +43,33 @@ const config = reactive({
   align: '',
   rounded: false,
   outlined: false,
-  state: {
+  events: {
     name: 'stateRepo',
-    key: 'user_form_1.email'
-  },
-  topic: {
-    name: 'stateRepo',
-    key: 'user_form_1.email'
+    key: ''
   },
   on_click: [
-    'test'
+    {
+      topic: 'form',
+      action: 'update',
+      value: 'lora'
+    }
   ]
 })
 
 
-const topic = new useTopic()
+const {publish} = useEvents(config.events);
 
 onMounted(() => {
   config.value = apply(props.properties, config, props.scope)
-  topic.init(config.topic)
 })
 
 // Methods
 function onClick() {
   config.on_click.forEach(btn_event => {
-    return topic.publish('test')
+    return publish(btn_event.action, btn_event.value, btn_event.topic)
   })
 }
 
-watch(
-  topic.listen(),
-  (newVal, oldVal) => {
-    alert(newVal)
-  },
-  {
-    immediate: false,
-    deep: true
-  }
-)
 </script>
 
 <script lang="ts">

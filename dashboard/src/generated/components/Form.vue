@@ -1,6 +1,7 @@
 <template>
   <div>
-      <component
+    <h1 @click="onClick">Form</h1>
+    <component
       :is="item.component"
       :properties="item.props"
       :scope="scope"
@@ -12,15 +13,16 @@
 
 <script setup lang="ts">
 import {defineProps, onMounted, reactive, watch} from 'vue'
-import Repository from '/@src/generated/repositories/Repository'
+import Repository from "/@src/generated/repositories/Repository"
 import useProperties from "/@src/generated/composable/useProperties";
+import useEvents from "/@src/generated/composable/useEvents";
 
-const {apply} = useProperties();
+const {apply} = useProperties()
 
 const props = defineProps({
   properties: {
     type: Object,
-    default(){
+    default() {
       return {}
     }
   },
@@ -34,17 +36,36 @@ const props = defineProps({
 
 const config = reactive({
   repo: {},
+  events: {
+    name: 'stateRepo',
+    listen: 'form'
+  },
   children: []
 })
 
 const state = reactive({
   repo: {},
-  items: {}
+  items: {},
+  events: {}
 })
 
 function initRepository() {
   state.repo = new Repository(config.repo)
 }
+
+let {publish,listen, action} = useEvents(config.events)
+
+onMounted(() => {
+  config.value = apply(props.properties, config, props.scope)
+})
+
+function onClick() {
+  publish('update', 'lora', 'form')
+}
+
+action('update', (value: any) => {
+  console.log(config.events.listen)
+})
 
 watch(
   config,
@@ -56,11 +77,6 @@ watch(
     deep: true
   }
 )
-
-onMounted(() => {
-  config.value = apply(props.properties, config, props.scope)
-})
-
 </script>
 
 <script lang="ts">
