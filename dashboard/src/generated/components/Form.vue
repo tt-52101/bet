@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 @click="onClick">Form</h1>
     <component
       :is="item.component"
       :properties="item.props"
@@ -38,7 +37,7 @@ const config = reactive({
   repo: {},
   events: {
     name: 'stateRepo',
-    listen: 'form'
+    key: ''
   },
   children: []
 })
@@ -53,18 +52,15 @@ function initRepository() {
   state.repo = new Repository(config.repo)
 }
 
-let {publish,listen, action} = useEvents(config.events)
+let {publish,listen, action, listenTopic} = useEvents()
 
 onMounted(() => {
   config.value = apply(props.properties, config, props.scope)
+  listenTopic(config.events)
 })
 
-function onClick() {
-  publish('update', 'lora', 'form')
-}
-
 action('update', (value: any) => {
-  console.log(config.events.listen)
+  console.log(value)
 })
 
 watch(

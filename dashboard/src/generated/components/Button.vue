@@ -66,7 +66,7 @@ onMounted(() => {
 // Methods
 function onClick() {
   config.on_click.forEach(btn_event => {
-    return publish(btn_event.action, btn_event.value, btn_event.topic)
+    return publish(btn_event.action, btn_event.payload, btn_event.topic)
   })
 }
 

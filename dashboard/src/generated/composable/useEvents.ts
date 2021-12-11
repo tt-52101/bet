@@ -2,12 +2,16 @@ import {computed, reactive, ref, watch} from "vue";
 import EventRepo from "/@src/generated/repositories/EventRepo";
 import _ from 'lodash'
 
-export default function useEvents(config: any) {
+export default function useEvents() {
 
-  const events = new EventRepo(config)
-  let last_event_id = ref(0)
+  const events = new EventRepo()
+  const last_event_id = ref(0)
 
   let actions: any = reactive({})
+
+  const listenTopic = (config: any) => {
+    events.listen(config.key)
+  }
 
   const last_event = computed(() => {
     return events.lastEvent()
@@ -22,11 +26,11 @@ export default function useEvents(config: any) {
   }
 
   const callAction = (event: any) => {
-    if (!event || event.id === last_event_id.value) {
+    if (!event || event.id == last_event_id.value) {
       return
     }
 
-    last_event_id = event.id
+    last_event_id.value = event.id
     actions[event.action](event.payload)
   }
 
@@ -43,6 +47,8 @@ export default function useEvents(config: any) {
 
   return {
     listen,
+    last_event,
+    listenTopic,
     action,
     callAction,
     publish,

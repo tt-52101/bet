@@ -1,13 +1,13 @@
 import store from '/@src/stores/GlobalStore'
 
 class EventRepo {
-  listen: string
+  topic: string
 
-  constructor(props: any) {
-    this.listen = props.listen
+  listen(topic: string) {
+    this.topic = topic
   }
 
-  publish(action: string, value: any, topic = this.listen) {
+  publish(action: string, value: any, topic = this.topic) {
     store.dispatch("components/newEvent", {
       topic: topic,
       action: action,
@@ -19,7 +19,7 @@ class EventRepo {
     const events: any = store.getters["components/events"]
 
     const topic_events: any = events.filter(el => {
-      return el.topic === this.listen
+      return el.topic === this.topic
     })
 
     return topic_events[topic_events.length - 1];

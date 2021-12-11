@@ -17,8 +17,10 @@ use BenBodan\BetUi\Components\{Builder,
     DropDown,
     DropDownItem,
     Form,
-    Text};
+    Text
+};
 use BenBodan\BetUi\Repositories\{RestRepo, StateRepo};
+use BenBodan\BetUi\Events\Event;
 
 class UserPageController extends ApiController
 {
@@ -63,7 +65,14 @@ class UserPageController extends ApiController
                                                                         new Button(
                                                                             title: 'Select',
                                                                             rounded: true,
-                                                                            icon: 'fa fa-check'
+                                                                            icon: 'fa fa-check',
+                                                                            on_click: [
+                                                                                new Event(
+                                                                                    topic: 'user_form_$id',
+                                                                                    action: 'update',
+                                                                                    payload: '$email'
+                                                                                )
+                                                                            ]
                                                                         ),
                                                                     ]
                                                                 )
