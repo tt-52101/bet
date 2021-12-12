@@ -13,6 +13,7 @@ import Builder from '/@src/generated/components/Builder.vue';
 import Input from '/@src/generated/components/Input.vue';
 import Form from '/@src/generated/components/Form.vue';
 import Pagination from '/@src/generated/components/Pagination.vue';
+import Modal from '/@src/generated/components/Modal.vue';
 
 const GlobalComponents = {
   install(app: any) {
@@ -31,6 +32,7 @@ const GlobalComponents = {
     app.component(Input.name, Input)
     app.component(Form.name, Form)
     app.component(Pagination.name, Pagination)
+    app.component(Modal.name, Modal)
   }
 }
 

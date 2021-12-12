@@ -6,6 +6,7 @@ use App\Core\Controllers\ApiController;
 use BenBodan\BetUi\Components\{Builder,
     ButtonGroup,
     Input,
+    Modal,
     Page,
     Flex,
     FlexItem,
@@ -18,8 +19,7 @@ use BenBodan\BetUi\Components\{Builder,
     DropDownItem,
     Pagination,
     Form,
-    Text
-};
+    Text};
 use BenBodan\BetUi\Repositories\{RestRepo, StateRepo};
 use BenBodan\BetUi\Events\Event;
 
@@ -36,6 +36,20 @@ class UserPageController extends ApiController
                             children: [
                                 new Row(
                                     children: [
+                                        new Modal(
+                                            name: 'user_edit_modal',
+                                            children: [
+                                                new Input(
+                                                    name: 'name'
+                                                )
+                                            ],
+                                            footer: [
+                                                new Button(
+                                                    type: 'primary',
+                                                    title: 'Confirm'
+                                                )
+                                            ]
+                                        ),
                                         new Column(
                                             children: [
                                                 new Input(
@@ -150,6 +164,19 @@ class UserPageController extends ApiController
                                                                     picture: 'https://vuero.cssninja.io/demo/avatars/5.jpg'
                                                                 )
                                                             ],
+                                                            footer_right: [
+                                                                new Button(
+                                                                    rounded:true,
+                                                                    title: 'Add',
+                                                                    icon: 'fa fa-plus',
+                                                                    on_click: [
+                                                                        new Event(
+                                                                            topic: 'user_edit_modal',
+                                                                            action: 'show',
+                                                                        )
+                                                                    ]
+                                                                )
+                                                            ],
                                                             children: [
                                                                 new Form(
                                                                     repo: new RestRepo('http://localhost/auth/api/user'),
@@ -171,8 +198,7 @@ class UserPageController extends ApiController
                                                                         ),
                                                                     ]
                                                                 ),
-                                                                new Text('$name')
-                                                            ]
+                                                                ]
                                                         )
                                                     ]
                                                 )
