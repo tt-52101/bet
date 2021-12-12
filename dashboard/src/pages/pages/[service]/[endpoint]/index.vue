@@ -32,7 +32,7 @@ const props = defineProps({
   },
 })
 
-const api = new Api(`/api/page/user`)
+const api = new Api(`/${props.service}/api/page/${props.endpoint}`)
 
 onMounted(() => {
   get()

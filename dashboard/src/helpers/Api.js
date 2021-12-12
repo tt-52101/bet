@@ -4,7 +4,7 @@ import {useUserSession} from "../stores/userSession";
 class Api {
   constructor(name, authorized = true, session = useUserSession()) {
 
-    let server = 'http://localhost/auth';
+    let server = 'http://localhost';
 
     this.server = server;
     this.endpoint = `${name}`;

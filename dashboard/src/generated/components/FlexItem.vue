@@ -6,6 +6,7 @@
     <component
       :is="item.component"
       :properties="item.props"
+      :scope="scope"
       v-for="(item,i) in properties.children" :key="i">
     </component>
   </vFlexItem>
@@ -19,6 +20,12 @@ const {apply} = useProperties();
 
 const props = defineProps({
   properties: {
+    type: Object,
+    default(){
+      return {}
+    }
+  },
+  scope: {
     type: Object,
     default(){
       return {}
