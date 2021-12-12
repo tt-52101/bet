@@ -9,7 +9,7 @@
     @close="close"
     actions="center"
   >
-    <template #content>
+    <template #content v-if="state.modal">
       <component
         :is="item.component"
         :properties="item.props"
@@ -17,7 +17,7 @@
         v-for="(item,i) in config.children" :key="i">
       </component>
     </template>
-    <template #action>
+    <template #action #content v-if="state.modal">
       <component
         :is="item.component"
         :properties="item.props"

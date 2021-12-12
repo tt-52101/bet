@@ -19,12 +19,38 @@ use BenBodan\BetUi\Components\{Builder,
     DropDownItem,
     Pagination,
     Form,
+    View,
     Text};
 use BenBodan\BetUi\Repositories\{RestRepo, StateRepo};
 use BenBodan\BetUi\Events\Event;
 
 class UserPageController extends ApiController
 {
+
+    public function modal(){
+        $page = new Page(
+            children: [
+                new Row(
+                    children: [
+                        new Column(
+                            children: [
+                                new Card(
+                                    header_right: [
+                                        new Avatar(
+                                            dot: true,
+                                            picture: 'https://vuero.cssninja.io/demo/avatars/5.jpg'
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+                    ]
+                )
+            ]
+        );
+
+        return $page();
+    }
 
     public function page()
     {
@@ -38,9 +64,10 @@ class UserPageController extends ApiController
                                     children: [
                                         new Modal(
                                             name: 'user_edit_modal',
+                                            size: 'big',
                                             children: [
-                                                new Input(
-                                                    name: 'name'
+                                                new View(
+                                                    repo: new RestRepo('http://localhost/auth/api/page/user')
                                                 )
                                             ],
                                             footer: [
@@ -119,18 +146,6 @@ class UserPageController extends ApiController
                                                             header_left: [
                                                                 new ButtonGroup(
                                                                     children: [
-                                                                        new Button(
-                                                                            title: 'Create',
-                                                                            rounded: true,
-                                                                            icon: 'fa fa-check',
-                                                                            on_click: [
-                                                                                new Event(
-                                                                                    topic: 'user_form_$id',
-                                                                                    action: 'create',
-                                                                                    payload: '$email'
-                                                                                )
-                                                                            ]
-                                                                        ),
                                                                         new Button(
                                                                             title: 'Update',
                                                                             rounded: true,

@@ -72,6 +72,7 @@ action('clear', (value: any) => {
 })
 
 function getItems() {
+  state.loading = true
   const page = getData(`${config.name}.meta.current_page`)
   let filters = getData(`${config.name}.query`)
   if(!filters) {
@@ -84,6 +85,7 @@ function getItems() {
     setData(`${config.name}.meta`, state.meta)
     setData(`${config.name}.items`, state.items)
     state.render++
+    state.loading = false
   })
 }
 
