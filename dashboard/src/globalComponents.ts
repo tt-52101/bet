@@ -15,6 +15,9 @@ import Form from '/@src/generated/components/Form.vue';
 import Pagination from '/@src/generated/components/Pagination.vue';
 import Modal from '/@src/generated/components/Modal.vue';
 import View from '/@src/generated/components/View.vue';
+import Table from '/@src/generated/components/Table.vue';
+import TableRow from "/@src/generated/components/TableRow.vue";
+import TableColumn from "/@src/generated/components/TableColumn.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -35,6 +38,9 @@ const GlobalComponents = {
     app.component(Pagination.name, Pagination)
     app.component(Modal.name, Modal)
     app.component(View.name, View)
+    app.component(Table.name, Table)
+    app.component(TableRow.name, TableRow)
+    app.component(TableColumn.name, TableColumn)
   }
 }
 

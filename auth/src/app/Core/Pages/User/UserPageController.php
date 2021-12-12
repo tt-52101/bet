@@ -19,6 +19,9 @@ use BenBodan\BetUi\Components\{Builder,
     DropDownItem,
     Pagination,
     Form,
+    Table,
+    TableColumn,
+    TableRow,
     View,
     Text};
 use BenBodan\BetUi\Repositories\{RestRepo, StateRepo};
@@ -27,7 +30,8 @@ use BenBodan\BetUi\Events\Event;
 class UserPageController extends ApiController
 {
 
-    public function modal(){
+    public function modal()
+    {
         $page = new Page(
             children: [
                 new Row(
@@ -62,6 +66,68 @@ class UserPageController extends ApiController
                             children: [
                                 new Row(
                                     children: [
+                                        new Column(
+                                            children: [
+                                                new Table(
+                                                    columns: [
+                                                        new TableColumn(
+                                                            title: 'Email'
+                                                        ),
+                                                        new TableColumn(
+                                                            title: 'Name'
+                                                        ),
+                                                        new TableColumn(
+                                                            end: true,
+                                                            title: 'Action',
+                                                        )
+                                                    ],
+                                                    children: [
+                                                        new Builder(
+                                                            repository: new RestRepo(
+                                                                get: 'http://localhost/auth/api/user'
+                                                            ),
+                                                            name: 'paginated_users',
+                                                            children: [
+                                                                new TableRow(
+                                                                    columns: [
+                                                                        new TableColumn(
+                                                                            children: [
+                                                                                new Avatar(
+                                                                                    dot: true,
+                                                                                    size: 'large',
+                                                                                    picture: 'https://vuero.cssninja.io/demo/avatars/5.jpg'
+                                                                                )
+                                                                            ]
+                                                                        ),
+                                                                        new TableColumn(
+                                                                            title: 'Email',
+                                                                            children: [
+                                                                                new Text('$email')
+                                                                            ]
+                                                                        ),
+                                                                        new TableColumn(
+                                                                            title: 'Name',
+                                                                            children: [
+                                                                                new Text('$name')
+                                                                            ]
+                                                                        ),
+                                                                        new TableColumn(
+                                                                            title: 'Actions',
+                                                                            end: true,
+                                                                            children: [
+                                                                                new Button(
+                                                                                    title: 'Save'
+                                                                                )
+                                                                            ]
+                                                                        )
+                                                                    ]
+                                                                ),
+                                                            ]
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        ),
                                         new Modal(
                                             name: 'user_edit_modal',
                                             size: 'big',
@@ -159,13 +225,13 @@ class UserPageController extends ApiController
                                                                             ]
                                                                         ),
                                                                         new Button(
-                                                                            title: 'Refresh',
+                                                                            title: 'Create',
                                                                             rounded: true,
                                                                             icon: 'fa fa-check',
                                                                             on_click: [
                                                                                 new Event(
                                                                                     topic: 'user_form_$id',
-                                                                                    action: 'refresh',
+                                                                                    action: 'create',
                                                                                     payload: ''
                                                                                 )
                                                                             ]
@@ -181,7 +247,7 @@ class UserPageController extends ApiController
                                                             ],
                                                             footer_right: [
                                                                 new Button(
-                                                                    rounded:true,
+                                                                    rounded: true,
                                                                     title: 'Add',
                                                                     icon: 'fa fa-plus',
                                                                     on_click: [
@@ -213,7 +279,7 @@ class UserPageController extends ApiController
                                                                         ),
                                                                     ]
                                                                 ),
-                                                                ]
+                                                            ]
                                                         )
                                                     ]
                                                 )
