@@ -75,7 +75,9 @@ class UserPageController extends ApiController
                                             ]
                                         ),
                                         new Builder(
-                                            repository: new RestRepo('/api/user'),
+                                            repository: new RestRepo(
+                                                get: 'http://localhost/auth/api/user'
+                                            ),
                                             name: 'paginated_users',
                                             children: [
                                                 new Column(

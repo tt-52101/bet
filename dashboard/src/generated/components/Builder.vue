@@ -1,11 +1,11 @@
 <template>
-  <template v-for="(scope,index) in state.items" :key="index">
-    <component
-      :is="item.component"
-      :properties="item.props"
-      :scope="scope"
-      v-for="(item,i) in config.children" :key="i">
-    </component>
+  <template v-for="(scope,index) in state.items" :key="`${state.render}_${index}`">
+      <component
+        :is="item.component"
+        :properties="item.props"
+        :scope="scope"
+        v-for="(item,i) in config.children" :key="i">
+      </component>
   </template>
 </template>
 
@@ -15,7 +15,10 @@ import Repository from '/@src/generated/repositories/Repository';
 import useProperties from "/@src/generated/composable/useProperties";
 import useState from "/@src/generated/composable/useState";
 import useEvents from "/@src/generated/composable/useEvents";
+import useApi from "/@src/generated/composable/useApi";
+
 const {apply} = useProperties();
+const {get} = useApi()
 
 const props = defineProps({
   properties: {
@@ -35,31 +38,37 @@ const config = reactive({
 const state = reactive({
   repo: {},
   items: {},
-  meta: {}
+  meta: {},
+  render: 1,
+  loading: true
 })
 
 function initRepository() {
   state.repo = new Repository(config.repo)
+  listenTopic({key: config.name})
   getItems()
 }
 
-const {setData} = useState()
+const {setData, getData} = useState()
 let {listen, action, listenTopic} = useEvents()
 
 onMounted(() => {
   config.value = apply(props.properties, config)
 })
 
-action('get', (value: any) =>{
+action('get', (value: any) => {
   getItems()
 })
 
-function getItems()  {
-  state.repo.get().then(res => {
-    state.items = res.data
-    state.meta = res.meta
+function getItems() {
+  const page = getData(`${config.name}.meta.current_page`)
+
+  get(config.repo.get, {page: page}).then(res => {
+    state.items = res.data.data
+    state.meta = res.data.meta
     setData(`${config.name}.meta`, state.meta)
     setData(`${config.name}.items`, state.items)
+    state.render++
   })
 }
 

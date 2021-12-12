@@ -8,9 +8,9 @@ class RestRepo implements StateInterface {
     this.api = new Api(props.url)
   }
 
-  async get() {
+  async get(params: any = {}) {
     return new Promise((resolve, reject) => {
-      this.api.get().then((response: any) => {
+      this.api.get(params).then((response: any) => {
         resolve(response.data)
       }).catch((err: any) => {
         reject(err)

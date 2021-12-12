@@ -57,6 +57,7 @@ function publishEvents() {
 function changePage(page: number) {
   meta.current_page = page
   setData(`${config.name}.current_page`, page)
+  publishEvents()
 }
 
 const value = computed({
