@@ -69,9 +69,64 @@ class UserPageController extends ApiController
                             children: [
                                 new Selectable(
                                     name: 'select',
-                                    label: 'name',
+                                    label: 'title',
+                                    subtitle: 'subtitle',
                                     identifier: 'id',
-                                    options: User::all()->toArray()
+                                    options: [
+                                        [
+                                            'id' => 'result',
+                                            'title' => 'Τελικό Αποτέλεσμα',
+                                            'subtitle' => '-'
+                                        ],
+                                        [
+                                            'id' => 'goals',
+                                            'title' => 'Γκολ Αγώνα',
+                                            'subtitle' => '-'
+                                        ]
+                                    ]
+                                )
+                            ]
+                        ),
+                        new Column(
+                            children: [
+                                new Input(
+                                    placeholder: 'Search',
+                                    focus: 'primary',
+                                    name: 'paginated_users.query.keyword',
+                                    icon: 'fa fa-search',
+                                    help: 'Search using keywords',
+                                    on_enter: [
+                                        new Event(
+                                            topic: 'paginated_users',
+                                            action: 'search',
+                                        )
+                                    ],
+                                    addons: [
+                                        new ButtonGroup(
+                                            children: [
+                                                new Button(
+                                                    icon: 'fa fa-search',
+                                                    type: 'primary',
+                                                    on_click: [
+                                                        new Event(
+                                                            topic: 'paginated_users',
+                                                            action: 'search',
+                                                        )
+                                                    ]
+                                                ),
+                                                new Button(
+                                                    icon: 'fa fa-redo',
+                                                    type: 'primary',
+                                                    on_click: [
+                                                        new Event(
+                                                            topic: 'paginated_users',
+                                                            action: 'clear',
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        )
+                                    ]
                                 )
                             ]
                         ),
@@ -85,9 +140,6 @@ class UserPageController extends ApiController
                                                     columns: [
                                                         new TableColumn(
                                                             title: 'Email'
-                                                        ),
-                                                        new TableColumn(
-                                                            title: 'Name'
                                                         ),
                                                         new TableColumn(
                                                             end: true,
@@ -113,23 +165,31 @@ class UserPageController extends ApiController
                                                                             ]
                                                                         ),
                                                                         new TableColumn(
-                                                                            title: 'Email',
-                                                                            children: [
-                                                                                new Text('$email')
-                                                                            ]
-                                                                        ),
-                                                                        new TableColumn(
-                                                                            title: 'Name',
-                                                                            children: [
-                                                                                new Text('$name')
-                                                                            ]
-                                                                        ),
-                                                                        new TableColumn(
                                                                             title: 'Actions',
                                                                             end: true,
                                                                             children: [
-                                                                                new Button(
-                                                                                    title: 'Save'
+                                                                                new Selectable(
+                                                                                    name: 'select',
+                                                                                    label: 'title',
+                                                                                    subtitle: 'subtitle',
+                                                                                    identifier: 'id',
+                                                                                    options: [
+                                                                                        [
+                                                                                            'id' => 1,
+                                                                                            'title' => '1',
+                                                                                            'subtitle' => 2.31
+                                                                                        ],
+                                                                                        [
+                                                                                            'id' => 2,
+                                                                                            'title' => 'x',
+                                                                                            'subtitle' => 1.21
+                                                                                        ],
+                                                                                        [
+                                                                                            'id' => 3,
+                                                                                            'title' => '2',
+                                                                                            'subtitle' => 2.21
+                                                                                        ],
+                                                                                    ]
                                                                                 )
                                                                             ]
                                                                         )
@@ -158,45 +218,7 @@ class UserPageController extends ApiController
                                         ),
                                         new Column(
                                             children: [
-                                                new Input(
-                                                    placeholder: 'Search',
-                                                    focus: 'primary',
-                                                    name: 'paginated_users.query.keyword',
-                                                    icon: 'fa fa-search',
-                                                    help: 'Search using keywords',
-                                                    on_enter: [
-                                                        new Event(
-                                                            topic: 'paginated_users',
-                                                            action: 'search',
-                                                        )
-                                                    ],
-                                                    addons: [
-                                                        new ButtonGroup(
-                                                            children: [
-                                                                new Button(
-                                                                    icon: 'fa fa-search',
-                                                                    type: 'primary',
-                                                                    on_click: [
-                                                                        new Event(
-                                                                            topic: 'paginated_users',
-                                                                            action: 'search',
-                                                                        )
-                                                                    ]
-                                                                ),
-                                                                new Button(
-                                                                    icon: 'fa fa-redo',
-                                                                    type: 'primary',
-                                                                    on_click: [
-                                                                        new Event(
-                                                                            topic: 'paginated_users',
-                                                                            action: 'clear',
-                                                                        )
-                                                                    ]
-                                                                )
-                                                            ]
-                                                        )
-                                                    ]
-                                                )
+
                                             ]
                                         ),
                                         new Column(

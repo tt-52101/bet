@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <div class="columns is-multiline">
-      <div class="column is-2" v-for="option in config.options" @click="select(option)">
+    <vFlex column-gap="10px" flex-wrap="wrap" justify-content="space-evenly" style="width:100%">
+      <vFlexItem :flex-grow="1" v-for="option in config.options" @click="select(option)">
         <VCard radius="small" :color="isSelected(option) ? 'success': 'primary'">
+          <h3 class="title is-5 mb-2">{{option[config.label]}}</h3>
           <p class="is-bold">
-            {{ option[config.label] }}
+            {{ option[config.subtitle] }}
           </p>
         </VCard>
-      </div>
-    </div>
-  </div>
+      </vFlexItem>
+    </vFlex>
 </template>
 
 <script setup lang="ts">
@@ -31,6 +30,7 @@ const props = defineProps({
 const config = reactive({
   identifier: 'id',
   label: 'title',
+  subtitle: 'subtitle',
   options: []
 })
 
@@ -68,3 +68,9 @@ export default {
   name: 'gSelectable'
 }
 </script>
+
+<style lang="scss" scoped>
+  .r-card {
+    padding: 10px 15px;
+  }
+</style>

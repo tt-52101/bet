@@ -2,14 +2,12 @@
   <div v-for="(item,i) in config.children" :key="i"
        :class="{'flex-table-cell':true, 'is-bold': true,'cell-end':config.end}"
        :data-th="config.title">
-    <span class="dark-text">
     <component
       :is="item.component"
       :properties="item.props"
       :scope="scope"
     >
     </component>
-    </span>
   </div>
 </template>
 
