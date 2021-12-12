@@ -19,13 +19,16 @@ use BenBodan\BetUi\Components\{Builder,
     DropDownItem,
     Pagination,
     Form,
+    Selectable,
     Table,
     TableColumn,
     TableRow,
     View,
-    Text};
+    Text
+};
 use BenBodan\BetUi\Repositories\{RestRepo, StateRepo};
 use BenBodan\BetUi\Events\Event;
+use App\Core\Auth\Models\User;
 
 class UserPageController extends ApiController
 {
@@ -62,6 +65,16 @@ class UserPageController extends ApiController
             children: [
                 new Row(
                     children: [
+                        new Column(
+                            children: [
+                                new Selectable(
+                                    name: 'select',
+                                    label: 'name',
+                                    identifier: 'id',
+                                    options: User::all()->toArray()
+                                )
+                            ]
+                        ),
                         new Column(
                             children: [
                                 new Row(

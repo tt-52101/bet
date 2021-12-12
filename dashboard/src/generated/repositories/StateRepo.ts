@@ -21,9 +21,10 @@ class StateRepo implements StateInterface {
     })
   }
 
-  set(value: any) {
-    store.commit('components/bind', {
+  select(value: any, identifier: string) {
+    store.commit('components/select', {
       key: this.key,
+      identifier: identifier,
       value: value
     })
   }

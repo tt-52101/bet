@@ -2,7 +2,8 @@
 
 export type VCardAdvancedRadius = 'regular' | 'smooth' | 'rounded'
 export interface VCardAdvancedProps {
-  radius?: VCardAdvancedRadius
+  radius?: VCardAdvancedRadius,
+  color?: string
 }
 
 const props = withDefaults(defineProps<VCardAdvancedProps>(), {

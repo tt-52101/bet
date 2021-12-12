@@ -15,8 +15,14 @@ export default function useState() {
     return state.set(value)
   }
 
+  const select = (name: string, identifier: string, value: any) => {
+    const state = new StateRepo({key: name})
+    return state.select(value, identifier)
+  }
+
   return {
     getData,
     setData,
+    select,
   }
 }

@@ -8,13 +8,16 @@ export const alert = {
     data: {},
   },
   actions: {
-    newEvent({ commit }, payload) {
+    newEvent({commit}, payload) {
       commit("pushEvent", payload);
     },
-    bind({ commit }, payload) {
+    bind({commit}, payload) {
       commit("bind", payload);
     },
-    clearTopic({ commit }, name) {
+    push({commit}, payload) {
+      commit("push", payload);
+    },
+    clearTopic({commit}, name) {
       commit("clearTopic", name);
     },
     clearEvents({commit}) {
@@ -22,7 +25,7 @@ export const alert = {
     }
   },
   mutations: {
-    clearTopic(state, name){
+    clearTopic(state, name) {
       state.events = state.events.filter(el => {
         el.topic !== name
       })
@@ -32,12 +35,31 @@ export const alert = {
       state.events = []
     },
     pushEvent(state, payload) {
-      state.last_event_id +=1;
+      state.last_event_id += 1;
       payload.id = state.last_event_id;
       state.events.push(payload);
-      if(state.events.length >= 2) {
+      if (state.events.length >= 2) {
         state.events.shift();
       }
+    },
+    select: (state, payload) => {
+      let selected = _.get(state.data, payload.key)
+      const identifier = payload.identifier
+      if(!selected) {
+        selected = []
+      }
+
+      const index = selected.findIndex(el => {
+        return (el[identifier] === payload.value[identifier])
+      })
+
+      if (index > -1) {
+        selected.splice(index, 1)
+      } else {
+        selected.push(payload.value)
+      }
+
+      _.set(state.data, payload.key, selected)
     },
     bind(state, payload) {
       _.set(state.data, payload.key, payload.value)
