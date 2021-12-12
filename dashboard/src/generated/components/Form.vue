@@ -15,6 +15,7 @@ import {defineProps, onMounted, reactive, watch} from 'vue'
 import Repository from "/@src/generated/repositories/Repository"
 import useProperties from "/@src/generated/composable/useProperties";
 import useEvents from "/@src/generated/composable/useEvents";
+import useApi from "/@src/generated/composable/useApi";
 
 const {apply} = useProperties()
 
@@ -59,8 +60,12 @@ onMounted(() => {
   listenTopic(config.events)
 })
 
-action('update', (value: any) => {
-  console.log(value)
+const {post} = useApi()
+
+action('create', (value: any) => {
+  post('http://localhost/auth/api/user', {
+    user: 'test'
+  })
 })
 
 watch(

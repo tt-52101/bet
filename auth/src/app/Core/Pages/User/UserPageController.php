@@ -69,7 +69,7 @@ class UserPageController extends ApiController
                                                                             on_click: [
                                                                                 new Event(
                                                                                     topic: 'user_form_$id',
-                                                                                    action: 'update',
+                                                                                    action: 'create',
                                                                                     payload: '$email'
                                                                                 )
                                                                             ]
