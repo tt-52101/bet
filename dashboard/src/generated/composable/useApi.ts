@@ -5,7 +5,17 @@ export default function useApi() {
 
   const session = useUserSession()
 
-  const post = (url:string, data: any, params: any, authenticated: boolean = true) => {
+  const get = (url: string, params: any = {}, authenticated: boolean = true) => {
+    const get = genParams(params)
+
+    return axios({
+      url: `${url}${get}`,
+      method: 'get',
+      headers: getHeaders(authenticated)
+    })
+  }
+
+  const post = (url: string, data: any, params: any = {}, authenticated: boolean = true) => {
     const get = genParams(params)
 
     return axios({
@@ -16,9 +26,22 @@ export default function useApi() {
     })
   }
 
+  const update = (url: string, data: any, params: any = {}, authenticated: boolean = true) => {
+    const get = genParams(params)
+
+    data['_method'] = 'PATCH'
+
+    return axios({
+      url: `${url}${get}`,
+      data: data,
+      method: 'post',
+      headers: getHeaders(authenticated)
+    })
+  }
+
   const getHeaders = (authorized: boolean = true) => {
     const headers: any = {}
-    if(authorized) {
+    if (authorized) {
       headers.authorization = `Bearer ${session.token.access}`
     }
     return headers
@@ -27,7 +50,7 @@ export default function useApi() {
   const genParams = (params: any, page: number | null = null) => {
     let get = "?";
 
-    if(!params){
+    if (!params) {
       return get;
     }
 
@@ -45,6 +68,8 @@ export default function useApi() {
   }
 
   return {
-    post
+    get,
+    post,
+    update,
   }
 }

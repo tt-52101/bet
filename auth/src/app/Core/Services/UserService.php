@@ -28,7 +28,6 @@ class UserService extends LocalService
     {
         $this->entry->update($data);
         $this->syncRoles($data);
-        $this->syncOrganisations($data);
         return $this->entry;
     }
 
@@ -41,9 +40,5 @@ class UserService extends LocalService
 
     public function syncRoles($data) {
         $this->entry->roles()->sync($data['role_ids']);
-    }
-
-    public function syncOrganisations($data) {
-        $this->entry->organisations()->sync($data['organisation_ids']);
     }
 }

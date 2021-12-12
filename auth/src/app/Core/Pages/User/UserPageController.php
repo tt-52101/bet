@@ -63,7 +63,7 @@ class UserPageController extends ApiController
                                                                 new ButtonGroup(
                                                                     children: [
                                                                         new Button(
-                                                                            title: 'Select',
+                                                                            title: 'Create',
                                                                             rounded: true,
                                                                             icon: 'fa fa-check',
                                                                             on_click: [
@@ -71,6 +71,30 @@ class UserPageController extends ApiController
                                                                                     topic: 'user_form_$id',
                                                                                     action: 'create',
                                                                                     payload: '$email'
+                                                                                )
+                                                                            ]
+                                                                        ),
+                                                                        new Button(
+                                                                            title: 'Update',
+                                                                            rounded: true,
+                                                                            icon: 'fa fa-check',
+                                                                            on_click: [
+                                                                                new Event(
+                                                                                    topic: 'user_form_$id',
+                                                                                    action: 'update',
+                                                                                    payload: ''
+                                                                                )
+                                                                            ]
+                                                                        ),
+                                                                        new Button(
+                                                                            title: 'Refresh',
+                                                                            rounded: true,
+                                                                            icon: 'fa fa-check',
+                                                                            on_click: [
+                                                                                new Event(
+                                                                                    topic: 'user_form_$id',
+                                                                                    action: 'refresh',
+                                                                                    payload: ''
                                                                                 )
                                                                             ]
                                                                         ),
@@ -85,7 +109,10 @@ class UserPageController extends ApiController
                                                             ],
                                                             children: [
                                                                 new Form(
-                                                                    repo: new RestRepo(''),
+                                                                    repo: new RestRepo(
+                                                                        get: 'http://localhost/auth/api/user/$id',
+                                                                        patch: 'http://localhost/auth/api/user/$id',
+                                                                    ),
                                                                     name: 'user_form_$id',
                                                                     children: [
                                                                         new Input(
