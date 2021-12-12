@@ -17,6 +17,8 @@ import useProperties from "/@src/generated/composable/useProperties";
 import useEvents from "/@src/generated/composable/useEvents";
 import useApi from "/@src/generated/composable/useApi";
 import useState from "/@src/generated/composable/useState";
+import { Notyf } from 'notyf'
+import useNotyf from "/@src/composable/useNotyf";
 
 const {apply} = useProperties()
 
@@ -69,6 +71,7 @@ onMounted(() => {
 
 const {post, update, get} = useApi()
 const {getData, setData} = useState();
+const notyf = new Notyf()
 
 action('refresh', (value: any) => {
   get(config.repo.get).then(response => {
@@ -78,12 +81,22 @@ action('refresh', (value: any) => {
 
 action('create', (value: any) => {
   const data = getData(`${config.name}.body`)
-  post(config.repo.post, data)
+  post(config.repo.post, data).then(response => {
+    notyf.success(response.data.message)
+  }).catch(err => {
+    const message = err.response.data.message
+    notyf.error(message ? message : 'Error on Create')
+  })
 })
 
 action('update', (value: any) => {
   const data = getData(`${config.name}.body`)
-  update(config.repo.patch, data)
+  update(config.repo.patch, data).then(response => {
+    notyf.success(response.data.message)
+  }).catch(err => {
+    const message = err.response.data.message
+    notyf.error(message ? message : 'Error on Create')
+  })
 })
 
 watch(

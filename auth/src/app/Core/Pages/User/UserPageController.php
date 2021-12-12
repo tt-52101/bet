@@ -110,6 +110,7 @@ class UserPageController extends ApiController
                                                             children: [
                                                                 new Form(
                                                                     repo: new RestRepo(
+                                                                        post: 'http://localhost/auth/api/user',
                                                                         get: 'http://localhost/auth/api/user/$id',
                                                                         patch: 'http://localhost/auth/api/user/$id',
                                                                     ),
