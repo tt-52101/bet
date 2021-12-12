@@ -16,6 +16,7 @@ use BenBodan\BetUi\Components\{Builder,
     Avatar,
     DropDown,
     DropDownItem,
+    Pagination,
     Form,
     Text
 };
@@ -41,12 +42,33 @@ class UserPageController extends ApiController
                                                     placeholder: 'Search',
                                                     focus: 'primary',
                                                     name: 'users.query.keyword',
-                                                    icon: 'fab fa-twitter',
+                                                    icon: 'fa fa-search',
                                                     help: 'Search using keywords',
                                                     addons: [
-                                                        new Button(
-                                                            title: 'Search',
-                                                            type: 'primary'
+                                                      new ButtonGroup(
+                                                          children: [
+                                                              new Button(
+                                                                  icon: 'fa fa-search',
+                                                                  type: 'primary'
+                                                              ),
+                                                              new Button(
+                                                                  icon: 'fa fa-redo',
+                                                                  type: 'primary'
+                                                              )
+                                                          ]
+                                                      )
+                                                    ]
+                                                )
+                                            ]
+                                        ),
+                                        new Column(
+                                            children: [
+                                                new Pagination(
+                                                    name: 'paginated_users.meta',
+                                                    on_change: [
+                                                        new Event(
+                                                            topic: 'paginated_users',
+                                                            action: 'get',
                                                         )
                                                     ]
                                                 )
@@ -54,6 +76,7 @@ class UserPageController extends ApiController
                                         ),
                                         new Builder(
                                             repository: new RestRepo('/api/user'),
+                                            name: 'paginated_users',
                                             children: [
                                                 new Column(
                                                     desktop: 6,
@@ -109,11 +132,7 @@ class UserPageController extends ApiController
                                                             ],
                                                             children: [
                                                                 new Form(
-                                                                    repo: new RestRepo(
-                                                                        post: 'http://localhost/auth/api/user',
-                                                                        get: 'http://localhost/auth/api/user/$id',
-                                                                        patch: 'http://localhost/auth/api/user/$id',
-                                                                    ),
+                                                                    repo: new RestRepo('http://localhost/auth/api/user'),
                                                                     name: 'user_form_$id',
                                                                     children: [
                                                                         new Input(

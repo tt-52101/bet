@@ -18,7 +18,7 @@ class UserController extends ApiController
             return $this->respondForbidden("You don't have permission to view");
         }
 
-        $users = $users->paginate(6);
+        $users = $users->paginate(2);
         return new UserCollection($users);
     }
 

@@ -1,11 +1,13 @@
 <template>
   <div>
-    <component
-      :is="item.component"
-      :properties="item.props"
-      :scope="scope"
-      v-for="(item,i) in config.children" :key="i">
-    </component>
+    <VLoader :translucent="true" size="large" :active="state.loading">
+      <component
+        :is="item.component"
+        :properties="item.props"
+        :scope="scope"
+        v-for="(item,i) in config.children" :key="i">
+      </component>
+    </VLoader>
     <div class="is-divider"></div>
   </div>
 </template>
@@ -56,6 +58,7 @@ const state = reactive({
   repo: {},
   items: {},
   events: {},
+  loading: true
 })
 
 function initRepository() {
@@ -67,6 +70,7 @@ let {publish, listen, action, listenTopic} = useEvents()
 onMounted(() => {
   config.value = apply(props.properties, config, props.scope)
   listenTopic(config.events)
+  state.loading = false
 })
 
 const {post, update, get} = useApi()
@@ -74,26 +78,36 @@ const {getData, setData} = useState();
 const notyf = new Notyf()
 
 action('refresh', (value: any) => {
+  state.loading = true
+
   get(config.repo.get).then(response => {
     setData(`${config.name}.body`, response.data)
+  }).then(response => {
+    state.loading = false
   })
 })
 
 action('create', (value: any) => {
+  state.loading = true
   const data = getData(`${config.name}.body`)
   post(config.repo.post, data).then(response => {
+    state.loading = false
     notyf.success(response.data.message)
   }).catch(err => {
+    state.loading = false
     const message = err.response.data.message
     notyf.error(message ? message : 'Error on Create')
   })
 })
 
 action('update', (value: any) => {
+  state.loading = true
   const data = getData(`${config.name}.body`)
   update(config.repo.patch, data).then(response => {
+    state.loading = false
     notyf.success(response.data.message)
   }).catch(err => {
+    state.loading = false
     const message = err.response.data.message
     notyf.error(message ? message : 'Error on Create')
   })

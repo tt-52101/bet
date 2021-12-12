@@ -558,6 +558,7 @@ declare module 'vue' {
     VModalPropsDocumentation: typeof import('./documentation/modal/v-modal-props-documentation.md')['default']
     VModalSizesDocumentation: typeof import('./documentation/modal/v-modal-sizes-documentation.md')['default']
     VModalSlotsDocumentation: typeof import('./documentation/modal/v-modal-slots-documentation.md')['default']
+    VPagination: typeof import('./src/components/base/pagination/VPagination.vue')['default']
     VPeity: typeof import('./src/components/base/plugins/VPeity.vue')['default']
     VPhotosSwipe: typeof import('./src/components/base/plugins/VPhotosSwipe.vue')['default']
     VPlaceholderPage: typeof import('./src/components/base/placeholder/VPlaceholderPage.vue')['default']

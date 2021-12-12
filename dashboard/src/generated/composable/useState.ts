@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {useUserSession} from "/@src/stores/userSession";
 import StateRepo from "/@src/generated/repositories/StateRepo";
+import {computed} from "vue";
 
 export default function useState() {
 
@@ -16,6 +17,6 @@ export default function useState() {
 
   return {
     getData,
-    setData
+    setData,
   }
 }

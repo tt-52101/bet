@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, RouteLocationOptions } from 'vue-router'
-import { useI18n } from 'vue-i18n'
+import {computed, defineEmits} from 'vue'
+import {useRoute, RouteLocationOptions} from 'vue-router'
+import {useI18n} from 'vue-i18n'
 
 export interface VFlexPaginationProps {
   itemPerPage: number
@@ -10,12 +10,16 @@ export interface VFlexPaginationProps {
   maxLinksDisplayed?: number
 }
 
+const emit = defineEmits(['change'])
+
 const props = withDefaults(defineProps<VFlexPaginationProps>(), {
   currentPage: 1,
   maxLinksDisplayed: 4,
+  itemsPerPage: 8,
+  totalItems:0
 })
 
-const { t } = useI18n()
+const {t} = useI18n()
 const route = useRoute()
 const lastPage = computed(
   () => Math.ceil(props.totalItems / props.itemPerPage) || 1
@@ -58,6 +62,12 @@ const showLastLink = computed(
   () => pages.value[pages.value.length - 1] < lastPage.value
 )
 
+function changePage(page: number) {
+  if(page <= lastPage.value && page > 0) {
+    emit('change', page)
+  }
+}
+
 const paginatedLink = (page = 1) => {
   const _page = Math.min(page, lastPage.value)
   const query = {
@@ -95,9 +105,9 @@ zh-CN:
     aria-label="pagination"
     data-filter-hide
   >
-    <RouterLink
+    <div
       v-if="lastPage > 1"
-      :to="paginatedLink(currentPage - 1)"
+      @click="changePage(currentPage - 1)"
       class="pagination-previous has-chevron"
     >
       <i
@@ -105,10 +115,10 @@ zh-CN:
         class="iconify"
         data-icon="feather:chevron-left"
       ></i>
-    </RouterLink>
-    <RouterLink
+    </div>
+    <div
       v-if="lastPage > 1"
-      :to="paginatedLink(currentPage + 1)"
+      @click="changePage(currentPage + 1)"
       class="pagination-next has-chevron"
     >
       <i
@@ -116,34 +126,31 @@ zh-CN:
         class="iconify"
         data-icon="feather:chevron-right"
       ></i>
-    </RouterLink>
+    </div>
 
     <ul class="pagination-list">
       <li>
-        <RouterLink
-          :to="paginatedLink(1)"
+        <div
+          @click="changePage(1)"
           class="pagination-link"
           :aria-label="t('goto-page-title', { page: 1 })"
           :class="[currentPage === 1 && 'is-current']"
         >
           1
-        </RouterLink>
+        </div>
       </li>
 
       <li v-if="pages.length === 0 || pages[0] > 2">
         <span class="pagination-ellipsis">…</span>
-      </li>g9
+      </li>
 
       <li v-for="page in pages" :key="page">
-        <RouterLink
-          :to="paginatedLink(page)"
-          class="pagination-link"
-          :aria-label="t('goto-page-title', { page: page })"
-          :aria-current="currentPage === page ? 'page' : undefined"
+        <div
           :class="[currentPage === page && 'is-current']"
-        >
+          class="pagination-link"
+          @click="changePage(page)">
           {{ page }}
-        </RouterLink>
+        </div>
       </li>
 
       <li v-if="pages[pages.length - 1] < lastPage - 1">
@@ -151,14 +158,13 @@ zh-CN:
       </li>
 
       <li>
-        <RouterLink
-          :to="paginatedLink(lastPage)"
+        <div
+          @click="changePage(lastPage)"
           class="pagination-link"
-          :aria-label="t('goto-page-title', { page: lastPage })"
           :class="[currentPage === lastPage && 'is-current']"
         >
           {{ lastPage }}
-        </RouterLink>
+        </div>
       </li>
     </ul>
   </nav>
