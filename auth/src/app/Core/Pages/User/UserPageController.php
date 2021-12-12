@@ -41,22 +41,40 @@ class UserPageController extends ApiController
                                                 new Input(
                                                     placeholder: 'Search',
                                                     focus: 'primary',
-                                                    name: 'users.query.keyword',
+                                                    name: 'paginated_users.query.keyword',
                                                     icon: 'fa fa-search',
                                                     help: 'Search using keywords',
+                                                    on_enter: [
+                                                        new Event(
+                                                            topic: 'paginated_users',
+                                                            action: 'search',
+                                                        )
+                                                    ],
                                                     addons: [
-                                                      new ButtonGroup(
-                                                          children: [
-                                                              new Button(
-                                                                  icon: 'fa fa-search',
-                                                                  type: 'primary'
-                                                              ),
-                                                              new Button(
-                                                                  icon: 'fa fa-redo',
-                                                                  type: 'primary'
-                                                              )
-                                                          ]
-                                                      )
+                                                        new ButtonGroup(
+                                                            children: [
+                                                                new Button(
+                                                                    icon: 'fa fa-search',
+                                                                    type: 'primary',
+                                                                    on_click: [
+                                                                        new Event(
+                                                                            topic: 'paginated_users',
+                                                                            action: 'search',
+                                                                        )
+                                                                    ]
+                                                                ),
+                                                                new Button(
+                                                                    icon: 'fa fa-redo',
+                                                                    type: 'primary',
+                                                                    on_click: [
+                                                                        new Event(
+                                                                            topic: 'paginated_users',
+                                                                            action: 'clear',
+                                                                        )
+                                                                    ]
+                                                                )
+                                                            ]
+                                                        )
                                                     ]
                                                 )
                                             ]

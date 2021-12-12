@@ -5,6 +5,7 @@
       :has-error="config.error === true"
       :icon="config.icon">
       <input
+        v-on:keyup.enter="onEnter"
         v-model="value"
         type="text"
         :class="classes"
@@ -28,6 +29,7 @@ import {computed, defineProps, onMounted, reactive, watch} from 'vue'
 import Repository from '/@src/generated/repositories/Repository'
 import _ from "lodash";
 import useProperties from "/@src/generated/composable/useProperties";
+import useEvents from "/@src/generated/composable/useEvents";
 const {apply} = useProperties();
 
 // Props
@@ -63,12 +65,21 @@ const config = reactive({
   addons: [],
   repo: {
     key: ''
-  }
+  },
+  on_enter: []
 })
+
+const {publish} = useEvents();
 
 onMounted(() => {
   config.value = apply(props.properties, config, props.scope)
 })
+
+function onEnter(){
+  config.on_enter.forEach(event => {
+    return publish(event.action, event.payload, event.topic)
+  })
+}
 
 watch(
   config,

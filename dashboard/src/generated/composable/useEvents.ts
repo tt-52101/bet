@@ -5,7 +5,7 @@ import _ from 'lodash'
 export default function useEvents() {
 
   const events = new EventRepo()
-  const last_event_id = ref(0)
+  const last_event_id = ref(events.lastId())
 
   let actions: any = reactive({})
 

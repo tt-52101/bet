@@ -56,20 +56,43 @@ onMounted(() => {
   config.value = apply(props.properties, config)
 })
 
+action('search', (value: any) => {
+  changePage(1)
+  getItems()
+})
+
 action('get', (value: any) => {
+  getItems()
+})
+
+action('clear', (value: any) => {
+  changePage(1)
+  clearFilters()
   getItems()
 })
 
 function getItems() {
   const page = getData(`${config.name}.meta.current_page`)
-
-  get(config.repo.get, {page: page}).then(res => {
+  let filters = getData(`${config.name}.query`)
+  if(!filters) {
+    filters  = {}
+  }
+  filters.page = page;
+  get(config.repo.get, filters).then(res => {
     state.items = res.data.data
     state.meta = res.data.meta
     setData(`${config.name}.meta`, state.meta)
     setData(`${config.name}.items`, state.items)
     state.render++
   })
+}
+
+function changePage(page:number) {
+  setData(`${config.name}.meta.current_page`, page)
+}
+
+function clearFilters(){
+  setData(`${config.name}.query`, {})
 }
 
 watch(

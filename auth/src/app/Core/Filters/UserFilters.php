@@ -4,6 +4,12 @@ namespace App\Core\Filters;
 
 class UserFilters extends QueryFilters
 {
+    public function keyword($value = "")
+    {
+        return $this->builder
+            ->where('users.email', 'like', '%' . $value . '%');
+    }
+
     public function email($value = "")
     {
         return $this->builder
