@@ -1,5 +1,5 @@
 <template>
-  <template v-for="(scope,index) in state.items" :key="`${state.render}_${index}`">
+  <template v-for="(scope,index) in state_items" :key="`${state.render}_${index}`">
       <component
         :is="item.component"
         :properties="item.props"
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, onMounted, reactive, watch} from "vue";
+import {defineProps,computed, onMounted, reactive, watch} from "vue";
 import Repository from '/@src/generated/repositories/Repository';
 import useProperties from "/@src/generated/composable/useProperties";
 import useState from "/@src/generated/composable/useState";
@@ -96,6 +96,17 @@ function changePage(page:number) {
 function clearFilters(){
   setData(`${config.name}.query`, {})
 }
+
+const state_items = computed({
+  get() {
+    let items = []
+    if(config.repo.name === 'stateRepo') {
+       return getData(config.name)
+    }
+    return state.items
+  },
+
+});
 
 watch(
   config,

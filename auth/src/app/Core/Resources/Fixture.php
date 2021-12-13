@@ -29,6 +29,8 @@ class Fixture extends JsonResource
             'home' => $this->matchWinner($this->odds)['home'],
             'away' => $this->matchWinner($this->odds)['away'],
             'draw' => $this->matchWinner($this->odds)['draw'],
+            'n' => $this->matchWinner($this->odds)['n'],
+
         ];
     }
 }

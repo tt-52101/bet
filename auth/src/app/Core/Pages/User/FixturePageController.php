@@ -98,6 +98,7 @@ class FixturePageController extends ApiController
                             ]
                         ),
                         new Column(
+                            desktop: 9,
                             children: [
                                 new Table(
                                     columns: [
@@ -139,7 +140,7 @@ class FixturePageController extends ApiController
                                                         new TableColumn(
                                                             title: 'Title',
                                                             children: [
-                                                                new Text('$date'),
+                                                                new Text('$date ($n)'),
                                                             ]
                                                         ),
                                                         new TableColumn(
@@ -154,17 +155,32 @@ class FixturePageController extends ApiController
                                                                         [
                                                                             'id' => '$fixture_id_home',
                                                                             'title' => '1',
-                                                                            'subtitle' => '$home'
+                                                                            'subtitle' => '$home',
+                                                                            'odd' => '$home',
+                                                                            'home_team' => '$home_team',
+                                                                            'home_logo' => '$home_logo',
+                                                                            'away_team' => '$away_team',
+                                                                            'away_logo' => '$away_logo',
                                                                         ],
                                                                         [
                                                                             'id' => '$fixture_id_draw',
                                                                             'title' => 'x',
-                                                                            'subtitle' => '$draw'
+                                                                            'subtitle' => '$draw',
+                                                                            'odd' => '$draw',
+                                                                            'home_team' => '$home_team',
+                                                                            'home_logo' => '$home_logo',
+                                                                            'away_team' => '$away_team',
+                                                                            'away_logo' => '$away_logo',
                                                                         ],
                                                                         [
                                                                             'id' => '$fixture_id_away',
                                                                             'title' => '2',
-                                                                            'subtitle' => '$away'
+                                                                            'subtitle' => '$away',
+                                                                            'odd' => '$away',
+                                                                            'home_team' => '$home_team',
+                                                                            'home_logo' => '$home_logo',
+                                                                            'away_team' => '$away_team',
+                                                                            'away_logo' => '$away_logo',
                                                                         ],
                                                                     ]
                                                                 )
@@ -177,12 +193,67 @@ class FixturePageController extends ApiController
                                     ]
                                 )
                             ]
-                        )
+                        ),
+                        new Column(
+                            desktop: 3,
+                            children: [
+
+                                new Column(
+                                    children: [
+                                        new Builder(
+                                            name: 'select',
+                                            repository: new StateRepo('select'),
+                                            children: [
+                                                new Row(
+                                                    children: [
+                                                        $this->cartItem()
+                                                    ]
+                                                )
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
                     ]
                 )
             ]
         );
 
         return $page();
+    }
+
+    public function cartItem()
+    {
+        return new Column(
+            children: [
+                new Card(
+                    header_right: [
+                        new Text('$home_team')
+                    ],
+                    header_left: [
+                        new Text('$away_team')
+                    ],
+                    children: [
+                        new Input(
+                            name: '$id',
+                            placeholder: '$odd',
+                            help: '$odd'
+                        )
+                    ],
+                    footer_right: [
+                        new Text('$title')
+                    ],
+                    footer_left: [
+                        new Avatar(
+                            picture: '$home_logo'
+                        ),
+                        new Avatar(
+                            picture: '$away_logo'
+                        ),
+                    ]
+                )
+            ]
+        );
     }
 }

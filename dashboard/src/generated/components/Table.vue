@@ -1,12 +1,12 @@
 <template>
-  <VFlexTable>
-    <template #header>
-      <div class="flex-table-header">
-        <span v-for="column in config.columns" :class="{'cell-end': column.props.end}">
-            {{column.props.title}}
-        </span>
-      </div>
-    </template>
+  <VFlexTable style="margin-top:10px">
+<!--    <template #header>-->
+<!--      <div class="flex-table-header">-->
+<!--        <span v-for="column in config.columns" :class="{'cell-end': column.props.end}">-->
+<!--            {{column.props.title}}-->
+<!--        </span>-->
+<!--      </div>-->
+<!--    </template>-->
     <template #body>
       <component
         :is="item.component"

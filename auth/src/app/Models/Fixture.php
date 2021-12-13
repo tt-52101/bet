@@ -39,8 +39,8 @@ class Fixture extends Model
 
         return [
             'home' => round($home / $n,2),
-            'away' => round($away / $n),
-            'draw' => round($draw / $n),
+            'away' => round($away / $n, 2),
+            'draw' => round($draw / $n, 2),
             'n' => $n,
         ];
     }

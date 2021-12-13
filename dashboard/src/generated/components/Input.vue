@@ -50,6 +50,7 @@ const props = defineProps({
 
 const state = reactive({
   repo: {},
+  render: 1
 })
 
 const config = reactive({
@@ -95,6 +96,7 @@ watch(
 
 const value = computed({
   get() {
+    state.render++
     if(state.repo.get){
       return state.repo.get()
     }

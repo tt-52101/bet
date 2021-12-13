@@ -53,8 +53,8 @@ class BetSeeder extends Seeder
 
     public function odds()
     {
-        Odd::truncate();
-        $result = (new OddsApi())->get(league: 197, season:2021);
+        //Odd::truncate();
+        $result = (new OddsApi())->get(league: 197, season:2021,page:2);
 
         foreach ($result['response'] as $entry) {
             Odd::create($entry);
