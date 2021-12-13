@@ -19,9 +19,9 @@ const emit = defineEmits(['close'])
           </RouterLink>
         </li>
         <li>
-          <RouterLink :to="{ path: '/pages/auth/default' }">
+          <RouterLink :to="{ path: '/pages/auth/user' }">
             <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Generated
+            Components
           </RouterLink>
         </li>
         <li>

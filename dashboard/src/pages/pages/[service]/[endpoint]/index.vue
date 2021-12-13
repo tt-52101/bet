@@ -9,8 +9,8 @@
 </template>
 <script setup lang="ts">
 import {useRoute} from 'vue-router'
-import {onMounted, reactive} from 'vue'
-import Api from '/@src/helpers/Api'
+import {onMounted, reactive, watch} from 'vue'
+import useAPi from '/@src/generated/composable/useApi'
 
 const route = useRoute()
 const page = reactive({
@@ -32,16 +32,29 @@ const props = defineProps({
   },
 })
 
-const api = new Api(`/${props.service}/api/page/${props.endpoint}`)
+const {get} = useAPi()
 
 onMounted(() => {
-  get()
+  getPage()
 })
 
-const get = async () => {
-  api.get().then((response: any) => {
+const getPage = async () => {
+  get(`http://localhost/${props.service}/api/page/${props.endpoint}`).then((response: any) => {
     page.data = response.data
   })
 }
+
+watch(
+  props,
+  (newVal, oldVal) => {
+    getPage()
+  },
+  {
+    immediate: false,
+    deep: true
+  }
+)
+
+
 
 </script>
