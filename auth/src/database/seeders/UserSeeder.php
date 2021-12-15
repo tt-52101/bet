@@ -24,14 +24,16 @@ class UserSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $user = User::create([
-            'name' => 'BetMixer',
-            'email' => 'betmixer@gmail.com',
-            'password' =>'winter'
-        ]);
-
-        $user = User::create([
             'name' => 'Ben Bodan',
             'email' => 'ben.bodan@gmail.com',
+            'password' =>'winter'
+        ]);
+        $admin = Role::where('name', 'admin')->first();
+        $user->roles()->sync($admin);
+
+        $user = User::create([
+            'name' => 'BetMixer',
+            'email' => 'betmixer@gmail.com',
             'password' =>'winter'
         ]);
 
@@ -41,7 +43,6 @@ class UserSeeder extends Seeder
             'password' =>'winter'
         ]);
 
-        $admin = Role::where('name', 'admin')->first();
-        $user->roles()->sync($admin);
+
     }
 }

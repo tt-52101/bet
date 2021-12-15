@@ -6,7 +6,7 @@ use BenBodan\BetUi\Components\{Button, Card, Column, Input, Page, Pagination, Ro
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Events\Event;
 
-class IndexView
+class UserIndexView
 {
 
     public function __construct(
@@ -19,6 +19,7 @@ class IndexView
     public function search()
     {
         return new Column(
+            desktop: 6,
             children: [
                 new Input(
                     icon: 'fa fa-search',
@@ -26,6 +27,21 @@ class IndexView
                     name: "paginated_$this->name.query.keyword",
                     on_enter: [
                         $this->searchEvent()
+                    ],
+                    addons: [
+                        new Button(
+                            align: 'right',
+                            title: 'Add',
+                            icon: 'fa fa-plus',
+                            type: 'primary',
+                            on_click: [
+                                new Event(
+                                    topic: 'route',
+                                    action: 'push',
+                                    payload: '/pages/auth/user_new'
+                                )
+                            ]
+                        ),
                     ]
                 )
             ]
@@ -57,9 +73,20 @@ class IndexView
                 new Row(
                     children: [
                         $this->search(),
+                        $this->addNewButton(),
                         $this->results()
                     ]
                 )
+            ]
+        );
+    }
+
+    public function addNewButton()
+    {
+        return new Column(
+             desktop: 6,
+            children: [
+
             ]
         );
     }

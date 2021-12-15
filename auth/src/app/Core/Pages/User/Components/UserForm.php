@@ -27,41 +27,7 @@ class UserForm
                 new Card(
                     header_left: [
                         new ButtonGroup(
-                            children: [
-                                new Button(
-                                    title: 'Back',
-                                    icon: 'fa fa-chevron-left',
-                                    rounded: true,
-                                    on_click: [
-                                        new Event(
-                                            action: 'back',
-                                            topic: "route"
-                                        )
-                                    ]
-                                ),
-                                new Button(
-                                    title: 'Update',
-                                    icon: 'fa fa-save',
-                                    rounded: true,
-                                    on_click: [
-                                        new Event(
-                                            action: 'update',
-                                            topic: "{$this->name}_form"
-                                        )
-                                    ]
-                                ),
-                                new Button(
-                                    title: 'Refresh',
-                                    icon: 'fa fa-redo',
-                                    rounded: true,
-                                    on_click: [
-                                        new Event(
-                                            action: 'show',
-                                            topic: "{$this->name}_form"
-                                        )
-                                    ]
-                                )
-                            ]
+                            children: $this->buttons($data)
                         ),
                     ],
                     children: [
@@ -77,6 +43,67 @@ class UserForm
     public function get()
     {
         return ($this->schema())();
+    }
+
+    public function buttons($data = [])
+    {
+        $buttons = [];
+
+        $buttons[] = new Button(
+            title: 'Back',
+            icon: 'fa fa-chevron-left',
+            rounded: true,
+            on_click: [
+                new Event(
+                    action: 'back',
+                    topic: "route"
+                )
+            ]
+        );
+
+        if ($data) {
+
+            $buttons[] = new Button(
+                title: 'Update',
+                icon: 'fa fa-save',
+                rounded: true,
+                on_click: [
+                    new Event(
+                        action: 'update',
+                        topic: "{$this->name}_form"
+                    )
+                ]
+            );
+
+            $buttons[] = new Button(
+                title: 'Refresh',
+                icon: 'fa fa-redo',
+                rounded: true,
+                on_click: [
+                    new Event(
+                        action: 'show',
+                        topic: "{$this->name}_form"
+                    )
+                ]
+            );
+        }
+
+        if(!$data){
+            $buttons[] = new Button(
+                title: 'Save',
+                icon: 'fa fa-save',
+                rounded: true,
+                on_click: [
+                    new Event(
+                        action: 'create',
+                        topic: "{$this->name}_form"
+                    )
+                ]
+            );
+        }
+
+
+        return $buttons;
     }
 
     public function fields()
@@ -96,6 +123,27 @@ class UserForm
             children: [
                 new Input(
                     name: 'name'
+                )
+            ]
+        );
+
+
+        $fields[] = new Column(
+            desktop: 6,
+            children: [
+                new Input(
+                    placeholder: 'Password',
+                    name: 'password'
+                )
+            ]
+        );
+
+        $fields[] = new Column(
+            desktop: 6,
+            children: [
+                new Input(
+                    placeholder: 'Password Confirmation',
+                    name: 'password_confirmation'
                 )
             ]
         );
