@@ -19,6 +19,7 @@ import Table from '/@src/generated/components/Table.vue';
 import TableRow from "/@src/generated/components/TableRow.vue";
 import TableColumn from "/@src/generated/components/TableColumn.vue";
 import Selectable from "/@src/generated/components/Selectable.vue";
+import Route from "/@src/generated/components/Route.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -43,6 +44,7 @@ const GlobalComponents = {
     app.component(TableRow.name, TableRow)
     app.component(TableColumn.name, TableColumn)
     app.component(Selectable.name, Selectable)
+    app.component(Route.name, Route)
   }
 }
 

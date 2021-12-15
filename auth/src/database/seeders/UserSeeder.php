@@ -35,6 +35,12 @@ class UserSeeder extends Seeder
             'password' =>'winter'
         ]);
 
+        $user = User::create([
+            'name' => 'Guest',
+            'email' => 'guest@gmail.com',
+            'password' =>'winter'
+        ]);
+
         $admin = Role::where('name', 'admin')->first();
         $user->roles()->sync($admin);
     }

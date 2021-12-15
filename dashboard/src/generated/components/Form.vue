@@ -4,7 +4,7 @@
       <component
         :is="item.component"
         :properties="item.props"
-        :scope="scope"
+        :scope="config.data ? config.data : config.scope"
         v-for="(item,i) in config.children" :key="i">
       </component>
     </VLoader>
@@ -19,7 +19,7 @@ import useProperties from "/@src/generated/composable/useProperties";
 import useEvents from "/@src/generated/composable/useEvents";
 import useApi from "/@src/generated/composable/useApi";
 import useState from "/@src/generated/composable/useState";
-import { Notyf } from 'notyf'
+import {Notyf} from 'notyf'
 import useNotyf from "/@src/composable/useNotyf";
 
 const {apply} = useProperties()
@@ -51,7 +51,8 @@ const config = reactive({
     name: 'stateRepo',
     key: ''
   },
-  children: []
+  children: [],
+  data: []
 })
 
 const state = reactive({
@@ -68,7 +69,14 @@ function initRepository() {
 let {publish, listen, action, listenTopic} = useEvents()
 
 onMounted(() => {
-  config.value = apply(props.properties, config, props.scope)
+
+  if(props.properties.data){
+    config.data = props.properties.data
+  } else {
+    config.data = props.scope
+  }
+
+  config.value = apply(props.properties, config, config.data)
   listenTopic(config.events)
   state.loading = false
 })
@@ -81,6 +89,16 @@ action('refresh', (value: any) => {
   state.loading = true
 
   get(config.repo.get).then(response => {
+    setData(`${config.name}.body`, response.data)
+  }).then(response => {
+    state.loading = false
+  })
+})
+
+action('show', (value: any) => {
+  state.loading = true
+
+  get(config.repo.show).then(response => {
     setData(`${config.name}.body`, response.data)
   }).then(response => {
     state.loading = false

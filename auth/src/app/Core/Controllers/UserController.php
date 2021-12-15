@@ -36,7 +36,7 @@ class UserController extends ApiController
             return $this->respondForbidden("You don't have permission to update");
         }
 
-        $this->validateRequest(request()->id);
+        $this->validateRequest($user->id);
 
         $data = $this->fromRequest();
         $user->update($data);

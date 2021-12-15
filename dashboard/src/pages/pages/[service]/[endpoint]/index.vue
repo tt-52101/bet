@@ -1,5 +1,6 @@
 <template>
   <AppLayout>
+    <gRoute/>
     <component
       :is="item.component"
       :properties="item.props"
@@ -39,7 +40,8 @@ onMounted(() => {
 })
 
 const getPage = async () => {
-  get(`http://localhost/${props.service}/api/page/${props.endpoint}`).then((response: any) => {
+  const endpoint = props.endpoint.replaceAll('_','/')
+  get(`http://localhost/${props.service}/api/page/${endpoint}`).then((response: any) => {
     page.data = response.data
   })
 }
