@@ -25,6 +25,10 @@ export default function useEvents() {
     _.set(actions, name, callback)
   }
 
+  const clearAll = function (){
+    events.clearAll()
+  }
+
   const callAction = (event: any) => {
     if (!event || event.id == last_event_id.value) {
       return
@@ -52,5 +56,6 @@ export default function useEvents() {
     action,
     callAction,
     publish,
+    clearAll
   }
 }

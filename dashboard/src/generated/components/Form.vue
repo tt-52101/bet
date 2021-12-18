@@ -52,7 +52,9 @@ const config = reactive({
     key: ''
   },
   children: [],
-  data: []
+  data: [],
+  on_created: [],
+  on_updated: []
 })
 
 const state = reactive({
@@ -85,6 +87,17 @@ const {post, update, get} = useApi()
 const {getData, setData} = useState();
 const notyf = new Notyf()
 
+function publishEvents(events: []) {
+  events.forEach(event => {
+    return publish(event.action, event.payload, event.topic)
+  })
+}
+
+function syncScope(entry: any){
+  config.data = entry
+  config.value = apply(props.properties, config, config.data)
+}
+
 action('refresh', (value: any) => {
   state.loading = true
 
@@ -111,6 +124,8 @@ action('create', (value: any) => {
   post(config.repo.post, data).then(response => {
     state.loading = false
     notyf.success(response.data.message)
+    syncScope(response.data.entry)
+    publishEvents(config.on_created)
   }).catch(err => {
     state.loading = false
     const message = err.response.data.message
@@ -124,6 +139,7 @@ action('update', (value: any) => {
   update(config.repo.patch, data).then(response => {
     state.loading = false
     notyf.success(response.data.message)
+    publishEvents(config.on_updated)
   }).catch(err => {
     state.loading = false
     const message = err.response.data.message

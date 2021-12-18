@@ -7,7 +7,7 @@ import {defineProps, onMounted, reactive} from "vue";
 import useEvents from '/@src/generated/composable/useEvents'
 import {useRouter, useRoute} from 'vue-router'
 
-const {listen, listenTopic, action} = useEvents()
+const {listen, clearAll, listenTopic, action} = useEvents()
 const router = useRouter();
 
 const props = defineProps({
@@ -27,11 +27,17 @@ onMounted(() => {
   listenTopic({key: config.name})
 })
 
+function clearEvents(){
+  this.$store.dispatch("component/clearEvents");
+}
+
 action('push', (value: any) => {
+  clearAll()
   router.push(value)
 })
 
 action('back', (value: any) => {
+  clearAll()
   router.back()
 })
 

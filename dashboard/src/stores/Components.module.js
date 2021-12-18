@@ -22,6 +22,10 @@ export const alert = {
     },
     clearEvents({commit}) {
       commit("clearEvents");
+    },
+    clearAll({commit}) {
+      commit("clearEvents");
+      commit("clearData");
     }
   },
   mutations: {
@@ -33,6 +37,9 @@ export const alert = {
     clearEvents(state) {
       state.last_event_id = 0;
       state.events = []
+    },
+    clearData(state) {
+      state.data = {}
     },
     pushEvent(state, payload) {
       state.last_event_id += 1;

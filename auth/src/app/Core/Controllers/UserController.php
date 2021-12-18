@@ -18,7 +18,7 @@ class UserController extends ApiController
             return $this->respondForbidden("You don't have permission to view");
         }
 
-        $users = $users->paginate(2);
+        $users = $users->paginate(10);
         return new UserCollection($users);
     }
 
@@ -60,7 +60,7 @@ class UserController extends ApiController
 
         return [
             'message' => 'User Created Successfully',
-            'user' => $user
+            'entry' => $user
         ];
     }
 

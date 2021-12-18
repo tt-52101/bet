@@ -36,6 +36,13 @@ class UserForm
                         )
                     ]
                 )
+            ],
+            on_created: [
+                new Event(
+                    action: 'push',
+                    topic: 'route',
+                    payload: '/pages/auth/user_edit_$id'
+                )
             ]
         );
     }

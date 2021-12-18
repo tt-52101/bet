@@ -2,9 +2,10 @@
   <AppLayout>
     <gRoute/>
     <component
+      :key="page.render"
       :is="item.component"
       :properties="item.props"
-      v-for="(item,i) in page.data.props.children" :key="i">
+      v-for="(item,i) in page.data.props.children">
     </component>
   </AppLayout>
 </template>
@@ -19,7 +20,8 @@ const page = reactive({
     props: {
       children: []
     }
-  }
+  },
+  render: 1
 })
 
 const props = defineProps({
@@ -43,6 +45,7 @@ const getPage = async () => {
   const endpoint = props.endpoint.replaceAll('_','/')
   get(`http://localhost/${props.service}/api/page/${endpoint}`).then((response: any) => {
     page.data = response.data
+    page.render++
   })
 }
 

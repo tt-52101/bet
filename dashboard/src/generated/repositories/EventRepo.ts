@@ -25,6 +25,10 @@ class EventRepo {
     return topic_events[topic_events.length - 1];
   }
 
+  clearAll(): any {
+    store.dispatch("components/clearAll")
+  }
+
   lastId(): any {
     return store.getters["components/last_event_id"]
   }
