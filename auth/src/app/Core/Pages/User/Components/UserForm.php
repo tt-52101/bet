@@ -2,7 +2,9 @@
 
 namespace App\Core\Pages\User\Components;
 
-use BenBodan\BetUi\Components\{ButtonGroup,
+use BenBodan\BetUi\Components\{BreadCrumb,
+    BreadCrumbItem,
+    ButtonGroup,
     Form,
     Button,
     Card,

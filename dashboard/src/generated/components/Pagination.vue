@@ -40,8 +40,8 @@ const {publish} = useEvents(config.events);
 
 const meta = reactive({
   current_page: 1,
-  per_page: 8,
-  total: 19
+  per_page: 1,
+  total: 1
 })
 
 onMounted(() => {

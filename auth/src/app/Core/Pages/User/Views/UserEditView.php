@@ -2,7 +2,18 @@
 
 namespace App\Core\Pages\User\Views;
 
-use BenBodan\BetUi\Components\{Button,Form, Card, Column, Input, Page, Pagination, Row, Builder, Text};
+use BenBodan\BetUi\Components\{BreadCrumb,
+    BreadCrumbItem,
+    Button,
+    Form,
+    Card,
+    Column,
+    Input,
+    Page,
+    Pagination,
+    Row,
+    Builder,
+    Text};
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Events\Event;
 use App\Core\Auth\Models\User;
@@ -26,6 +37,22 @@ class UserEditView
             children: [
                 new Row(
                     children: [
+                        new Column(
+                            children: [
+                                new BreadCrumb(
+                                    items: [
+                                        new BreadCrumbItem(
+                                            label: 'Users',
+                                            icon: 'feather:user',
+                                            link: '/pages/auth/user'
+                                        ),
+                                        new BreadCrumbItem(
+                                            label: 'Edit',
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
                         new Column(
                             desktop: 6,
                             children: [
