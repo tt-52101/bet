@@ -2,11 +2,22 @@
 
 namespace App\Core\Pages\User\Components;
 
-use BenBodan\BetUi\Components\{ButtonGroup, Form, Button, Card, Column, Input, Page, Pagination, Row, Builder, Text};
+use BenBodan\BetUi\Components\{ButtonGroup,
+    Form,
+    Button,
+    Card,
+    Column,
+    Input,
+    Page,
+    Pagination,
+    Row,
+    Builder,
+    Select,
+    Text};
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Events\Event;
 use Illuminate\Validation\Rules\In;
-
+use App\Core\Models\Role;
 class UserForm
 {
 
@@ -151,6 +162,16 @@ class UserForm
                 new Input(
                     placeholder: 'Password Confirmation',
                     name: 'password_confirmation'
+                )
+            ]
+        );
+
+        $roles = Role::lang('gr')->get()->toArray();
+        $fields[] = new Column(
+            children: [
+                new Select(
+                    name: 'roles_id',
+                    options: $roles
                 )
             ]
         );

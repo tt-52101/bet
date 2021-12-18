@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
 
     public function createRoles(){
         $this->createRole('admin','Διαχειριστής', 'Admin');
+        $this->createRole('guest','Επισκέπτης', 'Guest');
     }
 
     public function createRole($name, $title_gr, $title) {

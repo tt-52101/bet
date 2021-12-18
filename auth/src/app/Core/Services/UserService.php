@@ -39,6 +39,6 @@ class UserService extends LocalService
     }
 
     public function syncRoles($data) {
-        $this->entry->roles()->sync($data['role_ids']);
+        $this->entry->roles()->sync($data['roles_id']);
     }
 }

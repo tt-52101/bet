@@ -20,7 +20,7 @@ class User extends JsonResource
             'email' => $this->email,
             'name' => $this->name,
             'created_at' => $this->created_at,
-            'role_ids' => $this->roles->pluck('id'),
+            'roles_id' => $this->roles->pluck('id'),
             'active' => (bool) $this->active
         ];
     }

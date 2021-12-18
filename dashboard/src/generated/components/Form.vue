@@ -74,12 +74,12 @@ onMounted(() => {
 
   if(props.properties.data){
     config.data = props.properties.data
-  } else {
+  } else if (!config.data) {
     config.data = props.scope
   }
-
   config.value = apply(props.properties, config, config.data)
   listenTopic(config.events)
+  setData(`${config.name}.body`, config.data)
   state.loading = false
 })
 

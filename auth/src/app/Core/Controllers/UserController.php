@@ -17,7 +17,6 @@ class UserController extends ApiController
         if (Gate::denies('view', new User())) {
             return $this->respondForbidden("You don't have permission to view");
         }
-
         $users = $users->paginate(10);
         return new UserCollection($users);
     }
@@ -76,7 +75,7 @@ class UserController extends ApiController
         $data['password'] = request()->get('password');
         $data['name'] = request()->get('name');
         $data['active'] = request()->get('active');
-        $data['role_ids'] = request()->get('role_ids');
+        $data['roles_id'] = request()->get('roles_id');
         $data['organisation_ids'] = request()->get('organisation_ids');
         return $data;
     }
