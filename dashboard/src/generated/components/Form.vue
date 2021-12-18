@@ -8,7 +8,6 @@
         v-for="(item,i) in config.children" :key="i">
       </component>
     </VLoader>
-    <div class="is-divider"></div>
   </div>
 </template>
 

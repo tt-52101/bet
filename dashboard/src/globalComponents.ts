@@ -23,6 +23,7 @@ import Route from "/@src/generated/components/Route.vue";
 import Select from "/@src/generated/components/Select.vue";
 import Tabs from "/@src/generated/components/Tabs.vue";
 import BreadCrumb from "/@src/generated/components/BreadCrumb.vue";
+import Accordion from "/@src/generated/components/Accordion.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -51,6 +52,7 @@ const GlobalComponents = {
     app.component(Select.name, Select)
     app.component(Tabs.name, Tabs)
     app.component(BreadCrumb.name, BreadCrumb)
+    app.component(Accordion.name, Accordion)
   }
 }
 

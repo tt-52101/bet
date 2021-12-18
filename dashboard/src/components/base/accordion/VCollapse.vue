@@ -43,7 +43,9 @@ const toggle = (key: number) => {
       </div>
     </summary>
     <div class="collapse-content">
-      <p>{{ item.content }}</p>
+      <slot name="item" :active="internalItemOpen">
+        <p>{{ item.content }}</p>
+      </slot>
     </div>
   </details>
 </template>

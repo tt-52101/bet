@@ -2,7 +2,9 @@
 
 namespace App\Core\Pages\User\Views;
 
-use BenBodan\BetUi\Components\{BreadCrumb,
+use BenBodan\BetUi\Components\{Accordion,
+    AccordionItem,
+    BreadCrumb,
     BreadCrumbItem,
     Button,
     Form,
@@ -24,7 +26,8 @@ class UserEditView
 
     public function __construct(
         private string $name = 'users',
-        public UserForm $form
+        public UserForm $form,
+        public UserIndexView $users
     )
     {
         $this->host = env('APP_URL');
@@ -57,6 +60,29 @@ class UserEditView
                             desktop: 6,
                             children: [
                                 $this->form->schema($data)
+                            ]
+                        ),
+                        new Column(
+                            desktop: 6,
+                            children: [
+                                new Accordion(
+                                    items: [
+                                        new AccordionItem(
+                                            title: 'Competitions',
+                                            content: 'Test 2',
+                                            children: [
+                                                new Text('Currently')
+                                            ]
+                                        ),
+                                        new AccordionItem(
+                                            title: 'History',
+                                            content: 'Test 2',
+                                            children:  [
+                                                $this->users->schema()
+                                            ]
+                                        ),
+                                    ]
+                                )
                             ]
                         )
                     ]

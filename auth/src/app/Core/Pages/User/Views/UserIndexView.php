@@ -68,15 +68,11 @@ class UserIndexView
 
     public function schema()
     {
-        return new Page(
+        return new Row(
             children: [
-                new Row(
-                    children: [
-                        $this->search(),
-                        $this->addNewButton(),
-                        $this->results()
-                    ]
-                )
+                $this->search(),
+                $this->addNewButton(),
+                $this->results()
             ]
         );
     }
@@ -84,7 +80,7 @@ class UserIndexView
     public function addNewButton()
     {
         return new Column(
-             desktop: 6,
+            desktop: 6,
             children: [
 
             ]
@@ -152,6 +148,11 @@ class UserIndexView
 
     public function get()
     {
-        return ($this->schema())();
+        $page = new Page(
+            children: [
+                $this->schema()
+            ]
+        );
+        return $page();
     }
 }
