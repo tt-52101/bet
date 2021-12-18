@@ -13,6 +13,8 @@ use BenBodan\BetUi\Components\{ButtonGroup,
     Row,
     Builder,
     Select,
+    Tab,
+    Tabs,
     Text};
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Events\Event;
@@ -128,14 +130,7 @@ class UserForm
     {
 
         $fields = [];
-
-        $fields[] = new Column(
-            children: [
-                new Input(
-                    name: 'email'
-                )
-            ]
-        );
+        $account_fields = [];
 
         $fields[] = new Column(
             children: [
@@ -147,6 +142,14 @@ class UserForm
 
 
         $fields[] = new Column(
+            children: [
+                new Input(
+                    name: 'email'
+                )
+            ]
+        );
+
+        $account_fields[] = new Column(
             desktop: 6,
             children: [
                 new Input(
@@ -156,7 +159,7 @@ class UserForm
             ]
         );
 
-        $fields[] = new Column(
+        $account_fields[] = new Column(
             desktop: 6,
             children: [
                 new Input(
@@ -167,7 +170,7 @@ class UserForm
         );
 
         $roles = Role::lang('gr')->get()->toArray();
-        $fields[] = new Column(
+        $account_fields[] = new Column(
             children: [
                 new Select(
                     name: 'roles_id',
@@ -176,6 +179,39 @@ class UserForm
             ]
         );
 
-        return $fields;
+        $components = [];
+
+        $components[] = new Column(
+            children: [
+                new Tabs(
+                    active: 'info',
+                    tabs: [
+                        new Tab(
+                            label: 'Info',
+                            icon: 'fas fa-user',
+                            value: 'info',
+                            children: [
+                                new Row(
+                                    children: $fields
+                                )
+                            ]
+                        ),
+                        new Tab(
+                            label: 'Account',
+                            icon: 'fas fa-cogs',
+                            value: 'account',
+                            children: [
+                                new Row(
+                                    children: $account_fields
+                                )
+                            ]
+                        )
+                    ]
+                )
+            ]
+        );
+
+
+        return $components;
     }
 }
