@@ -38,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->mapCoreRoutes();
+        $this->mapChampionShips();
 
         $this->routes(function () {
 
@@ -45,6 +46,19 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
+    }
+
+    protected function mapChampionShips(){
+
+        Route::prefix('api/')
+            ->middleware('api')
+            ->namespace('App\Http\Championships\Controllers')
+            ->group(base_path('app/Http/Championships/Routes/api.php'));
+
+        Route::prefix('api/page')
+            ->middleware('api')
+            ->namespace('App\Http\Championships\Pages')
+            ->group(base_path('app/Http/Championships/Routes/pages.php'));
     }
 
     protected function mapCoreRoutes(){

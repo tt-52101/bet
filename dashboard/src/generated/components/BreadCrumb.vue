@@ -17,7 +17,7 @@ const props = defineProps({
 });
 
 const config = reactive({
-  children: []
+  items: []
 })
 
 onMounted(() => {

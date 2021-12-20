@@ -1,5 +1,5 @@
 <template>
-  <AppLayout>
+  <AppLayout :openOnMounted="true">
     <gRoute/>
     <component
       :key="page.render"

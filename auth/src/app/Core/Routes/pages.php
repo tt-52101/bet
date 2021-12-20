@@ -13,5 +13,4 @@ Route::prefix('user')->group(function(){
 
 Route::prefix('fixture')->group(function(){
     Route::get('/', 'User\\FixturePageController@page');
-
 });
