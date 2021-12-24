@@ -4,7 +4,7 @@ namespace App\Http\Championships\Pages\Championship\Components;
 
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Button, ButtonGroup, Card, Column, Datepicker, Form, Input, Row, Text};
+use BenBodan\BetUi\Components\{Button, ButtonGroup, Card, Column, Datepicker, Form, Input, Row, SwitchInput, Text};
 use Illuminate\Support\Facades\Date;
 
 class ChampionshipForm
@@ -75,7 +75,7 @@ class ChampionshipForm
             children: [
                 new Datepicker(
                     name: 'start_at',
-                    placeholder: 'Start'
+                    title: 'Start'
                 )
             ]
         );
@@ -85,7 +85,7 @@ class ChampionshipForm
             children: [
                 new Datepicker(
                     name: 'end_at',
-                    placeholder: 'End'
+                    title: 'End'
                 )
             ]
         );
@@ -96,6 +96,16 @@ class ChampionshipForm
                 new Input(
                     name: 'points',
                     placeholder: 'Points'
+                )
+            ]
+        );
+
+        $fields[] = new Column(
+            desktop: 4,
+            children: [
+                new SwitchInput(
+                    name: 'football',
+                    title: 'Football'
                 )
             ]
         );
