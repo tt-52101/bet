@@ -5,8 +5,8 @@
         v-model="value"
         :options="config.options"
         :mode="config.multiple ? 'tags': 'single'"
-        :searchable="false"
-        :create-tag="true"
+        :searchable="true"
+        :create-tag="false"
         :valueProp="config.valueProp"
         :label="config.labelProp"
         placeholder="Search heroes..."
@@ -59,7 +59,7 @@ const config = reactive({
   name: '',
   labelProp: 'title',
   valueProp: 'id',
-  multiple: true,
+  multiple: false,
   repo: {
     name: 'stateRepo',
     key: ''

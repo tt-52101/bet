@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Championships\Pages\Country\Views;
+namespace App\Http\Championships\Pages\League\Views;
 
 use App\Core\Components\SearchInput;
-use App\Http\Championships\Pages\Country\Components\CountryCard;
+use App\Http\Championships\Pages\League\Components\LeagueCard;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder};
 
-class CountryIndexView
+class LeagueIndexView
 {
 
     public function __construct(
-        public CountryCard $card,
+        public LeagueCard $card,
     )
     {
 
@@ -42,7 +42,7 @@ class CountryIndexView
             children: [
                 $this->pagination(),
                 new Builder(
-                    repository: new RestRepo(env('APP_URL') . '/auth/api/country'),
+                    repository: new RestRepo(env('APP_URL') . '/auth/api/league'),
                     name: 'paginated_countries',
                     children: [
                         new Column(

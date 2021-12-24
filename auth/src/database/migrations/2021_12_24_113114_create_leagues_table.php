@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountriesTable extends Migration
+class CreateLeaguesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,16 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('leagues', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('flag')->nullable();
-            $table->string('code')->nullable();
+            $table->string('type');
+            $table->string('logo');
+            $table->unsignedBigInteger('country_id');
+
             $table->boolean('active')->default(true)->nullable();
+
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +34,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('leagues');
     }
 }

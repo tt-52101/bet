@@ -23,9 +23,6 @@ class CountrySeeder extends Seeder
         $api_countries = ApiCountry::get();
 
         foreach ($api_countries as $country) {
-            if(is_null($country->code)){
-                break;
-            }
             Country::create([
                 'name' => $country->name,
                 'code' => $country->code,

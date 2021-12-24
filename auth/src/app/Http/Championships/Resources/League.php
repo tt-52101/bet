@@ -4,9 +4,10 @@ namespace App\Http\Championships\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Country extends JsonResource
+class League extends JsonResource
 {
     public static $wrap = null;
+
     /**
      * Transform the resource into an array.
      *
@@ -18,9 +19,11 @@ class Country extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'code' => $this->code,
-            'flag' => $this->flag,
-            'active' => (bool) $this->active,
+            'type' => $this->type,
+            'logo' => $this->logo,
+            'country_flag' => $this->country?->flag,
+            'country_id' => $this->country_id,
+            'active' => (bool)$this->active,
         ];
     }
 }

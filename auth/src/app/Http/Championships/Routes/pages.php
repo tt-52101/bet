@@ -12,3 +12,9 @@ Route::prefix('country')->group(function(){
     Route::get('new', 'Country\\CountryPageController@new');
     Route::get('edit/{country}', 'Country\\CountryPageController@edit');
 });
+
+Route::prefix('league')->group(function(){
+    Route::get('/', 'League\\LeaguePageController@page');
+    Route::get('new', 'League\\LeaguePageController@new');
+    Route::get('edit/{league}', 'League\\LeaguePageController@edit');
+});
