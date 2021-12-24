@@ -30,14 +30,16 @@ class BetSeeder extends Seeder
      */
     public function run()
     {
-        $this->countries();
+        $this->teams();
     }
 
     public function teams(){
-        Team::truncate();
-        $result = (new TeamsApi())->get(country:'Greece');
+        //Team::truncate();
+        $league = 135;
+        $result = (new TeamsApi())->get(country:'Italy', league: $league, season: '2021');
 
         foreach($result['response'] as $entry) {
+            $entry['league_id'] = $league;
             Team::create($entry);
         }
     }

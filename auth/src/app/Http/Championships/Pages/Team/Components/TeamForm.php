@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Championships\Pages\League\Components;
+namespace App\Http\Championships\Pages\Team\Components;
 
 
 use App\Http\Championships\Models\Country;
@@ -20,11 +20,11 @@ use BenBodan\BetUi\Components\{Avatar,
     Select,
     Text};
 
-class LeagueForm
+class TeamForm
 {
 
     public function __construct(
-        private string $name = 'league',
+        private string $name = 'team',
     )
     {
         $this->host = env('APP_URL');
@@ -34,7 +34,7 @@ class LeagueForm
     {
 
         return new Form(
-            repo: new RestRepo(env('APP_URL') . '/auth/api/league'),
+            repo: new RestRepo(env('APP_URL') . '/auth/api/team'),
             name: "{$this->name}_form",
             data: $data,
             children: [
@@ -47,7 +47,7 @@ class LeagueForm
                     header_right: [
                         new Avatar(
                             picture: '$logo',
-                            badge: '$country_flag',
+                            badge: '$league_logo',
                         ),
                     ],
                     children: [
@@ -61,7 +61,7 @@ class LeagueForm
                 new Event(
                     action: 'push',
                     topic: 'route',
-                    payload: '/pages/auth/league_edit_$id'
+                    payload: '/pages/auth/team_edit_$id'
                 )
             ]
         );
@@ -83,8 +83,26 @@ class LeagueForm
         $fields[] = new Column(
             children: [
                 new Input(
-                    name: 'type',
-                    placeholder: 'Type'
+                    name: 'country',
+                    placeholder: 'Country'
+                )
+            ]
+        );
+
+        $fields[] = new Column(
+            children: [
+                new Input(
+                    name: 'league',
+                    placeholder: 'League'
+                )
+            ]
+        );
+
+        $fields[] = new Column(
+            children: [
+                new Input(
+                    name: 'founded',
+                    placeholder: 'Founded'
                 )
             ]
         );
@@ -99,33 +117,11 @@ class LeagueForm
         );
 
         $fields[] = new Column(
-            children: [
-                new Input(
-                    name: 'logo',
-                    placeholder: 'logo'
-                )
-            ]
-        );
-
-        $countries = Country::get();
-        //$countries = (new CountryCollection($countries))->resolve();
-
-        $fields[] = new Column(
-            children: [
-                new Select(
-                    name: 'country_id',
-                    options: $countries->toArray(),
-                    labelProp: 'name'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
             desktop: 4,
             children: [
                 new SwitchInput(
-                    name: 'active',
-                    title: 'Active'
+                    name: 'national',
+                    title: 'National'
                 )
             ]
         );

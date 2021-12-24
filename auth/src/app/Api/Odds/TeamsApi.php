@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class TeamsApi
 {
-    public function get(string $country)
+    public function get(string $country, string $league, string $season)
     {
         $client = new Client();
 
@@ -18,7 +18,9 @@ class TeamsApi
                     'x-rapidapi-host' => 'v3.football.api-sports.io'
                 ],
                 'query' => [
-                    'country' => $country
+                    'country' => $country,
+                    'league' => $league,
+                    'season' => $season
                 ]
             ]);
 

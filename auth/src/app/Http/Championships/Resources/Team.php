@@ -4,7 +4,7 @@ namespace App\Http\Championships\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class League extends JsonResource
+class Team extends JsonResource
 {
     public static $wrap = null;
 
@@ -19,12 +19,15 @@ class League extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'type' => $this->type,
+            'national' => (bool) $this->national,
             'logo' => $this->logo,
             'api_id' => $this->api_id,
-            'country_flag' => $this->country?->flag,
+            'league_logo' => $this->league?->logo,
+            'league' => $this->league?->name,
+            'league_id' => $this->league_id,
+            'country' => $this->country?->name,
             'country_id' => $this->country_id,
-            'active' => (bool)$this->active,
+            'founded' => $this->founded,
         ];
     }
 }

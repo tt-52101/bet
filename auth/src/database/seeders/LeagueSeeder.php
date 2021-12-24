@@ -31,6 +31,7 @@ class LeagueSeeder extends Seeder
                 'name' => $league->league['name'],
                 'type' => $league->league['type'],
                 'logo' => $league->league['logo'],
+                'api_id' => $league->league['id'],
                 'country_id' => $country_id
             ]);
         }

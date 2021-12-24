@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Championships\Pages\League\Components;
+namespace App\Http\Championships\Pages\Team\Components;
 
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Components\{Avatar, Button, Card, Text};
 
-class LeagueCard
+class TeamCard
 {
 
     public function schema()
@@ -14,7 +14,7 @@ class LeagueCard
             header_left: [
                 new Avatar(
                     picture: '$logo',
-                    badge: '$country_flag',
+                    badge: '$league_logo',
                     size: 'xl',
                     squared: true
                 ),
@@ -40,7 +40,7 @@ class LeagueCard
         return new Event(
             action: 'push',
             topic: 'route',
-            payload: '/pages/auth/league_edit_$id'
+            payload: '/pages/auth/team_edit_$id'
         );
     }
 }

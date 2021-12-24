@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Championships\Pages\League\Views;
+namespace App\Http\Championships\Pages\Team\Views;
 
-use App\Http\Championships\Pages\League\Components\LeagueForm;
+use App\Http\Championships\Pages\Team\Components\TeamForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
 
-class LeagueEditView
+class TeamEditView
 {
 
     public function __construct(
-        public LeagueForm $form,
+        public TeamForm $form,
     )
     {
 
@@ -31,7 +31,7 @@ class LeagueEditView
                         new Accordion(
                             items: [
                                 new AccordionItem(
-                                    title: 'Seasons',
+                                    title: 'Fixtures',
                                     children: [
                                         new Button('Add')
                                     ]
