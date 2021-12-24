@@ -36,6 +36,12 @@ const emit = defineEmits(['close'])
             Fixtures
           </RouterLink>
         </li>
+        <li>
+          <RouterLink :to="{ path: '/pages/auth/country' }">
+            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
+            Countries
+          </RouterLink>
+        </li>
       </ul>
     </div>
   </div>

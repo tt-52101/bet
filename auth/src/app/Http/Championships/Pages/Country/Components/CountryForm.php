@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Championships\Pages\Championship\Components;
+namespace App\Http\Championships\Pages\Country\Components;
 
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Button,
+use BenBodan\BetUi\Components\{Avatar,
+    Button,
     ButtonGroup,
     Card,
     Column,
@@ -15,13 +16,12 @@ use BenBodan\BetUi\Components\{Button,
     Row,
     SwitchInput,
     Text};
-use Illuminate\Support\Facades\Date;
 
-class ChampionshipForm
+class CountryForm
 {
 
     public function __construct(
-        private string $name = 'championship',
+        private string $name = 'country',
     )
     {
         $this->host = env('APP_URL');
@@ -31,7 +31,7 @@ class ChampionshipForm
     {
 
         return new Form(
-            repo: new RestRepo(env('APP_URL') . '/auth/api/championship'),
+            repo: new RestRepo(env('APP_URL') . '/auth/api/country'),
             name: "{$this->name}_form",
             data: $data,
             children: [
@@ -42,10 +42,9 @@ class ChampionshipForm
                         )
                     ],
                     header_right: [
-                        new SwitchInput(
-                            name: 'public',
-                            title: 'Public'
-                        )
+                        new Avatar(
+                            picture: '$flag'
+                        ),
                     ],
                     children: [
                         new Row(
@@ -58,7 +57,7 @@ class ChampionshipForm
                 new Event(
                     action: 'push',
                     topic: 'route',
-                    payload: '/pages/auth/championship_edit_$id'
+                    payload: '/pages/auth/country_edit_$id'
                 )
             ]
         );
@@ -71,8 +70,8 @@ class ChampionshipForm
         $fields[] = new Column(
             children: [
                 new Input(
-                    name: 'title',
-                    placeholder: 'Title'
+                    name: 'name',
+                    placeholder: 'Name'
                 )
             ]
         );
@@ -80,38 +79,17 @@ class ChampionshipForm
         $fields[] = new Column(
             children: [
                 new Input(
-                    name: 'description',
-                    placeholder: 'Description'
+                    name: 'code',
+                    placeholder: 'Code'
                 )
             ]
         );
 
         $fields[] = new Column(
-            desktop: 4,
-            children: [
-                new Datepicker(
-                    name: 'start_at',
-                    title: 'Start'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 4,
-            children: [
-                new Datepicker(
-                    name: 'end_at',
-                    title: 'End'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 4,
             children: [
                 new Input(
-                    name: 'points',
-                    placeholder: 'Points'
+                    name: 'flag',
+                    placeholder: 'Flag'
                 )
             ]
         );
@@ -120,17 +98,8 @@ class ChampionshipForm
             desktop: 4,
             children: [
                 new SwitchInput(
-                    name: 'football',
-                    title: 'Football'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            children: [
-                new Progress(
-                    name: 'progress',
-                    title: 'Football'
+                    name: 'active',
+                    title: 'Active'
                 )
             ]
         );

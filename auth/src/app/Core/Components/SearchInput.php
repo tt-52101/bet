@@ -11,7 +11,7 @@ class SearchInput
     private $on_enter = [];
 
     public function __construct(
-        public string $name = 'keyword'
+        public string $name = 'keyword',
     )
     {
     }
@@ -27,7 +27,7 @@ class SearchInput
         $component = new Input(
             icon: 'fa fa-search',
             placeholder: 'Search',
-            name: 'keyword',
+            name: $this->name,
             on_enter: $this->on_enter
         );
         return $component();

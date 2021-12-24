@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Http\Championships\Pages\Championship\Views;
+namespace App\Http\Championships\Pages\Country\Views;
 
-use App\Core\Components\SearchInput;
-use App\Http\Championships\Pages\Championship\Components\ChampionshipForm;
-use BenBodan\BetUi\Events\Event;
-use BenBodan\BetUi\Repositories\RestRepo;
+use App\Http\Championships\Pages\Country\Components\CountryForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
 
-class ChampionshipEditView
+class CountryEditView
 {
 
     public function __construct(
-        public ChampionshipForm $form,
+        public CountryForm $form,
     )
     {
 
