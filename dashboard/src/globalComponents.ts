@@ -27,6 +27,7 @@ import Accordion from "/@src/generated/components/Accordion.vue";
 import Datepicker from "/@src/generated/components/Datepicker.vue";
 import Switch from "/@src/generated/components/Switch.vue";
 import Progress from "/@src/generated/components/Progress.vue";
+import AvatarStack from "/@src/generated/components/AvatarStack.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -59,6 +60,7 @@ const GlobalComponents = {
     app.component(Datepicker.name, Datepicker)
     app.component(Switch.name, Switch)
     app.component(Progress.name, Progress)
+    app.component(AvatarStack.name, AvatarStack)
   }
 }
 

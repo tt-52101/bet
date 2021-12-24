@@ -25,3 +25,8 @@ Route::prefix('team')->group(function(){
     Route::get('edit/{team}', 'Team\\TeamPageController@edit');
 });
 
+Route::prefix('fixture')->group(function(){
+    Route::get('/', 'Fixture\\FixturePageController@page');
+    Route::get('new', 'Fixture\\FixturePageController@new');
+    Route::get('edit/{fixture}', 'Fixture\\FixturePageController@edit');
+});
