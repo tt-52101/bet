@@ -4,7 +4,17 @@ namespace App\Http\Championships\Pages\Championship\Components;
 
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Button, ButtonGroup, Card, Column, Datepicker, Form, Input, Row, SwitchInput, Text};
+use BenBodan\BetUi\Components\{Button,
+    ButtonGroup,
+    Card,
+    Column,
+    Datepicker,
+    Form,
+    Input,
+    Progress,
+    Row,
+    SwitchInput,
+    Text};
 use Illuminate\Support\Facades\Date;
 
 class ChampionshipForm
@@ -105,6 +115,15 @@ class ChampionshipForm
             children: [
                 new SwitchInput(
                     name: 'football',
+                    title: 'Football'
+                )
+            ]
+        );
+
+        $fields[] = new Column(
+            children: [
+                new Progress(
+                    name: 'progress',
                     title: 'Football'
                 )
             ]

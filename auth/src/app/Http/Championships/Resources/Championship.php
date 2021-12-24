@@ -22,6 +22,7 @@ class Championship extends JsonResource
             'start_at' => $this->start_at,
             'end_at' => $this->end_at,
             'points' => $this->points,
+            'progress' => (float) 21,
             'football' => (bool) $this->football,
         ];
     }

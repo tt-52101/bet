@@ -26,6 +26,7 @@ import BreadCrumb from "/@src/generated/components/BreadCrumb.vue";
 import Accordion from "/@src/generated/components/Accordion.vue";
 import Datepicker from "/@src/generated/components/Datepicker.vue";
 import Switch from "/@src/generated/components/Switch.vue";
+import Progress from "/@src/generated/components/Progress.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -57,6 +58,7 @@ const GlobalComponents = {
     app.component(Accordion.name, Accordion)
     app.component(Datepicker.name, Datepicker)
     app.component(Switch.name, Switch)
+    app.component(Progress.name, Progress)
   }
 }
 
