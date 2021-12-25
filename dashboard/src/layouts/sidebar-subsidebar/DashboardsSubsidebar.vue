@@ -66,6 +66,12 @@ const emit = defineEmits(['close'])
             Bet Categories
           </RouterLink>
         </li>
+        <li>
+          <RouterLink :to="{ path: '/pages/auth/odd' }">
+            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
+            Odds
+          </RouterLink>
+        </li>
       </ul>
     </div>
   </div>

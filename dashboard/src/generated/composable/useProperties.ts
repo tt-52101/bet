@@ -23,7 +23,12 @@ export default function useProperties() {
     return text
   }
 
-  const replaceVarInObject = (prop: any, scope: any) =>{
+  const replaceAll = function (str: string, find: string, replace: string) {
+    const escapedFind = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return str.replace(new RegExp(escapedFind, 'g'), replace);
+  }
+
+  const replaceVarInObject = (prop: any, scope: any) => {
     const text = JSON.parse(JSON.stringify(prop))
     Object.keys(text).forEach(k => {
       if (text[k]) {

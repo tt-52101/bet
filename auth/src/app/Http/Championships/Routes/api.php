@@ -9,3 +9,4 @@ Route::resource('team', 'TeamController');
 Route::resource('fixture', 'FixtureController');
 Route::resource('bookmaker', 'BookmakerController');
 Route::resource('bet-category', 'BetCategoryController');
+Route::resource('odd', 'OddController');

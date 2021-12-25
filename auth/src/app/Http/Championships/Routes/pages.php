@@ -42,3 +42,9 @@ Route::prefix('bet-category')->group(function(){
     Route::get('new', 'BetCategory\\BetCategoryPageController@new');
     Route::get('edit/{bet_category}', 'BetCategory\\BetCategoryPageController@edit');
 });
+
+Route::prefix('odd')->group(function(){
+    Route::get('/', 'Odd\\OddPageController@page');
+    Route::get('new', 'Odd\\OddPageController@new');
+    Route::get('edit/{odd}', 'Odd\\OddPageController@edit');
+});
