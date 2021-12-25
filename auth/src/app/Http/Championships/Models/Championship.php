@@ -18,4 +18,8 @@ class Championship extends Model
         'points',
         'football'
     ];
+
+    public function leagues(){
+        return $this->belongsToMany(League::class,'championship_leagues');
+    }
 }

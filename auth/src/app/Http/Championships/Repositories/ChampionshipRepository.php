@@ -28,6 +28,7 @@ class ChampionshipRepository extends LocalService
     public function update($data)
     {
         $this->entry->update($data);
+        $this->syncFootballLeagues($data);
         return $this->entry;
     }
 
@@ -35,5 +36,9 @@ class ChampionshipRepository extends LocalService
     {
         $this->entry = Championship::create($data);
         return $this->entry;
+    }
+
+    public function syncFootballLeagues($data){
+        $this->entry->leagues()->sync($data['leagues_ids']);
     }
 }

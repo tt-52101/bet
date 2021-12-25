@@ -2,6 +2,8 @@
 
 namespace App\Http\Championships\Pages\Championship\Components;
 
+use App\Http\Championships\Models\Country;
+use App\Http\Championships\Models\League;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Components\{Button,
@@ -13,6 +15,7 @@ use BenBodan\BetUi\Components\{Button,
     Input,
     Progress,
     Row,
+    Select,
     SwitchInput,
     Text};
 use Illuminate\Support\Facades\Date;
@@ -112,6 +115,21 @@ class ChampionshipForm
                 new Input(
                     name: 'points',
                     placeholder: 'Points'
+                )
+            ]
+        );
+
+        $leagues = League::get();
+
+
+        $fields[] = new Column(
+            children: [
+                new Select(
+                    name: 'leagues_ids',
+                    label: 'Football Leagues',
+                    labelProp: 'name',
+                    multiple: true,
+                    options: $leagues->toArray()
                 )
             ]
         );

@@ -6,10 +6,11 @@
         :options="config.options"
         :mode="config.multiple ? 'tags': 'single'"
         :searchable="true"
+        :autocomplete="false"
         :create-tag="false"
         :valueProp="config.valueProp"
         :label="config.labelProp"
-        placeholder="Search heroes..."
+        :placeholder="config.label"
       >
       </Multiselect>
     </VControl>
@@ -24,15 +25,6 @@ import Repository from "/@src/generated/repositories/Repository";
 import StateRepo from "/@src/generated/repositories/StateRepo";
 
 const {apply} = useProperties();
-
-
-
-const tagsValue = []
-const tagsOptions = [
-  { value: 'batman', label: 'Batman' },
-  { value: 'robin', label: 'Robin' },
-  { value: 'joker', label: 'Joker' },
-]
 
 
 const props = defineProps({
@@ -57,9 +49,10 @@ const state = reactive({
 
 const config = reactive({
   name: '',
+  label: '',
   labelProp: 'title',
   valueProp: 'id',
-  multiple: false,
+  multiple: true,
   repo: {
     name: 'stateRepo',
     key: ''

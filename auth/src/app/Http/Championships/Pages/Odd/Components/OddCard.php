@@ -48,6 +48,9 @@ class OddCard
             ],
             footer_left: [
                 new Text('$bookmaker_name')
+            ],
+            footer_right: [
+                new Text('$date')
             ]
         );
     }

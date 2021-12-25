@@ -31,6 +31,8 @@ class Odd extends JsonResource
             'home_logo' => $this->fixture->home->logo,
             'away_logo' => $this->fixture->away->logo,
 
+            'date' => $this->fixture->date,
+
             'value' => $this->value,
             'odd' => $this->odd,
         ];

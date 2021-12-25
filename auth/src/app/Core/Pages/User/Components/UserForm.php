@@ -176,6 +176,7 @@ class UserForm
             children: [
                 new Select(
                     name: 'roles_id',
+                    multiple: true,
                     options: $roles
                 )
             ]
