@@ -21,6 +21,7 @@ class Country extends JsonResource
             'code' => $this->code,
             'flag' => $this->flag,
             'active' => (bool) $this->active,
+            'leagues_count' => $this->leagues()->count()
         ];
     }
 }

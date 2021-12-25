@@ -14,7 +14,7 @@ class CountryController extends ApiController
 
     public function index(CountryRepository $countries)
     {
-        $countries = $countries->paginate(10);
+        $countries = $countries->paginate(24);
         return new CountryCollection($countries);
     }
 

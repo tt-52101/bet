@@ -115,16 +115,6 @@ class FixtureForm
             ]
         );
 
-        $fields[] = new Column(
-            desktop: 4,
-            children: [
-                new SwitchInput(
-                    name: 'national',
-                    title: 'National'
-                )
-            ]
-        );
-
         return $fields;
     }
 

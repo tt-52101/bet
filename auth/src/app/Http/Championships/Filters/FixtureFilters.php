@@ -10,13 +10,15 @@ class FixtureFilters extends QueryFilters
     {
         return $this->builder
             ->where(function ($q) use ($keyword) {
-                $q->where('teams.name', 'LIKE', "%" . $keyword . "%")
-                    ->orWhereHas('country', function ($query) use ($keyword) {
-                        $query->where('name', 'like', '%' . $keyword . '%');
-                    })
-                    ->orWhereHas('league', function ($query) use ($keyword) {
-                        $query->where('name', 'like', '%' . $keyword . '%');
-                    });
+                $q->whereHas('home', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                })->orWhereHas('away', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                })->orWhereHas('country', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                })->orWhereHas('league', function ($query) use ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                });
             });
     }
 }

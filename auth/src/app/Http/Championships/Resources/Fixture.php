@@ -29,6 +29,10 @@ class Fixture extends JsonResource
             'league' => $this->league?->name,
             'league_id' => $this->league_id,
 
+
+            'home_name' => $this->home?->name,
+            'away_name' => $this->away?->name,
+
             'home_id' => $this->home_id,
             'away_id' => $this->away_id,
 

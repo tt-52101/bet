@@ -28,6 +28,7 @@ import Datepicker from "/@src/generated/components/Datepicker.vue";
 import Switch from "/@src/generated/components/Switch.vue";
 import Progress from "/@src/generated/components/Progress.vue";
 import AvatarStack from "/@src/generated/components/AvatarStack.vue";
+import Block from "/@src/generated/components/Block.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -61,6 +62,7 @@ const GlobalComponents = {
     app.component(Switch.name, Switch)
     app.component(Progress.name, Progress)
     app.component(AvatarStack.name, AvatarStack)
+    app.component(Block.name, Block)
   }
 }
 

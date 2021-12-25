@@ -31,10 +31,8 @@ class FixtureEditView
                         new Accordion(
                             items: [
                                 new AccordionItem(
-                                    title: 'Fixtures',
-                                    children: [
-                                        new Button('Add')
-                                    ]
+                                    title: 'Odds',
+                                    children: []
                                 ),
                             ]
                         )

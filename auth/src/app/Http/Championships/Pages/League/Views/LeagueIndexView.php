@@ -46,7 +46,7 @@ class LeagueIndexView
                     name: 'paginated_countries',
                     children: [
                         new Column(
-                            desktop: 3,
+                            desktop: 4,
                             children: [
                                $this->card->schema()
                             ]

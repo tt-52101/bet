@@ -16,4 +16,9 @@ class Country extends Model
         'flag',
         'active'
     ];
+
+    public function leagues()
+    {
+        return $this->hasMany(League::class, 'country_id');
+    }
 }

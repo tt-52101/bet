@@ -23,6 +23,7 @@ class League extends JsonResource
             'logo' => $this->logo,
             'api_id' => $this->api_id,
             'country_flag' => $this->country?->flag,
+            'country' => $this->country?->name,
             'country_id' => $this->country_id,
             'active' => (bool)$this->active,
         ];

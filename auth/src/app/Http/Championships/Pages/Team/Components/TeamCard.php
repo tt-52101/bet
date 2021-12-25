@@ -3,7 +3,7 @@
 namespace App\Http\Championships\Pages\Team\Components;
 
 use BenBodan\BetUi\Events\Event;
-use BenBodan\BetUi\Components\{Avatar, Button, Card, Text};
+use BenBodan\BetUi\Components\{Avatar, Block, Button, Card, Text};
 
 class TeamCard
 {
@@ -11,26 +11,29 @@ class TeamCard
     public function schema()
     {
         return new Card(
-            header_left: [
-                new Avatar(
-                    picture: '$logo',
-                    badge: '$league_logo',
-                    size: 'xl',
-                    squared: true
-                ),
-            ],
-            header_right: [
-                new Button(
-                    icon: 'fa fa-edit',
-                    title: 'Edit',
-                    rounded: true,
-                    on_click: [
-                        $this->editEvent()
+            children: [
+                new Block(
+                    title: '$name',
+                    subtitle: '$country',
+                    icon: [
+                        new Avatar(
+                            picture: '$logo',
+                            badge: '$league_logo',
+                            size: 'xl',
+                            squared: true,
+                        ),
+                    ],
+                    action: [
+                        new Button(
+                            icon: 'fa fa-edit',
+                            title: 'Edit',
+                            rounded: true,
+                            on_click: [
+                                $this->editEvent()
+                            ]
+                        )
                     ]
                 )
-            ],
-            children: [
-                new Text('$name')
             ]
         );
     }
