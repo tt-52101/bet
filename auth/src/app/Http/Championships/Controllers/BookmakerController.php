@@ -14,7 +14,7 @@ class BookmakerController extends ApiController
 
     public function index(BookmakerRepository $countries)
     {
-        $countries = $countries->paginate(10);
+        $countries = $countries->paginate(12);
         return new BookmakerCollection($countries);
     }
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Championships\Pages\Bookmaker\Views;
+namespace App\Http\Championships\Pages\BetCategory\Views;
 
-use App\Http\Championships\Pages\Bookmaker\Components\BookmakerForm;
+use App\Http\Championships\Pages\BetCategory\Components\BetCategoryForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
 
-class BookmakerEditView
+class BetCategoryEditView
 {
 
     public function __construct(
-        public BookmakerForm $form,
+        public BetCategoryForm $form,
     )
     {
 

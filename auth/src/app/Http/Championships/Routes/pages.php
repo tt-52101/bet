@@ -36,3 +36,9 @@ Route::prefix('bookmaker')->group(function(){
     Route::get('new', 'Bookmaker\\BookmakerPageController@new');
     Route::get('edit/{bookmaker}', 'Bookmaker\\BookmakerPageController@edit');
 });
+
+Route::prefix('bet-category')->group(function(){
+    Route::get('/', 'BetCategory\\BetCategoryPageController@page');
+    Route::get('new', 'BetCategory\\BetCategoryPageController@new');
+    Route::get('edit/{bet_category}', 'BetCategory\\BetCategoryPageController@edit');
+});
