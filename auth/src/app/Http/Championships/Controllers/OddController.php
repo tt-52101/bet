@@ -12,9 +12,13 @@ use App\Http\Championships\Models\Odd;
 class OddController extends ApiController
 {
 
+    public $per_page = 10;
     public function index(OddRepository $countries)
     {
-        $countries = $countries->paginate(10);
+        if (request()->has('per_page') && request()->per_page < 20) {
+            $this->per_page = request()->per_page;
+        }
+        $countries = $countries->paginate($this->per_page);
         return new OddCollection($countries);
     }
 

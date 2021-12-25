@@ -7,9 +7,12 @@ use App\Http\Championships\Pages\Odd\Components\OddCard;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder};
+use PhpParser\Node\Expr\Cast\Object_;
 
 class OddIndexView
 {
+    public $column_size = 4;
+    public array $filters = [];
 
     public function __construct(
         public OddCard $card,
@@ -42,13 +45,16 @@ class OddIndexView
             children: [
                 $this->pagination(),
                 new Builder(
-                    repository: new RestRepo(env('APP_URL') . '/auth/api/odd'),
+                    repository: new RestRepo(
+                        url: env('APP_URL') . '/auth/api/odd',
+                        filters: $this->filters
+                    ),
                     name: 'paginated_countries',
                     children: [
                         new Column(
-                            desktop: 4,
+                            desktop: $this->column_size,
                             children: [
-                               $this->card->schema()
+                                $this->card->schema()
                             ]
                         )
                     ]
@@ -78,7 +84,6 @@ class OddIndexView
             ]
         );
     }
-
 
 
     public function onSearch()

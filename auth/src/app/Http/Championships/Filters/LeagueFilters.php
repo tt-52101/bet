@@ -16,4 +16,16 @@ class LeagueFilters extends QueryFilters
                     });
             });
     }
+
+    public function has_fixtures($value)
+    {
+        if ($value) {
+            return $this->builder->whereHas('fixtures');
+        }
+    }
+
+    public function country_id($id)
+    {
+        return $this->builder->where('leagues.country_id', $id);
+    }
 }

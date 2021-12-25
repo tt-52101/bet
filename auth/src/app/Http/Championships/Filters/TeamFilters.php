@@ -19,4 +19,17 @@ class TeamFilters extends QueryFilters
                     });
             });
     }
+
+    public function has_odds($value)
+    {
+        if ($value) {
+            return $this->builder
+                ->where(function ($q) {
+                    $q->whereHas('homeFixtures.odds')
+                        ->orWhereHas('awayFixtures.odds');
+
+                });
+        }
+    }
+
 }

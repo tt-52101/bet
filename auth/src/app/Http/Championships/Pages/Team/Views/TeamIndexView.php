@@ -6,7 +6,7 @@ use App\Core\Components\SearchInput;
 use App\Http\Championships\Pages\Team\Components\TeamCard;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder};
+use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder, SwitchInput};
 
 class TeamIndexView
 {
@@ -23,6 +23,18 @@ class TeamIndexView
         return new Row(
             children: [
                 new Column(
+                    desktop: 6,
+                    children: [
+                        new SwitchInput(
+                            name: 'paginated_teams.query.has_odds',
+                            title: 'Has Odds',
+                            on_change: $this->onSearch()
+
+                        )
+                    ]
+                ),
+                new Column(
+                    desktop: 6,
                     children: [
                         $this->searchInput()
                     ]
@@ -43,7 +55,7 @@ class TeamIndexView
                 $this->pagination(),
                 new Builder(
                     repository: new RestRepo(env('APP_URL') . '/auth/api/team'),
-                    name: 'paginated_countries',
+                    name: 'paginated_teams',
                     children: [
                         new Column(
                             desktop: 4,
@@ -59,7 +71,7 @@ class TeamIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('paginated_countries.query.keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_teams.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function pagination()
@@ -67,10 +79,10 @@ class TeamIndexView
         return new Column(
             children: [
                 new Pagination(
-                    name: "paginated_countries.meta",
+                    name: "paginated_teams.meta",
                     on_change: [
                         new Event(
-                            topic: 'paginated_countries',
+                            topic: 'paginated_teams',
                             action: 'get',
                         )
                     ]
@@ -85,7 +97,7 @@ class TeamIndexView
     {
         return [
             new Event(
-                topic: 'paginated_countries',
+                topic: 'paginated_teams',
                 action: 'search',
             )
         ];

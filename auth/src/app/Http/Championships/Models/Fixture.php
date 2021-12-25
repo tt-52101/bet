@@ -53,4 +53,8 @@ class Fixture extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+
+    public function odds(){
+        return $this->hasMany(Odd::class, 'fixture_id');
+    }
 }

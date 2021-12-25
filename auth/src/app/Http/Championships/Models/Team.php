@@ -31,4 +31,12 @@ class Team extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+
+    public function homeFixtures(){
+        return $this->hasMany(Fixture::class, 'home_id');
+    }
+
+    public function awayFixtures(){
+        return $this->hasMany(Fixture::class, 'home_id');
+    }
 }

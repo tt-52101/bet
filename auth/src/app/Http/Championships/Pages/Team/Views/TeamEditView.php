@@ -18,6 +18,14 @@ class TeamEditView
 
     public function schema($data = [])
     {
+        $this->fixtures->column_size = 12;
+
+        if($data) {
+            $this->fixtures->filters = [
+                'per_page' => 3,
+                'team_id' => $data['id']
+            ];
+        }
         return new Row(
             children: [
                 new Column(

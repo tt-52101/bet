@@ -1,21 +1,22 @@
 <template>
   <template v-for="(scope,index) in state_items" :key="`${state.render}_${index}`">
-      <component
-        :is="item.component"
-        :properties="item.props"
-        :scope="scope"
-        v-for="(item,i) in config.children" :key="i">
-      </component>
+    <component
+      :is="item.component"
+      :properties="item.props"
+      :scope="scope"
+      v-for="(item,i) in config.children" :key="i">
+    </component>
   </template>
 </template>
 
 <script setup lang="ts">
-import {defineProps,computed, onMounted, reactive, watch} from "vue";
+import {defineProps, computed, onMounted, reactive, watch} from "vue";
 import Repository from '/@src/generated/repositories/Repository';
 import useProperties from "/@src/generated/composable/useProperties";
 import useState from "/@src/generated/composable/useState";
 import useEvents from "/@src/generated/composable/useEvents";
 import useApi from "/@src/generated/composable/useApi";
+import _ from "lodash";
 
 const {apply} = useProperties();
 const {get} = useApi()
@@ -36,7 +37,9 @@ const config = reactive({
 })
 
 const state = reactive({
-  repo: {},
+  repo: {
+    filters: {}
+  },
   items: {},
   meta: {},
   render: 1,
@@ -75,9 +78,15 @@ function getItems() {
   state.loading = true
   const page = getData(`${config.name}.meta.current_page`)
   let filters = getData(`${config.name}.query`)
-  if(!filters) {
-    filters  = {}
+
+  if (!filters) {
+    filters = {}
   }
+
+  Object.keys(config.repo.filters).forEach((k) => {
+    filters[k] = config.repo.filters[k]
+  });
+
   filters.page = page;
   get(config.repo.get, filters).then(res => {
     state.items = res.data.data
@@ -89,19 +98,19 @@ function getItems() {
   })
 }
 
-function changePage(page:number) {
+function changePage(page: number) {
   setData(`${config.name}.meta.current_page`, page)
 }
 
-function clearFilters(){
+function clearFilters() {
   setData(`${config.name}.query`, {})
 }
 
 const state_items = computed({
   get() {
     let items = []
-    if(config.repo.name === 'stateRepo') {
-       return getData(config.name)
+    if (config.repo.name === 'stateRepo') {
+      return getData(config.name)
     }
     return state.items
   },

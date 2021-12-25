@@ -4,7 +4,6 @@ namespace App\Core\Controllers;
 
 
 use App\Core\Filters\FixtureFilters;
-use App\Core\Services\UserService;
 use App\Models\Fixture;
 use App\Core\Resources\FixtureCollection;
 

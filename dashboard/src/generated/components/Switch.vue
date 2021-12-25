@@ -1,6 +1,6 @@
 <template>
   <VControl>
-    <VSwitchBlock :color="config.color" :thin="config.thin" v-model="value" :label="config.title" />
+    <VSwitchBlock @update:modelValue="onChange" :color="config.color" :thin="config.thin" v-model="value" :label="config.title"/>
   </VControl>
 </template>
 
@@ -9,9 +9,10 @@ import {computed, defineProps, onMounted, reactive} from "vue";
 import useProperties from "/@src/generated/composable/useProperties";
 import Repository from "/@src/generated/repositories/Repository";
 import _ from "lodash";
+import useEvents from "/@src/generated/composable/useEvents";
 
 const {apply} = useProperties();
-const date = reactive();
+const {publish} = useEvents();
 
 const props = defineProps({
   properties: {
@@ -32,7 +33,8 @@ const config = reactive({
   name: '',
   title: '',
   thin: true,
-  color: 'primary'
+  color: 'primary',
+  on_change: []
 })
 
 const state = reactive({
@@ -45,6 +47,12 @@ onMounted(() => {
   let def = _.get(props.scope, config.name)
   state.repo = new Repository(config.repo, def)
 })
+
+function onChange() {
+  config.on_change.forEach(event => {
+    return publish(event.action, event.payload, event.topic)
+  })
+}
 
 const value = computed({
   get() {

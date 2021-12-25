@@ -4,12 +4,14 @@ namespace App\Http\Championships\Pages\Country\Views;
 
 use App\Http\Championships\Pages\Country\Components\CountryForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
+use App\Http\Championships\Pages\League\Views\LeagueIndexView;
 
 class CountryEditView
 {
 
     public function __construct(
-        public CountryForm $form,
+        public CountryForm     $form,
+        public LeagueIndexView $leagues,
     )
     {
 
@@ -17,6 +19,13 @@ class CountryEditView
 
     public function schema($data = [])
     {
+        if ($data) {
+            $this->leagues->column_size = 12;
+            $this->leagues->filters = [
+              'per_page' => 3,
+              'country_id' => $data['id']
+            ];
+        }
         return new Row(
             children: [
                 new Column(
@@ -31,14 +40,11 @@ class CountryEditView
                         new Accordion(
                             items: [
                                 new AccordionItem(
-                                    title: 'Football',
+                                    title: 'Leagues',
                                     children: [
-                                        new Button('Add')
+                                       $this->leagues->schema()
                                     ]
                                 ),
-                                new AccordionItem(
-                                    title: 'Bascketball'
-                                )
                             ]
                         )
                     ]

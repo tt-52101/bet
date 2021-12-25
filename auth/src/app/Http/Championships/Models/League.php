@@ -21,4 +21,8 @@ class League extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+
+    public function fixtures(){
+        return $this->hasMany(Fixture::class, 'league_id');
+    }
 }

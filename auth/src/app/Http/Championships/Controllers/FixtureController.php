@@ -11,11 +11,15 @@ use App\Http\Championships\Models\Fixture;
 
 class FixtureController extends ApiController
 {
+    public $per_page = 10;
 
-    public function index(FixtureRepository $countries)
+    public function index(FixtureRepository $fixtures)
     {
-        $countries = $countries->paginate(10);
-        return new FixtureCollection($countries);
+        if (request()->has('per_page') && request()->per_page < 20) {
+            $this->per_page = request()->per_page;
+        }
+        $fixtures = $fixtures->paginate($this->per_page);
+        return new FixtureCollection($fixtures);
     }
 
     public function show(FixtureRepository $fixture)

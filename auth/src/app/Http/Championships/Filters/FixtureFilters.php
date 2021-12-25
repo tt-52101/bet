@@ -21,4 +21,25 @@ class FixtureFilters extends QueryFilters
                 });
             });
     }
+
+    public function has_odds($value)
+    {
+        if ($value) {
+            return $this->builder->whereHas('odds');
+        }
+    }
+
+    public function league_id($id)
+    {
+        return $this->builder->where('fixtures.league_id', $id);
+    }
+
+    public function team_id($id)
+    {
+        return $this->builder
+            ->where(function ($q) use ($id) {
+                $q->where('home_id', $id)
+                    ->orWhere('away_id', $id);
+            });
+    }
 }
