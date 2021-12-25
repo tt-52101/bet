@@ -54,6 +54,12 @@ const emit = defineEmits(['close'])
             Teams
           </RouterLink>
         </li>
+        <li>
+          <RouterLink :to="{ path: '/pages/auth/bookmaker' }">
+            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
+            Bookmakers
+          </RouterLink>
+        </li>
       </ul>
     </div>
   </div>

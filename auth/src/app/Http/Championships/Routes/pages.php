@@ -30,3 +30,9 @@ Route::prefix('fixture')->group(function(){
     Route::get('new', 'Fixture\\FixturePageController@new');
     Route::get('edit/{fixture}', 'Fixture\\FixturePageController@edit');
 });
+
+Route::prefix('bookmaker')->group(function(){
+    Route::get('/', 'Bookmaker\\BookmakerPageController@page');
+    Route::get('new', 'Bookmaker\\BookmakerPageController@new');
+    Route::get('edit/{bookmaker}', 'Bookmaker\\BookmakerPageController@edit');
+});
