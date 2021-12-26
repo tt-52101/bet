@@ -28,4 +28,12 @@ class LeagueFilters extends QueryFilters
     {
         return $this->builder->where('leagues.country_id', $id);
     }
+
+    public function championship_id($id)
+    {
+        return $this->builder
+            ->whereHas('championships', function ($q) use ($id) {
+                $q->where('championship_id', $id);
+            });
+    }
 }

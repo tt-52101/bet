@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::post('championship/{championship}/league', 'ChampionshipController@addLeague');
 Route::resource('championship', 'ChampionshipController');
 Route::resource('country', 'CountryController');
 Route::resource('league', 'LeagueController');

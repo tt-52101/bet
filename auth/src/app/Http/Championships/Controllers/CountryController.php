@@ -11,10 +11,13 @@ use App\Http\Championships\Models\Country;
 
 class CountryController extends ApiController
 {
-
+    public int $per_page = 24;
     public function index(CountryRepository $countries)
     {
-        $countries = $countries->paginate(24);
+        if (request()->has('per_page') && request()->per_page < 20) {
+            $this->per_page = request()->per_page;
+        }
+        $countries = $countries->paginate($this->per_page);
         return new CountryCollection($countries);
     }
 

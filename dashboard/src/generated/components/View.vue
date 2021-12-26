@@ -1,13 +1,13 @@
 <template>
   <VLoader :translucent="true" size="large" :active="state.loading">
-  <div style="min-height: 200px">
-    <component
-      :is="item.component"
-      :properties="item.props"
-      :scope="scope"
-      v-for="(item,i) in config.children" :key="i">
-    </component>
-  </div>
+    <div style="min-height: 200px">
+      <component
+        :is="item.component"
+        :properties="item.props"
+        :scope="scope"
+        v-for="(item,i) in config.children" :key="state.render">
+      </component>
+    </div>
   </VLoader>
 </template>
 
@@ -15,14 +15,18 @@
 import {defineProps, onMounted, reactive} from "vue";
 import useProperties from "/@src/generated/composable/useProperties";
 import useApi from "/@src/generated/composable/useApi";
+import useEvents from "/@src/generated/composable/useEvents";
+import useState from "/@src/generated/composable/useState";
 
 const {apply} = useProperties();
 const {get} = useApi();
 
+const {getData, setData} = useState();
+
 const props = defineProps({
   properties: {
     type: Object,
-    default(){
+    default() {
       return {}
     }
   },
@@ -35,25 +39,45 @@ const props = defineProps({
 });
 
 const config = reactive({
-  children: []
+  name: '',
+  topic: '',
 })
 
 const state = reactive({
-  loading: true
+  loading: true,
+  render: 1,
 })
+
+let {publish, listen, action, listenTopic} = useEvents()
 
 onMounted(() => {
   config.value = apply(props.properties, config)
+  listenTopic({key: config.topic})
   getPage()
 })
 
-function getPage(){
+function getPage() {
   state.loading = true
-  get(config.repo.get).then(res => {
+  let filters = getData(config.name)
+
+  if (!filters) {
+    filters = {}
+  }
+
+  Object.keys(config.repo.filters).forEach((k) => {
+    filters[k] = config.repo.filters[k]
+  });
+
+  get(config.repo.get, filters).then(res => {
     config.children = res.data.props.children
     state.loading = false
+    state.render+=1
   })
 }
+
+action('get', (value: any) => {
+  getPage()
+})
 
 </script>
 

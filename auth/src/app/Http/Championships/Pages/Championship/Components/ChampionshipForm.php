@@ -119,21 +119,6 @@ class ChampionshipForm
             ]
         );
 
-        $leagues = League::get();
-
-
-        $fields[] = new Column(
-            children: [
-                new Select(
-                    name: 'leagues_ids',
-                    label: 'Football Leagues',
-                    labelProp: 'name',
-                    multiple: true,
-                    options: $leagues->toArray()
-                )
-            ]
-        );
-
         $fields[] = new Column(
             desktop: 4,
             children: [

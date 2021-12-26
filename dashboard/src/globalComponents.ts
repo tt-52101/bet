@@ -29,6 +29,7 @@ import Switch from "/@src/generated/components/Switch.vue";
 import Progress from "/@src/generated/components/Progress.vue";
 import AvatarStack from "/@src/generated/components/AvatarStack.vue";
 import Block from "/@src/generated/components/Block.vue";
+import Radio from "/@src/generated/components/Radio.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -63,6 +64,7 @@ const GlobalComponents = {
     app.component(Progress.name, Progress)
     app.component(AvatarStack.name, AvatarStack)
     app.component(Block.name, Block)
+    app.component(Radio.name, Radio)
   }
 }
 

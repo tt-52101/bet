@@ -6,7 +6,6 @@
         :options="config.options"
         :mode="config.multiple ? 'tags': 'single'"
         :searchable="true"
-        :autocomplete="false"
         :create-tag="false"
         :valueProp="config.valueProp"
         :label="config.labelProp"

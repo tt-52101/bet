@@ -2,6 +2,7 @@
 
 namespace App\Http\Championships\Controllers;
 
+use App\Http\Championships\Models\League;
 use App\Http\Championships\Repositories\ChampionshipRepository;
 use App\Http\Championships\Resources\Championship as ChampionshipResource;
 use App\Http\Championships\Resources\ChampionshipCollection;
@@ -42,6 +43,16 @@ class ChampionshipController extends ApiController
         return [
             'message' => 'Championship Created Successfully',
             'entry' => $championship
+        ];
+    }
+
+
+    public function addLeague(Championship $championship) {
+        $league = League::find(request()->league_id);
+        $championship->leagues()->attach($league);
+
+        return [
+            'message' => 'League Selected Successfully'
         ];
     }
 }

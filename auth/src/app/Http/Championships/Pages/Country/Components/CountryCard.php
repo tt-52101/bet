@@ -8,6 +8,26 @@ use BenBodan\BetUi\Components\{Avatar, Block, Button, Card, Text};
 class CountryCard
 {
 
+    public $actions = [];
+
+    public function __construct()
+    {
+        $this->actions = [
+            new Button(
+                icon: 'fa fa-edit',
+                title: 'Edit',
+                rounded: true,
+                on_click: [
+                    new Event(
+                        action: 'push',
+                        topic: 'route',
+                        payload: '/pages/auth/country_edit_$id'
+                    )
+                ]
+            )
+        ];
+    }
+
     public function schema()
     {
         return new Card(
@@ -20,27 +40,19 @@ class CountryCard
                             picture: '$flag',
                         ),
                     ],
-                    action: [
-                        new Button(
-                            icon: 'fa fa-edit',
-                            title: 'Edit',
-                            rounded: true,
-                            on_click: [
-                                $this->editEvent()
-                            ]
-                        )
-                    ]
+                    action: $this->action()
                 )
             ]
         );
     }
 
-    public function editEvent()
+    public function setActions($actions)
     {
-        return new Event(
-            action: 'push',
-            topic: 'route',
-            payload: '/pages/auth/country_edit_$id'
-        );
+        $this->actions = $actions;
+    }
+
+    public function action()
+    {
+        return $this->actions;
     }
 }

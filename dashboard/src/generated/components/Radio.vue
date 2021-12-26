@@ -1,5 +1,16 @@
 <template>
-  <VProgress :size="config.size" :max="config.max" :color="config.color" :value="value" />
+  <VField>
+    <VControl>
+      <VRadio
+        v-model="value"
+        :value="config.val"
+        :label="config.title"
+        :name="config.name"
+        :solid="config.solid"
+        :color="config.color"
+      />
+    </VControl>
+  </VField>
 </template>
 
 <script setup lang="ts">
@@ -7,9 +18,10 @@ import {computed, defineProps, onMounted, reactive} from "vue";
 import useProperties from "/@src/generated/composable/useProperties";
 import Repository from "/@src/generated/repositories/Repository";
 import _ from "lodash";
+import useEvents from "/@src/generated/composable/useEvents";
 
 const {apply} = useProperties();
-const date = reactive();
+const {publish} = useEvents();
 
 const props = defineProps({
   properties: {
@@ -29,9 +41,11 @@ const props = defineProps({
 const config = reactive({
   name: '',
   title: '',
-  size: 'small',
+  thin: true,
   color: 'primary',
-  max: 100
+  val: '',
+  solid: false,
+  on_change: []
 })
 
 const state = reactive({
@@ -45,6 +59,12 @@ onMounted(() => {
   state.repo = new Repository(config.repo, def)
 })
 
+function onChange() {
+  config.on_change.forEach(event => {
+    return publish(event.action, event.payload, event.topic)
+  })
+}
+
 const value = computed({
   get() {
     state.render++
@@ -52,7 +72,7 @@ const value = computed({
       return state.repo.get()
     }
 
-    return 0
+    return ''
   },
   set(value: string): void {
     state.repo.set(value)
@@ -62,6 +82,6 @@ const value = computed({
 
 <script lang="ts">
 export default {
-  name: 'gProgress'
+  name: 'gRadio'
 }
 </script>

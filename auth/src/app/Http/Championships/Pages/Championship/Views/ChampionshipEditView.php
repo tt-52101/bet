@@ -4,9 +4,11 @@ namespace App\Http\Championships\Pages\Championship\Views;
 
 use App\Core\Components\SearchInput;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipForm;
+use App\Http\Championships\Pages\League\Components\LeagueCard;
+use App\Http\Championships\Pages\League\Views\LeagueIndexView;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
+use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Radio, View, Card, Modal, Page, Row, Column, Builder};
 
 class ChampionshipEditView
 {
@@ -20,6 +22,7 @@ class ChampionshipEditView
 
     public function schema($data = [])
     {
+        $id = $data['id'];
         return new Row(
             children: [
                 new Column(
@@ -32,15 +35,14 @@ class ChampionshipEditView
                     desktop: 6,
                     children: [
                         new Accordion(
+                            active: 0,
                             items: [
                                 new AccordionItem(
                                     title: 'Football',
                                     children: [
-                                        new Button('Add')
+                                        $this->leagueModal($id),
+                                        $this->leagues($id),
                                     ]
-                                ),
-                                new AccordionItem(
-                                    title: 'Bascketball'
                                 )
                             ]
                         )
@@ -48,6 +50,76 @@ class ChampionshipEditView
                 ),
             ]
         );
+    }
+
+    public function leagues($championship_id)
+    {
+        $card = new LeagueCard();
+        $card->setActions([
+            new Button(
+                title: 'Remove',
+                icon: 'fa fa-trash',
+            )
+        ]);
+
+        $leagues = new LeagueIndexView($card);
+        $leagues->column_size = 12;
+        $leagues->filters = [
+            'per_page' => 3,
+            'championship_id' => $championship_id
+        ];
+        return $leagues->schema();
+    }
+
+    public function leagueModal($championship_id)
+    {
+        return new Row(
+            children: [
+                new Button(
+                    align: 'right',
+                    title: 'Add New',
+                    on_click: [
+                        new Event(
+                            action: 'show',
+                            topic: 'league_modal'
+                        ),
+                    ]
+                ),
+                new Modal(
+                    name: 'league_modal',
+                    children: [
+                        new View(
+                            name: 'add_league.body',
+                            topic: 'add_league_view',
+                            repo: new RestRepo(
+                                url: env('APP_URL') . "/auth/api/page/championship/$championship_id/wizard/league",
+                            )
+                        )
+                    ],
+                    footer: [
+                        new Button(
+                            title: 'Next',
+                            on_click: [
+                                new Event(
+                                    topic: 'add_league_view',
+                                    action: 'get'
+                                )
+                            ]
+                        ),
+                        new Button(
+                            title: 'Select',
+                            on_click: [
+                                new Event(
+                                    topic: 'add_league',
+                                    action: 'create'
+                                )
+                            ]
+                        )
+                    ]
+                )
+            ]
+        );
+
     }
 
 

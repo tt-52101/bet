@@ -2,7 +2,7 @@
   <VFlexPagination
     v-if="meta.per_page < meta.total"
     @change="changePage"
-    :item-per-page="meta.per_page"
+    :item-per-page="Number(meta.per_page)"
     :total-items="meta.total"
     :current-page="meta.current_page"
     :max-links-displayed="5"

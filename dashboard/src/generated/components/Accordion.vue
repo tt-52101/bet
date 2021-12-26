@@ -28,6 +28,12 @@ const props = defineProps({
     default() {
       return {}
     }
+  },
+  scope: {
+    type: Object,
+    default() {
+      return {}
+    }
   }
 });
 

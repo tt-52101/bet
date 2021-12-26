@@ -10,6 +10,8 @@ use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder};
 
 class CountryIndexView
 {
+    public int $column_size = 3;
+    public array $filters = [];
 
     public function __construct(
         public CountryCard $card,
@@ -42,13 +44,16 @@ class CountryIndexView
             children: [
                 $this->pagination(),
                 new Builder(
-                    repository: new RestRepo(env('APP_URL') . '/auth/api/country'),
+                    repository: new RestRepo(
+                        url: env('APP_URL') . '/auth/api/country',
+                        filters: $this->filters
+                    ),
                     name: 'paginated_countries',
                     children: [
                         new Column(
-                            desktop: 3,
+                            desktop: $this->column_size,
                             children: [
-                               $this->card->schema()
+                                $this->card->schema()
                             ]
                         )
                     ]
@@ -78,7 +83,6 @@ class CountryIndexView
             ]
         );
     }
-
 
 
     public function onSearch()
