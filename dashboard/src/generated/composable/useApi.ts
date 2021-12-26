@@ -26,6 +26,17 @@ export default function useApi() {
     })
   }
 
+  const del = (url: string, data: any, params: any = {}, authenticated: boolean = true) => {
+    const get = genParams(params)
+
+    return axios({
+      url: `${url}${get}`,
+      data: data,
+      method: 'delete',
+      headers: getHeaders(authenticated)
+    })
+  }
+
   const update = (url: string, data: any, params: any = {}, authenticated: boolean = true) => {
     const get = genParams(params)
 
@@ -70,6 +81,7 @@ export default function useApi() {
   return {
     get,
     post,
+    del,
     update,
   }
 }

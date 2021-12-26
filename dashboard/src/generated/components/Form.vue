@@ -4,7 +4,7 @@
       <component
         :is="item.component"
         :properties="item.props"
-        :scope="config.data ? config.data : config.scope"
+        :scope="Object.keys(state.scope).length > 0 ? state.scope : scope"
         v-for="(item,i) in config.children" :key="i">
       </component>
     </VLoader>
@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, onMounted, reactive, watch} from 'vue'
+import {defineProps, onUnmounted, onMounted, reactive, watch} from 'vue'
 import Repository from "/@src/generated/repositories/Repository"
 import useProperties from "/@src/generated/composable/useProperties";
 import useEvents from "/@src/generated/composable/useEvents";
@@ -33,7 +33,7 @@ const props = defineProps({
   scope: {
     type: Object,
     default() {
-      return {}
+      return null
     }
   }
 });
@@ -53,13 +53,15 @@ const config = reactive({
   children: [],
   data: [],
   on_created: [],
-  on_updated: []
+  on_updated: [],
+  on_deleted: []
 })
 
 const state = reactive({
   repo: {},
   items: {},
   events: {},
+  scope: {},
   loading: true
 })
 
@@ -71,18 +73,25 @@ let {publish, listen, action, listenTopic} = useEvents()
 
 onMounted(() => {
 
-  if(props.properties.data){
-    config.data = props.properties.data
-  } else if (!config.data) {
-    config.data = props.scope
+  state.scope = props.properties.data
+
+  if(Object.keys(props.properties.data).length === 0){
+    state.scope = props.scope
   }
-  config.value = apply(props.properties, config, config.data)
+
+  config.value = apply(props.properties, config, state.scope)
+
   listenTopic(config.events)
   setData(`${config.name}.body`, config.data)
   state.loading = false
 })
 
-const {post, update, get} = useApi()
+onUnmounted(() => {
+  setData(`${config.name}`, {})
+})
+
+
+const {post, update, get, del} = useApi()
 const {getData, setData} = useState();
 const notyf = new Notyf()
 
@@ -92,12 +101,12 @@ function publishEvents(events: []) {
   })
 }
 
-function syncScope(entry: any){
+function syncScope(entry: any) {
   config.data = entry
   config.value = apply(props.properties, config, config.data)
 }
 
-action('refresh', (value: any) => {
+function refresh() {
   state.loading = true
 
   get(config.repo.get).then(response => {
@@ -105,6 +114,10 @@ action('refresh', (value: any) => {
   }).then(response => {
     state.loading = false
   })
+}
+
+action('refresh', (value: any) => {
+  refresh()
 })
 
 action('show', (value: any) => {
@@ -139,6 +152,18 @@ action('update', (value: any) => {
     state.loading = false
     notyf.success(response.data.message)
     publishEvents(config.on_updated)
+  }).catch(err => {
+    state.loading = false
+    const message = err.response.data.message
+    notyf.error(message ? message : 'Error on Create')
+  })
+})
+
+action('delete', (value: any) => {
+  del(config.repo.delete).then(response => {
+    state.loading = false
+    notyf.success(response.data.message)
+    publishEvents(config.on_deleted)
   }).catch(err => {
     state.loading = false
     const message = err.response.data.message

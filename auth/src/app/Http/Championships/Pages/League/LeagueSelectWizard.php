@@ -6,6 +6,7 @@ use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\League;
 use App\Http\Championships\Pages\Country\Components\CountryCard;
 use App\Http\Championships\Pages\Country\Views\CountryIndexView;
+use App\Http\Championships\Pages\League\Components\ChampionshipLeagueCard;
 use App\Http\Championships\Pages\League\Components\LeagueCard;
 use App\Http\Championships\Pages\League\Views\LeagueEditView;
 use BenBodan\BetUi\Events\Event;
@@ -16,11 +17,12 @@ use App\Http\Championships\Resources\League as LeagueResource;
 
 class LeagueSelectWizard extends ApiController
 {
-    public $form_url = '';
 
-    public function __construct($form_url)
+    public function __construct(
+        public       $form_url = '',
+        public array $on_created = [],
+    )
     {
-        $this->form_url = $form_url;
     }
 
     public function wizard()
@@ -40,7 +42,8 @@ class LeagueSelectWizard extends ApiController
             ),
             children: [
                 $body
-            ]
+            ],
+            on_created: $this->on_created
         );
 
         $page = new Page(

@@ -2,9 +2,8 @@
 
 namespace App\Http\Championships\Pages\Championship\Views;
 
-use App\Core\Components\SearchInput;
+use App\Http\Championships\Pages\Championship\Components\ChampionshipLeagueCard;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipForm;
-use App\Http\Championships\Pages\League\Components\LeagueCard;
 use App\Http\Championships\Pages\League\Views\LeagueIndexView;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
@@ -54,13 +53,8 @@ class ChampionshipEditView
 
     public function leagues($championship_id)
     {
-        $card = new LeagueCard();
-        $card->setActions([
-            new Button(
-                title: 'Remove',
-                icon: 'fa fa-trash',
-            )
-        ]);
+        $url = env('APP_URL')."/auth/api/championship/$championship_id/league";
+        $card = new ChampionshipLeagueCard($url);
 
         $leagues = new LeagueIndexView($card);
         $leagues->column_size = 12;

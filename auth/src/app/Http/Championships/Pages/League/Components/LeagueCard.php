@@ -4,8 +4,9 @@ namespace App\Http\Championships\Pages\League\Components;
 
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Components\{Avatar, AvatarStack, Block, Button, Card, Text};
+use BenBodan\BetUi\Components\Component;
 
-class LeagueCard
+class LeagueCard extends Component
 {
 
     public $actions = [];

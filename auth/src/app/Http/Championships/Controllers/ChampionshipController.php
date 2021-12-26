@@ -55,4 +55,12 @@ class ChampionshipController extends ApiController
             'message' => 'League Selected Successfully'
         ];
     }
+
+    public function removeLeague(Championship $championship, League $league) {
+        $championship->leagues()->detach($league);
+        
+        return [
+            'message' => 'League Removed Successfully'
+        ];
+    }
 }

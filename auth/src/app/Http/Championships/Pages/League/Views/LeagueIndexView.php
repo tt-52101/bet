@@ -3,10 +3,10 @@
 namespace App\Http\Championships\Pages\League\Views;
 
 use App\Core\Components\SearchInput;
-use App\Http\Championships\Pages\League\Components\LeagueCard;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder, SwitchInput};
+use BenBodan\BetUi\Components\Component;
 
 class LeagueIndexView
 {
@@ -14,7 +14,7 @@ class LeagueIndexView
     public array $filters = [];
 
     public function __construct(
-        public LeagueCard $card,
+        public Component $card,
     )
     {
 

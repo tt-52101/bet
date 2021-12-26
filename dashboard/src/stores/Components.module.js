@@ -45,7 +45,7 @@ export const alert = {
       state.last_event_id += 1;
       payload.id = state.last_event_id;
       state.events.push(payload);
-      if (state.events.length >= 2) {
+      if (state.events.length >= 3) {
         state.events.shift();
       }
     },

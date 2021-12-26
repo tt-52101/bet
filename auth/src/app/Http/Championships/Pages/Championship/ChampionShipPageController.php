@@ -10,6 +10,7 @@ use App\Http\Championships\Pages\League\LeagueSelectWizard;
 use BenBodan\BetUi\Components\{Column, Page, Row, Card};
 use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
 use App\Http\Championships\Resources\Championship as ChampionshipResource;
+use BenBodan\BetUi\Events\Event;
 
 class ChampionShipPageController extends ApiController
 {
@@ -41,7 +42,17 @@ class ChampionShipPageController extends ApiController
     public function leagueSelect($championship)
     {
         $url = env('APP_URL') . "/auth/api/championship/$championship/league";
-        $wizard = new LeagueSelectWizard($url);
+        $events = [
+            new Event(
+                action: 'close',
+                topic: 'league_modal'
+            ),
+            new Event(
+                action: 'get',
+                topic: 'paginated_leagues'
+            ),
+        ];
+        $wizard = new LeagueSelectWizard($url, $events);
         return $wizard->wizard();
     }
 }

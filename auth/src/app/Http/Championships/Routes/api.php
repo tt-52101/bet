@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::post('championship/{championship}/league', 'ChampionshipController@addLeague');
+Route::delete('championship/{championship}/league/{league}/', 'ChampionshipController@removeLeague');
 Route::resource('championship', 'ChampionshipController');
 Route::resource('country', 'CountryController');
 Route::resource('league', 'LeagueController');
