@@ -15,7 +15,7 @@ class MenuService extends LocalService
     public function paginate($per_page)
     {
         $this->filters = new MenuFilters($this->request);
-        return Menu::lang($this->lang_id)->filter($this->filters)->paginate($per_page);
+        return Menu::filter($this->filters)->paginate($per_page);
     }
 
     public function create(array $data)

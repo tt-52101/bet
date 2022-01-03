@@ -1,5 +1,28 @@
 <script setup lang="ts">
+import Api from '/@src/helpers/Api';
+import SidebarItem from './SidebarItem.vue';
+
+import {reactive, onMounted} from "vue";
+
 const emit = defineEmits(['close'])
+
+onMounted(() => {
+  getMenu();
+})
+
+const state = reactive({
+  menu: [],
+  loading: true
+});
+
+function getMenu() {
+  const api = new Api('menu');
+  state.loading = true;
+  api.get({parent_name: 'side_bar'}, 1, '/api/menu/tree').then(res => {
+    state.menu = res.data;
+    state.loading = false
+  })
+}
 </script>
 
 <template>
@@ -11,67 +34,11 @@ const emit = defineEmits(['close'])
       </div>
     </div>
     <div class="inner" data-simplebar>
+
       <ul>
-        <li>
-          <RouterLink :to="{ name: 'app' }">
-            <i aria-hidden="true" class="lnil lnil-home pr-2"></i>
-            Home
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/user' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Users
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/championship' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Championship
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/fixture' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Fixtures
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/country' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Countries
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/league' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Leagues
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/team' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Teams
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/bookmaker' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Bookmakers
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/bet-category' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Bet Categories
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ path: '/pages/auth/odd' }">
-            <i aria-hidden="true" class="lnil lnil-cogs pr-2"></i>
-            Odds
-          </RouterLink>
-        </li>
+        <VLoader :translucent="true" size="large" :active="state.loading">
+        <sidebar-item v-for="item in state.menu" :key="item.id" :item="item"></sidebar-item>
+        </VLoader>
       </ul>
     </div>
   </div>

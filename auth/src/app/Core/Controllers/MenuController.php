@@ -9,7 +9,6 @@ use App\Core\Models\Menu;
 use App\Core\Controllers\ApiController;
 use App\Core\Services\MenuService;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Request;
 
 class MenuController extends ApiController
 {
@@ -22,15 +21,14 @@ class MenuController extends ApiController
         return new MenuCollection($Menus->paginate(8));
     }
 
-    public function tree(Request $request)
+    public function tree()
     {
         if (Gate::denies('view', new Menu())) {
             return $this->respondForbidden("You don't have permission to view");
         }
 
-        $lang = $request['lang'];
-        $parent = Menu::where('name', '=', $request['parent_name'])->first();
-        $menu = Menu::lang($lang)->orderBy('menus.order', 'asc')->descendantsOf($parent->id)->toTree();
+        $parent = Menu::where('name', '=', request()['parent_name'])->first();
+        $menu = Menu::orderBy('menus.order', 'asc')->descendantsOf($parent->id)->toTree();
 
         return $menu;
     }

@@ -343,6 +343,7 @@ declare module 'vue' {
     SelectRoundedDocumentation: typeof import('./documentation/elements/forms/select/select-rounded-documentation.md')['default']
     SettingsProfile: typeof import('./src/components/pages/layouts/profile/SettingsProfile.vue')['default']
     Sidebar: typeof import('./src/components/navigation/desktop/Sidebar.vue')['default']
+    SidebarItem: typeof import('./src/layouts/sidebar-subsidebar/SidebarItem.vue')['default']
     SidebarLayout: typeof import('./src/layouts/SidebarLayout.vue')['default']
     SliderBaseDocumentation: typeof import('./documentation/plugins/slider/slider-base-documentation.md')['default']
     SliderColorDocumentation: typeof import('./documentation/plugins/slider/slider-color-documentation.md')['default']
