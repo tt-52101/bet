@@ -8,7 +8,7 @@ use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
 use App\Http\Championships\Pages\Fixture\Components\FixtureCard;
 use App\Http\Championships\Pages\Fixture\Views\FixtureIndexView;
-use BenBodan\BetUi\Components\{Avatar, Block, Button, Row, Column, Card, Page, Tab, Tabs};
+use BenBodan\BetUi\Components\{Avatar, Block, Button, Gauge, Row, Column, Card, Page, Tab, Tabs};
 
 class ProfilePageController extends ApiController
 {
@@ -90,6 +90,15 @@ class ProfilePageController extends ApiController
                                     ],
                                     header_left: [
 
+                                    ]
+                                ),
+                                new Card(
+                                    children: [
+                                        new Gauge(
+                                            height: 200,
+                                            legend: 'Completed',
+                                            show_legend: false,
+                                        )
                                     ]
                                 )
                             ]

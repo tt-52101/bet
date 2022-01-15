@@ -3,7 +3,7 @@
 namespace App\Http\Championships\Pages\Championship\Components;
 
 use BenBodan\BetUi\Events\Event;
-use BenBodan\BetUi\Components\{Block, Button, Card, Progress, Text};
+use BenBodan\BetUi\Components\{Block, Button, Card, Gauge, Progress, Text};
 use BenBodan\BetUi\Components\Component;
 
 class ChampionshipStatsCard extends Component
@@ -27,7 +27,7 @@ class ChampionshipStatsCard extends Component
                         new Button('Join')
                     ]
                 )
-            ]
+            ],
         );
     }
 

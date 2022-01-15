@@ -30,6 +30,7 @@ import Progress from "/@src/generated/components/Progress.vue";
 import AvatarStack from "/@src/generated/components/AvatarStack.vue";
 import Block from "/@src/generated/components/Block.vue";
 import Radio from "/@src/generated/components/Radio.vue";
+import Gauge from "/@src/generated/components/Gauge.vue";
 
 const GlobalComponents = {
   install(app: any) {
@@ -65,6 +66,7 @@ const GlobalComponents = {
     app.component(AvatarStack.name, AvatarStack)
     app.component(Block.name, Block)
     app.component(Radio.name, Radio)
+    app.component(Gauge.name, Gauge)
   }
 }
 
