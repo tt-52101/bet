@@ -25,6 +25,7 @@ class Championship extends JsonResource
             'progress' => (float) 21,
             'leagues_ids' => $this->leagues->pluck('id'),
             'football' => (bool) $this->football,
+            'win_percentage' => random_int(0,100),
         ];
     }
 }

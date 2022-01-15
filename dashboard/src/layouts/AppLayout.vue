@@ -157,6 +157,7 @@ watch(
 
     <div class="view-wrapper">
       <div class="page-content-wrapper">
+
         <template v-if="props.nowrap">
           <slot></slot>
         </template>

@@ -6,13 +6,14 @@ use App\Core\Components\SearchInput;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Card, Page, Row, Column, Builder};
+use BenBodan\BetUi\Components\{Card, Component, Page, Row, Column, Builder};
 
 class ChampionshipIndexView
 {
 
+    public array $filters = [];
     public function __construct(
-        public ChampionshipCard $card,
+        public Component $card,
     )
     {
 
@@ -41,7 +42,11 @@ class ChampionshipIndexView
         return new Row(
             children: [
                 new Builder(
-                    repository: new RestRepo(env('APP_URL') . '/auth/api/championship'),
+                    name: 'paginated_championships',
+                    repository: new RestRepo(
+                        url: env('APP_URL') . '/auth/api/championship',
+                        filters: $this->filters,
+                    ),
                     children: [
                         new Column(
                             desktop: 6,
@@ -57,7 +62,7 @@ class ChampionshipIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_championships.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function onSearch()

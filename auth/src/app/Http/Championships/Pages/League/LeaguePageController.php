@@ -4,6 +4,7 @@ namespace App\Http\Championships\Pages\League;
 
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\League;
+use App\Http\Championships\Pages\League\Components\LeagueCard;
 use App\Http\Championships\Pages\League\Views\LeagueEditView;
 use App\Http\Championships\Pages\League\Views\LeagueIndexView;
 use App\Http\Championships\Resources\League as LeagueResource;
@@ -20,7 +21,9 @@ class LeaguePageController extends ApiController
 
     public function page()
     {
-        $page = $this->leagues->get();
+        $card = new LeagueCard();
+        $leagues = new LeagueIndexView($card);
+        $page = $leagues->get();
         return $page;
     }
 

@@ -60,6 +60,12 @@ class MenuSeeder extends Seeder
     public function  sideMenu(){
         return [
             [
+                'title' => 'Profile',
+                'name' => 'home',
+                'url' => '/pages/auth/profile',
+                'icon' => '',
+            ],
+            [
                 'title' => 'Championships',
                 'name' => 'championships',
                 'url' => '/pages/auth/championship',

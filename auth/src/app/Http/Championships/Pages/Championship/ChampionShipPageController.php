@@ -5,6 +5,7 @@ namespace App\Http\Championships\Pages\Championship;
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\Championship;
 use App\Http\Championships\Models\League;
+use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipEditView;
 use App\Http\Championships\Pages\League\LeagueSelectWizard;
 use BenBodan\BetUi\Components\{Column, Page, Row, Card};
@@ -16,7 +17,6 @@ class ChampionShipPageController extends ApiController
 {
 
     public function __construct(
-        public ChampionshipIndexView $championships,
         public ChampionshipEditView  $edit
     )
     {
@@ -24,7 +24,9 @@ class ChampionShipPageController extends ApiController
 
     public function page()
     {
-        $page = $this->championships->get();
+        $card = new ChampionshipCard();
+        $championships = new ChampionshipIndexView($card);
+        $page = $championships->get();
         return $page;
     }
 

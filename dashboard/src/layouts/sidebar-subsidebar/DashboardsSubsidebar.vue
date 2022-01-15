@@ -34,7 +34,6 @@ function getMenu() {
       </div>
     </div>
     <div class="inner" data-simplebar>
-
       <ul>
         <VLoader :translucent="true" size="large" :active="state.loading">
         <sidebar-item v-for="item in state.menu" :key="item.id" :item="item"></sidebar-item>

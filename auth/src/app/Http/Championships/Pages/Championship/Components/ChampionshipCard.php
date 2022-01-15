@@ -3,9 +3,9 @@
 namespace App\Http\Championships\Pages\Championship\Components;
 
 use BenBodan\BetUi\Events\Event;
-use BenBodan\BetUi\Components\{Button, Card, Text};
+use BenBodan\BetUi\Components\{Button, Card, Component, Text};
 
-class ChampionshipCard {
+class ChampionshipCard extends Component {
 
     public function schema(){
         return new Card(

@@ -1,5 +1,6 @@
 <template>
-  <VProgress :size="config.size" :max="config.max" :color="config.color" :value="value" />
+    <label class="m-1">{{config.title}}</label>
+    <VProgress :size="config.size" :max="config.max" :color="config.color" :value="value" />
 </template>
 
 <script setup lang="ts">
