@@ -24,7 +24,7 @@ class ChampionshipStatsCard extends Component
                     title: 'Period',
                     subtitle: '$start_at - $end_at',
                     action: [
-                        new Button('Join')
+                        new Button('Play')
                     ]
                 )
             ],

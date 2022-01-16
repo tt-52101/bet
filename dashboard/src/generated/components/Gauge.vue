@@ -3,7 +3,6 @@
     v-if="config.init"
     class="gauge-holder"
     :options="options"
-    @ready="onReady"
   />
 </template>
 
@@ -30,6 +29,7 @@ const props = defineProps({
 const config = reactive({
   init: false,
   legend: '',
+  percentage: null,
   columns: [['Win', 0]],
   threshold: [30, 60, 90, 100],
   height: 120,
@@ -73,14 +73,11 @@ onMounted(() => {
 
 function setGaugeOptions(){
   options.size.height = config.height
-  options.data.columns =[[config.legend , 84]]
+  const value : number = config.percentage != null ? config.percentage: 0;
+  options.data.columns =[[config.legend , value]]
   options.legend.show = config.show_legend
   options.color.threshold.values = config.threshold
   config.init = true
-}
-
-function onReady(billboard: Chart) {
-
 }
 
 </script>

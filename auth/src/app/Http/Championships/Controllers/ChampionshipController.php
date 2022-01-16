@@ -9,6 +9,8 @@ use App\Http\Championships\Resources\ChampionshipCollection;
 
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\Championship;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ChampionshipController extends ApiController
 {
@@ -46,6 +48,26 @@ class ChampionshipController extends ApiController
         ];
     }
 
+    public function join(ChampionshipRepository $championship)
+    {
+
+        $championship = $championship->get();
+        $user = Auth::user()->id;
+
+        // Check if already joined
+        if ($championship->hasJoined($user)){
+            return $this->respondForbidden('You have already joined the Championship');
+        }
+
+        // Join Championship
+        $championship->joinUser($user);
+
+        return [
+            'message' => 'You joined successfully',
+            'entry' => $championship
+        ];
+    }
+
 
     public function addLeague(Championship $championship) {
         $league = League::find(request()->league_id);
@@ -58,7 +80,7 @@ class ChampionshipController extends ApiController
 
     public function removeLeague(Championship $championship, League $league) {
         $championship->leagues()->detach($league);
-        
+
         return [
             'message' => 'League Removed Successfully'
         ];

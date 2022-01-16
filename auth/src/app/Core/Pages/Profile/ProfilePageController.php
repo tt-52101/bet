@@ -9,17 +9,26 @@ use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
 use App\Http\Championships\Pages\Fixture\Components\FixtureCard;
 use App\Http\Championships\Pages\Fixture\Views\FixtureIndexView;
 use BenBodan\BetUi\Components\{Avatar, Block, Button, Gauge, Row, Column, Card, Page, Tab, Tabs};
+use Illuminate\Support\Facades\Auth;
 
 class ProfilePageController extends ApiController
 {
 
     public function page()
     {
+        $user = Auth::user()->id;
+
         $my_championship = new ChampionshipStatsCard();
         $my_championships = new ChampionshipIndexView($my_championship);
+        $my_championships->filters = [
+            'user_id' => $user
+        ];
 
         $championship = new ChampionshipCard();
         $championships = new ChampionshipIndexView($championship);
+        $championships->filters = [
+            'not_user_id' => $user
+        ];
 
         $fixture = new FixtureCard();
         $fixtures = new FixtureIndexView($fixture);
@@ -96,6 +105,7 @@ class ProfilePageController extends ApiController
                                     children: [
                                         new Gauge(
                                             height: 200,
+                                            value: 10,
                                             legend: 'Completed',
                                             show_legend: false,
                                         )
