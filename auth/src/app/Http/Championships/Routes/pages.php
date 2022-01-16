@@ -8,6 +8,7 @@ Route::prefix('championship')->group(function(){
 
     Route::get('edit/{championship}', 'Championship\\ChampionShipPageController@edit');
     Route::get('join/{championship}', 'Championship\\ChampionShipPageController@join');
+    Route::get('play/{championship}', 'Championship\\ChampionShipPageController@play');
 });
 
 Route::prefix('country')->group(function(){

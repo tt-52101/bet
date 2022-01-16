@@ -24,7 +24,16 @@ class ChampionshipStatsCard extends Component
                     title: 'Period',
                     subtitle: '$start_at - $end_at',
                     action: [
-                        new Button('Play')
+                        new Button(
+                            title: 'Play',
+                            on_click: [
+                                new Event(
+                                    action: 'push',
+                                    topic: 'route',
+                                    payload: '/pages/auth/championship_play_$id'
+                                )
+                            ]
+                        )
                     ]
                 )
             ],

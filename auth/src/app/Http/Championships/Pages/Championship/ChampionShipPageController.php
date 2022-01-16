@@ -8,6 +8,7 @@ use App\Http\Championships\Models\League;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipEditView;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipJoinView;
+use App\Http\Championships\Pages\Championship\Views\ChampionshipPlayView;
 use App\Http\Championships\Pages\League\LeagueSelectWizard;
 use BenBodan\BetUi\Components\{Column, Page, Row, Card};
 use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
@@ -42,6 +43,14 @@ class ChampionShipPageController extends ApiController
         $championship = (new ChampionshipResource($championship))->resolve();
 
         $page = new ChampionshipJoinView();
+        return $page->get($championship);
+    }
+
+    public function play(Championship $championship)
+    {
+        $championship = (new ChampionshipResource($championship))->resolve();
+
+        $page = new ChampionshipPlayView();
         return $page->get($championship);
     }
 

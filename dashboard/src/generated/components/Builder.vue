@@ -1,11 +1,29 @@
 <template>
-  <template v-for="(scope,index) in state_items" :key="`${state.render}_${index}`">
+  <template v-if="state_items.length" v-for="(scope,index) in state_items" :key="`${state.render}_${index}`">
     <component
       :is="item.component"
       :properties="item.props"
       :scope="scope"
       v-for="(item,i) in config.children" :key="i">
     </component>
+  </template>
+  <template v-else>
+    <div class="column" v-if="config.no_results.length === 0">
+      <VCardAdvanced>
+        <template #content>
+          {{config.not_found}}
+        </template>
+      </VCardAdvanced>
+    </div>
+    <div class="column" v-else>
+      <component
+        :is="item.component"
+        :properties="item.props"
+        :scope="scope"
+        v-for="(item,i) in config.no_results" :key="i">
+      </component>
+    </div>
+
   </template>
 
 </template>
@@ -34,7 +52,9 @@ const props = defineProps({
 const config = reactive({
   name: '',
   repo: {},
-  children: []
+  children: [],
+  no_results: [],
+  not_found: 'No Results Found'
 })
 
 const state = reactive({
