@@ -7,6 +7,7 @@
       v-for="(item,i) in config.children" :key="i">
     </component>
   </template>
+
 </template>
 
 <script setup lang="ts">
