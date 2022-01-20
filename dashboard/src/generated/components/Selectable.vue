@@ -1,5 +1,5 @@
 <template>
-    <vFlex column-gap="10px" flex-wrap="wrap" justify-content="space-evenly" style="width:100%">
+  <vFlex column-gap="10px" flex-wrap="wrap" justify-content="space-evenly" style="width:100%">
       <vFlexItem :flex-grow="1" v-for="(option,i) in config.options" @click="select(option)" :key="i">
         <VCard radius="small" :color="isSelected(option) ? 'success': 'primary'">
           <h3 class="title is-5 mb-2">{{option[config.label]}}</h3>
@@ -37,6 +37,7 @@ const config = reactive({
   identifier: 'id',
   label: 'title',
   subtitle: 'subtitle',
+  name: '',
   options: []
 })
 
@@ -49,7 +50,7 @@ onMounted(() => {
 const {select: selectItem, getData} = useState()
 
 function select(item: any) {
-  selectItem(config.name, config.identifier, process(item))
+  selectItem(process(config.name), config.identifier, process(item))
 }
 
 function isSelected(option: any) {

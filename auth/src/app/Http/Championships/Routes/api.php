@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('championship/{championship}/league', 'ChampionshipController@addLeague');
 Route::delete('championship/{championship}/league/{league}/', 'ChampionshipController@removeLeague');
+Route::get('championship/{championship}/fixtures', 'ChampionshipController@fixtures');
+
 
 Route::post('championship/{championship}/join', 'ChampionshipController@join');
 Route::resource('championship', 'ChampionshipController');

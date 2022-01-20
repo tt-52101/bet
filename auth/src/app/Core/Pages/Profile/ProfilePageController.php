@@ -85,7 +85,8 @@ class ProfilePageController extends ApiController
                                             icon: [
                                                 new Avatar(
                                                     picture: "https://vuero.cssninja.io/demo/avatars/5.jpg",
-                                                    size: 'xl'
+                                                    size: 'xl',
+                                                    badge: ''
                                                 )
                                             ],
                                             title: 'Username',
@@ -105,7 +106,7 @@ class ProfilePageController extends ApiController
                                     children: [
                                         new Gauge(
                                             height: 200,
-                                            value: 10,
+                                            value: 20,
                                             legend: 'Completed',
                                             show_legend: false,
                                         )

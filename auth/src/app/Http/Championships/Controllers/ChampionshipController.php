@@ -2,6 +2,7 @@
 
 namespace App\Http\Championships\Controllers;
 
+use App\Http\Championships\Models\Fixture;
 use App\Http\Championships\Models\League;
 use App\Http\Championships\Repositories\ChampionshipRepository;
 use App\Http\Championships\Resources\Championship as ChampionshipResource;
@@ -9,8 +10,9 @@ use App\Http\Championships\Resources\ChampionshipCollection;
 
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\Championship;
+use App\Http\Championships\Resources\FixtureCollection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use App\Http\Championships\Filters\FixtureFilters;
 
 class ChampionshipController extends ApiController
 {
@@ -84,5 +86,12 @@ class ChampionshipController extends ApiController
         return [
             'message' => 'League Removed Successfully'
         ];
+    }
+
+    public function fixtures(Championship $championship){
+        $filters = new FixtureFilters(request());
+        $fixtures = Fixture::filter($filters)->paginate(10);
+
+        return new FixtureCollection($fixtures);
     }
 }

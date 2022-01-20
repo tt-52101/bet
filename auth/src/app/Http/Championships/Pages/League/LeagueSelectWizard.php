@@ -65,7 +65,7 @@ class LeagueSelectWizard extends ApiController
                 color: 'primary',
                 title: 'Select',
                 value: '$id'
-            )
+            ),
         ]);
 
         $countries = new CountryIndexView($card);

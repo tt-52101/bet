@@ -1,5 +1,5 @@
 <template>
-  <VBlock :title="config.title" :subtitle="config.subtitle" :center="config.center" >
+  <VBlock :title="process(config.title)" :subtitle="process(config.subtitle)" :center="config.center" >
     <template #icon>
       <component
         :is="item.component"
@@ -22,6 +22,8 @@
 <script setup lang="ts">
 import {defineProps, onMounted, reactive} from "vue";
 import useProperties from "/@src/generated/composable/useProperties";
+import {useScope} from '/@src/generated/composable/useScope'
+
 const {apply} = useProperties();
 
 const props = defineProps({
@@ -46,6 +48,8 @@ const config = reactive({
   action: [],
   center: true
 })
+
+const {process}  = useScope(props.scope);
 
 onMounted(() => {
   config.value = apply(props.properties, config)

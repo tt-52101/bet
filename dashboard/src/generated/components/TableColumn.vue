@@ -1,11 +1,11 @@
 <template>
-  <div :key="i"
-       :class="{'flex-table-cell':true, 'is-bold': true,'cell-end':config.end}"
+  <div :class="{'flex-table-cell':true, 'is-bold': true,'cell-end':config.end}"
        :data-th="config.title">
     <component
       :is="item.component"
       :properties="item.props"
       :scope="scope"
+      :key="i"
       v-for="(item,i) in config.children"
     >
     </component>
