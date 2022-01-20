@@ -5,10 +5,12 @@ Route::prefix('championship')->group(function(){
     Route::get('/', 'Championship\\ChampionShipPageController@page');
     Route::get('new', 'Championship\\ChampionShipPageController@new');
     Route::get('/{championship}/wizard/league', 'Championship\\ChampionShipPageController@leagueSelect');
+    Route::get('{championship}/fixture/{fixture}', 'Championship\\ChampionShipPageController@fixture');
 
     Route::get('edit/{championship}', 'Championship\\ChampionShipPageController@edit');
     Route::get('join/{championship}', 'Championship\\ChampionShipPageController@join');
     Route::get('play/{championship}', 'Championship\\ChampionShipPageController@play');
+
 });
 
 Route::prefix('country')->group(function(){

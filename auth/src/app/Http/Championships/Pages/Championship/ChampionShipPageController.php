@@ -5,11 +5,15 @@ namespace App\Http\Championships\Pages\Championship;
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\Championship;
 use App\Http\Championships\Models\League;
+use App\Http\Championships\Models\Fixture;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipEditView;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipJoinView;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipPlayView;
+use App\Http\Championships\Pages\Fixture\Views\FixtureIndexView;
 use App\Http\Championships\Pages\League\LeagueSelectWizard;
+use App\Http\Championships\Pages\Odd\Components\OddCard;
+use App\Http\Championships\Pages\Odd\Views\OddIndexView;
 use BenBodan\BetUi\Components\{Column, Page, Row, Card};
 use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
 use App\Http\Championships\Resources\Championship as ChampionshipResource;
@@ -52,6 +56,18 @@ class ChampionShipPageController extends ApiController
 
         $page = new ChampionshipPlayView();
         return $page->get($championship);
+    }
+
+    public function fixture(Championship $championship, Fixture $fixture)
+    {
+        $card = new OddCard();
+        $odds = new OddIndexView($card);
+        $odds->column_size = 12;
+        $odds->filters = [
+            'fixture_id' => $fixture->id
+        ];
+        $page = $odds->get();
+        return $page;
     }
 
     public function new()

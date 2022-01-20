@@ -1,16 +1,17 @@
 <template>
   <VFlexTable style="margin-top:10px">
-<!--    <template #header>-->
-<!--      <div class="flex-table-header">-->
-<!--        <span v-for="column in config.columns" :class="{'cell-end': column.props.end}">-->
-<!--            {{column.props.title}}-->
-<!--        </span>-->
-<!--      </div>-->
-<!--    </template>-->
+    <template #header>
+      <div class="flex-table-header">
+        <span v-for="column in config.columns" :class="{'cell-end': column.props.end}">
+            {{column.props.title}}
+        </span>
+      </div>
+    </template>
     <template #body>
       <component
         :is="item.component"
         :properties="item.props"
+        :scope="scope"
         v-for="(item,i) in config.children" :key="i">
       </component>
     </template>

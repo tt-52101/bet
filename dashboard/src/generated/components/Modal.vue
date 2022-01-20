@@ -69,7 +69,7 @@ const state = reactive({
 const {listenTopic, listen, action} = useEvents()
 
 onMounted(() => {
-  config.value = apply(props.properties, config)
+  config.value = apply(props.properties, config, props.scope)
   listenTopic({key: config.name})
 })
 

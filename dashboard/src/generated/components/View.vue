@@ -79,6 +79,10 @@ action('get', (value: any) => {
   getPage()
 })
 
+action('alert', (value: any) => {
+  alert('test');
+})
+
 </script>
 
 <script lang="ts">

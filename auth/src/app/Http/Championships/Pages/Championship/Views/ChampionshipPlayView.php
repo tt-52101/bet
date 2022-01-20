@@ -51,12 +51,22 @@ class ChampionshipPlayView
                                     title: 'Match',
                                 ),
                                 new TableColumn(
+                                    title: 'Odds',
+                                    end: true
+                                ),
+                                new TableColumn(
                                     title: 'Match',
+                                    end: true
                                 ),
                             ],
                             children: [
                                 new Builder(
-                                    repository: new RestRepo(env('APP_URL')."/auth/api/championship/$id/fixtures"),
+                                    repository: new RestRepo(
+                                        url: env('APP_URL')."/auth/api/championship/$id/fixtures",
+                                        filters: [
+                                            'has_odds' => true
+                                        ]
+                                    ),
                                     children: [
                                       new TableRow(
                                           columns: [
@@ -83,43 +93,27 @@ class ChampionshipPlayView
                                               ),
                                               new TableColumn(
                                                   title: 'Title',
+                                                  end: true,
                                                   children: [
-                                                      new Selectable(
-                                                          name: 'select',
-                                                          label: 'title',
-                                                          subtitle: 'subtitle',
-                                                          identifier: 'id',
-                                                          options: [
-                                                              [
-                                                                  'id' => '$id_home',
-                                                                  'title' => '1',
-                                                                  'subtitle' => '$home',
-                                                                  'odd' => '$home',
-                                                                  'home_team' => '$home_team',
-                                                                  'home_logo' => '$home_logo',
-                                                                  'away_team' => '$away_team',
-                                                                  'away_logo' => '$away_logo',
-                                                              ],
-                                                              [
-                                                                  'id' => '$id_draw',
-                                                                  'title' => 'x',
-                                                                  'subtitle' => '$draw',
-                                                                  'odd' => '$draw',
-                                                                  'home_team' => '$home_team',
-                                                                  'home_logo' => '$home_logo',
-                                                                  'away_team' => '$away_team',
-                                                                  'away_logo' => '$away_logo',
-                                                              ],
-                                                              [
-                                                                  'id' => '$id_away',
-                                                                  'title' => '2',
-                                                                  'subtitle' => '$away',
-                                                                  'odd' => '$away',
-                                                                  'home_team' => '$home_team',
-                                                                  'home_logo' => '$home_logo',
-                                                                  'away_team' => '$away_team',
-                                                                  'away_logo' => '$away_logo',
-                                                              ],
+                                                      new Modal(
+                                                          name: 'fixture_modal_$id',
+                                                          children: [
+                                                              new View(
+                                                                  name: 'fixture_view_$id',
+                                                                  topic: 'ficture_view_$id',
+                                                                  repo: new RestRepo(
+                                                                      url: env('APP_URL') . "/auth/api/page/championship/$id/fixture/".'$id',
+                                                                  )
+                                                              )
+                                                          ]
+                                                      ),
+                                                      new Button(
+                                                          title: 'More',
+                                                          on_click: [
+                                                              new Event(
+                                                                  'fixture_modal_$id',
+                                                                  action: 'show',
+                                                              ),
                                                           ]
                                                       )
                                                   ]
@@ -138,6 +132,7 @@ class ChampionshipPlayView
             ]
         );
     }
+
 
     public function get($data = [])
     {
