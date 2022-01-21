@@ -43,4 +43,11 @@ class OddFilters extends QueryFilters
     public function bet_category_id($id){
         return $this->builder->where('odds.bet_category_id', $id);
     }
+
+    public function odd_ids($ids = []){
+        if($ids){
+            $ids = explode(',', $ids);
+        }
+        return $this->builder->whereIn('odds.id', $ids);
+    }
 }

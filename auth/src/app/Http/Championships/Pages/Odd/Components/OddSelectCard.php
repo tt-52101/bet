@@ -3,7 +3,7 @@
 namespace App\Http\Championships\Pages\Odd\Components;
 
 use BenBodan\BetUi\Events\Event;
-use BenBodan\BetUi\Components\{Avatar, AvatarStack, Block, Button, Card, Component, Text};
+use BenBodan\BetUi\Components\{Avatar, AvatarStack, Block, Button, Card, Checkbox, Component, Text};
 
 class OddSelectCard extends Component
 {
@@ -13,14 +13,17 @@ class OddSelectCard extends Component
         return new Card(
             children: [
                 new Block(
-                    title: '$odd $value',
+                    subtitle: '$odd',
+                    title: '$value',
                     action: [
-                        new Button(
-                            icon: 'fa fa-edit',
-                            title: 'Select',
-                            rounded: true,
-                            on_click: [
-
+                        new Checkbox(
+                            name: 'bet_cart.query.odd_ids',
+                            value: '$id',
+                            on_change:  [
+                                new Event(
+                                    topic: 'bet_cart',
+                                    action: 'get',
+                                )
                             ]
                         )
                     ]

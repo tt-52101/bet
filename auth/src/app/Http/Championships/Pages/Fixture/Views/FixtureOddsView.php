@@ -4,10 +4,11 @@ namespace App\Http\Championships\Pages\Fixture\Views;
 
 use App\Http\Championships\Models\Odd;
 use App\Http\Championships\Pages\Fixture\Components\FixtureForm;
-use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
+use BenBodan\BetUi\Components\{Accordion, AccordionItem, Input, Text, Card, Page, Row, Column, Builder};
 use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Components\OddSelectCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
+use BenBodan\BetUi\Repositories\RestRepo;
 
 class FixtureOddsView
 {
@@ -65,6 +66,40 @@ class FixtureOddsView
                                 )
                             ]
                         )
+                    ]
+                ),
+                new Column(
+                    desktop: 3,
+                    children: [
+                        new Row(
+                            children: [
+                                new Builder(
+                                    repository: new RestRepo(
+                                        url: env('APP_URL') . '/auth/api/odd',
+                                    ),
+                                    name: 'bet_cart',
+                                    children: [
+                                        new Column(
+                                            children: [
+                                                new Card(
+                                                    header_left: [
+                                                        new Text('$category')
+                                                    ],
+                                                    header_right: [
+                                                        new Text('$value')
+                                                    ],
+                                                    children: [
+                                                        new Input(
+                                                            name: 'odd',
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
                     ]
                 )
             ]

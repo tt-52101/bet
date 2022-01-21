@@ -109,6 +109,7 @@ function getItems() {
   });
 
   filters.page = page;
+
   get(config.repo.get, filters).then(res => {
     state.items = res.data.data
     state.meta = res.data.meta
