@@ -10,7 +10,9 @@ use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipEditView;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipJoinView;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipPlayView;
+use App\Http\Championships\Pages\Fixture\Views\FixtureEditView;
 use App\Http\Championships\Pages\Fixture\Views\FixtureIndexView;
+use App\Http\Championships\Pages\Fixture\Views\FixtureOddsView;
 use App\Http\Championships\Pages\League\LeagueSelectWizard;
 use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
@@ -60,13 +62,9 @@ class ChampionShipPageController extends ApiController
 
     public function fixture(Championship $championship, Fixture $fixture)
     {
-        $card = new OddCard();
-        $odds = new OddIndexView($card);
-        $odds->column_size = 12;
-        $odds->filters = [
-            'fixture_id' => $fixture->id
-        ];
-        $page = $odds->get();
+        $odds = new FixtureOddsView();
+
+        $page = $odds->get($fixture);
         return $page;
     }
 

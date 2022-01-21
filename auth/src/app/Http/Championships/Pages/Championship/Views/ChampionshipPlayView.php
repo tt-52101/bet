@@ -95,24 +95,13 @@ class ChampionshipPlayView
                                                   title: 'Title',
                                                   end: true,
                                                   children: [
-                                                      new Modal(
-                                                          name: 'fixture_modal_$id',
-                                                          children: [
-                                                              new View(
-                                                                  name: 'fixture_view_$id',
-                                                                  topic: 'ficture_view_$id',
-                                                                  repo: new RestRepo(
-                                                                      url: env('APP_URL') . "/auth/api/page/championship/$id/fixture/".'$id',
-                                                                  )
-                                                              )
-                                                          ]
-                                                      ),
                                                       new Button(
                                                           title: 'More',
                                                           on_click: [
                                                               new Event(
-                                                                  'fixture_modal_$id',
-                                                                  action: 'show',
+                                                                  'route',
+                                                                  action: 'push',
+                                                                  payload: "/pages/auth/championship_${id}_fixture_".'$id'
                                                               ),
                                                           ]
                                                       )

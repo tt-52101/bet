@@ -6,7 +6,7 @@ use App\Core\Components\SearchInput;
 use App\Http\Championships\Pages\Odd\Components\OddCard;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder};
+use BenBodan\BetUi\Components\{Card, Component, Page, Pagination, Row, Column, Builder};
 use PhpParser\Node\Expr\Cast\Object_;
 
 class OddIndexView
@@ -15,7 +15,7 @@ class OddIndexView
     public array $filters = [];
 
     public function __construct(
-        public OddCard $card,
+        public Component $card,
     )
     {
 

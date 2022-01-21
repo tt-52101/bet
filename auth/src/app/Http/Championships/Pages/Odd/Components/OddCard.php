@@ -4,8 +4,8 @@ namespace App\Http\Championships\Pages\Odd\Components;
 
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Components\{Avatar, AvatarStack, Block, Button, Card, Text};
-
-class OddCard
+use BenBodan\BetUi\Components\Component;
+class OddCard extends Component
 {
 
     public function schema()

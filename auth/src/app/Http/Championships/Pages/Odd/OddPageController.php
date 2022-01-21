@@ -4,6 +4,7 @@ namespace App\Http\Championships\Pages\Odd;
 
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\Odd;
+use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Views\OddEditView;
 use BenBodan\BetUi\Components\{Column, Page, Row, Card};
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
@@ -13,7 +14,6 @@ class OddPageController extends ApiController
 {
 
     public function __construct(
-        public OddIndexView $odds,
         public OddEditView $edit
     )
     {
@@ -21,7 +21,9 @@ class OddPageController extends ApiController
 
     public function page()
     {
-        $page = $this->odds->get();
+        $card = new OddCard();
+        $odds = new OddIndexView($card);
+        $page = $odds->get();
         return $page;
     }
 

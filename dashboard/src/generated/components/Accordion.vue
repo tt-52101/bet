@@ -1,5 +1,5 @@
 <template>
-  <VCollapse :items="config.items" with-chevron>
+  <VCollapse :items="config.items" with-chevron :itemOpen="config.active">
     <template #item="{active}">
       <div v-for="(tab,i) in config.items" :key="i">
         <div v-if="active === i">

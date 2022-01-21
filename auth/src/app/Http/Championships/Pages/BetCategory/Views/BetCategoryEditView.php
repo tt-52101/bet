@@ -4,6 +4,7 @@ namespace App\Http\Championships\Pages\BetCategory\Views;
 
 use App\Http\Championships\Pages\BetCategory\Components\BetCategoryForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
+use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
 
 class BetCategoryEditView
@@ -11,7 +12,6 @@ class BetCategoryEditView
 
     public function __construct(
         public BetCategoryForm $form,
-        public OddIndexView $odds,
     )
     {
 
@@ -19,9 +19,11 @@ class BetCategoryEditView
 
     public function schema($data = [])
     {
+        $odd_card = new OddCard();
+        $odds = new OddIndexView($odd_card);
         if($data){
-            $this->odds->column_size = 12;
-            $this->odds->filters = [
+            $odds->column_size = 12;
+            $odds->filters = [
                 'per_page' => 3,
                 'bet_category_id' => $data['id']
             ];
@@ -42,7 +44,7 @@ class BetCategoryEditView
                                 new AccordionItem(
                                     title: 'Odds',
                                     children: [
-                                        $this->odds->schema()
+                                        $odds->schema()
                                     ]
                                 ),
                             ]
