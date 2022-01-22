@@ -127,7 +127,8 @@ class ChampionshipController extends ApiController
         $ids = array_map('strval', $ids);
 
         return [
-            'odd_ids' => $ids
+            'win' => 10,
+            'odd_ids' => $ids,
         ];
     }
 

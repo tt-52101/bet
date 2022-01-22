@@ -12,6 +12,9 @@ Route::delete('championship/{championship}/bet-slip/{bet_slip_item}', 'Champions
 Route::get('championship/{championship}/bet-slip-ids/', 'ChampionshipController@betSlipIds');
 
 
+Route::get('championship/{championship}/bet-slip/points', 'BetSlipController@points');
+
+
 Route::post('championship/{championship}/join', 'ChampionshipController@join');
 Route::resource('championship', 'ChampionshipController');
 

@@ -56,6 +56,10 @@ class Championship extends Model
         return $this->hasMany(BetSlipItem::class,'championship_id');
     }
 
+    public function points($user_id) {
+
+    }
+
     public function attachUniqueOdds($ids)
     {
         $ids = collect($ids);
