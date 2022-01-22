@@ -16,4 +16,8 @@ class BetSlipItem extends Model
         'odd_id',
         'points',
     ];
+
+    public function odd() {
+        return $this->belongsTo(Odd::class);
+    }
 }

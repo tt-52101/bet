@@ -4,7 +4,21 @@ namespace App\Http\Championships\Pages\Fixture\Views;
 
 use App\Http\Championships\Models\Odd;
 use App\Http\Championships\Pages\Fixture\Components\FixtureForm;
-use BenBodan\BetUi\Components\{Accordion, AccordionItem, Form, Input, Text, Card, Page, Row, Column, Builder};
+use BenBodan\BetUi\Components\{Accordion,
+    AccordionItem,
+    Avatar,
+    AvatarStack,
+    Block,
+    Button,
+    Form,
+    Input,
+    Text,
+    Card,
+    Page,
+    Row,
+    Column,
+    Builder
+};
 use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Components\OddSelectCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
@@ -35,7 +49,7 @@ class FixtureOddsView
         return $odds;
     }
 
-    public function schema($data = [], string $championship = '')
+    public function schema($data = [], string $championship = '', $bet_slip_items = [])
     {
 
         $match_winner = $this->odds($data, 1, $championship);
@@ -51,14 +65,17 @@ class FixtureOddsView
                             name: 'bet_slip_form',
                             repo: new RestRepo(
                                 url: env('APP_URL') . "/auth/api/championship/$championship/bet-slip",
+                                show:  env('APP_URL') . "/auth/api/championship/$championship/bet-slip-ids"
                             ),
+                            data: [
+                                'odd_ids' => $bet_slip_items
+                            ],
                             on_created: [
                                 new Event(
                                     topic: 'bet_cart',
                                     action: 'get',
                                 ),
-
-                            ]
+                            ],
                         ),
                         new Accordion(
                             items: [
@@ -85,7 +102,7 @@ class FixtureOddsView
                     ]
                 ),
                 new Column(
-                    desktop: 3,
+                    desktop: 4,
                     children: [
                         new Row(
                             children: [
@@ -101,25 +118,78 @@ class FixtureOddsView
                                                     repo: new RestRepo(
                                                         url: env('APP_URL') . "/auth/api/championship/$championship/bet-slip"
                                                     ),
+                                                    on_deleted: [
+                                                        new Event(
+                                                            'bet_cart',
+                                                            action: 'get'
+                                                        ),
+                                                        new Event(
+                                                            topic: 'bet_slip_form',
+                                                            action: 'show',
+                                                        ),
+                                                    ],
+                                                    on_updated: [
+//                                                        new Event(
+//                                                            topic: 'bet_slip_$id',
+//                                                            action: 'show',
+//                                                        ),
+                                                    ],
                                                     name: 'bet_slip_$id',
                                                     children: [
                                                         new Card(
                                                             header_left: [
-                                                                new Text('$category')
+                                                                new Text('$value - x $odd')
                                                             ],
                                                             header_right: [
-                                                                new Text('$value')
+                                                                new Button(
+                                                                    icon: 'feather:trash-2',
+                                                                    rounded: true,
+                                                                    on_click: [
+                                                                        new Event(
+                                                                            topic: 'bet_slip_$id',
+                                                                            action: 'delete'
+                                                                        )
+                                                                    ]
+                                                                )
                                                             ],
                                                             children: [
+                                                                new Block(
+                                                                    icon: [
+                                                                        new AvatarStack(
+                                                                            size: 'small',
+                                                                            items: [
+                                                                                new Avatar(
+                                                                                    picture: '$home_logo',
+                                                                                ),
+                                                                                new Avatar(
+                                                                                    picture: '$away_logo',
+                                                                                ),
+                                                                            ],
+                                                                        )
+                                                                    ],
+                                                                    title: '$home_name - $away_name',
+                                                                    subtitle: '$category'
+                                                                ),
+                                                            ],
+                                                            footer_left: [
                                                                 new Input(
                                                                     name: 'points',
+                                                                    placeholder: 'x $odd',
                                                                     on_change: [
                                                                         new Event(
                                                                             topic: 'bet_slip_$id',
                                                                             action: 'update'
                                                                         )
                                                                     ]
-                                                                )
+                                                                ),
+                                                            ],
+                                                            footer_right: [
+                                                                new Text('Επιστροφή: '),
+                                                                new Input(
+                                                                    name: 'win',
+                                                                    disabled: true,
+                                                                    placeholder: 'x $odd',
+                                                                ),
                                                             ]
                                                         )
                                                     ]
@@ -137,11 +207,11 @@ class FixtureOddsView
     }
 
 
-    public function get($data = [], $championship = '')
+    public function get($data = [], $championship = '', $bet_slip_items)
     {
         $page = new Page(
             children: [
-                $this->schema($data, $championship)
+                $this->schema($data, $championship, $bet_slip_items)
             ]
         );
         return $page();

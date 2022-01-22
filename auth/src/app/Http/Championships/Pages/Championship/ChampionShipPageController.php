@@ -62,9 +62,11 @@ class ChampionShipPageController extends ApiController
 
     public function fixture(Championship $championship, Fixture $fixture)
     {
+        $bet_slip =$championship->betSlips()->pluck('odd_id')->toArray();
+        $bet_slip = array_map('strval', $bet_slip);
         $odds = new FixtureOddsView();
 
-        $page = $odds->get($fixture, $championship->id);
+        $page = $odds->get($fixture, $championship->id, $bet_slip);
         return $page;
     }
 

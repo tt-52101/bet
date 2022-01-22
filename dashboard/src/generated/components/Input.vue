@@ -5,14 +5,17 @@
       :has-error="config.error === true"
       :icon="config.icon">
       <input
+        v-if="!config.disabled"
         v-on:keyup.enter="onEnter"
         v-model="value"
         type="text"
         :class="classes"
-        :disabled="config.disabled"
         :placeholder="config.placeholder"
         @change="change"
       />
+      <div v-else>
+          {{value}}
+      </div>
     </VControl>
     <VControl v-if="config.addons.length > 0">
       <component

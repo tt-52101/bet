@@ -8,6 +8,8 @@ Route::get('championship/{championship}/fixtures', 'ChampionshipController@fixtu
 Route::post('championship/{championship}/bet-slip', 'ChampionshipController@syncBetSlip');
 Route::get('championship/{championship}/bet-slip', 'ChampionshipController@betSlips');
 Route::patch('championship/{championship}/bet-slip/{bet_slip_item}', 'ChampionshipController@updateBetSlip');
+Route::delete('championship/{championship}/bet-slip/{bet_slip_item}', 'ChampionshipController@deleteBetSlip');
+Route::get('championship/{championship}/bet-slip-ids/', 'ChampionshipController@betSlipIds');
 
 
 Route::post('championship/{championship}/join', 'ChampionshipController@join');

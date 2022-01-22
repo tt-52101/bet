@@ -150,6 +150,7 @@ action('update', (value: any) => {
   const data = getData(`${config.name}.body`)
   update(config.repo.patch, data).then(response => {
     state.loading = false
+    setData(`${config.name}.body`, response.data.body)
     notyf.success(response.data.message)
     publishEvents(config.on_updated)
   }).catch(err => {

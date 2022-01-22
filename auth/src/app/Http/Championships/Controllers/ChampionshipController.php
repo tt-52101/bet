@@ -3,9 +3,11 @@
 namespace App\Http\Championships\Controllers;
 
 use App\Http\Championships\Models\BetSlipItem;
+use App\Http\Championships\Resources\BetSlipItem as BetSlipItemResource;
 use App\Http\Championships\Models\Fixture;
 use App\Http\Championships\Models\League;
 use App\Http\Championships\Repositories\ChampionshipRepository;
+use App\Http\Championships\Resources\BetSlipItemCollection;
 use App\Http\Championships\Resources\Championship as ChampionshipResource;
 use App\Http\Championships\Resources\ChampionshipCollection;
 
@@ -59,7 +61,7 @@ class ChampionshipController extends ApiController
         $user = Auth::user()->id;
 
         // Check if already joined
-        if ($championship->hasJoined($user)){
+        if ($championship->hasJoined($user)) {
             return $this->respondForbidden('You have already joined the Championship');
         }
 
@@ -73,7 +75,8 @@ class ChampionshipController extends ApiController
     }
 
 
-    public function addLeague(Championship $championship) {
+    public function addLeague(Championship $championship)
+    {
         $league = League::find(request()->league_id);
         $championship->leagues()->attach($league);
 
@@ -82,7 +85,8 @@ class ChampionshipController extends ApiController
         ];
     }
 
-    public function removeLeague(Championship $championship, League $league) {
+    public function removeLeague(Championship $championship, League $league)
+    {
         $championship->leagues()->detach($league);
 
         return [
@@ -90,14 +94,16 @@ class ChampionshipController extends ApiController
         ];
     }
 
-    public function fixtures(Championship $championship){
+    public function fixtures(Championship $championship)
+    {
         $filters = new FixtureFilters(request());
         $fixtures = Fixture::filter($filters)->paginate(10);
 
         return new FixtureCollection($fixtures);
     }
 
-    public function syncBetSlip(Championship $championship){
+    public function syncBetSlip(Championship $championship)
+    {
 
         $user = Auth::user()->id;
         $selected_odds = request()->odd_ids;
@@ -109,15 +115,24 @@ class ChampionshipController extends ApiController
         ];
     }
 
-    public function betSlips(Championship $championship){
+    public function betSlips(Championship $championship)
+    {
+
+        return new BetSlipItemCollection($championship->betSlipItems);
+    }
+
+    public function betSlipIds(Championship $championship)
+    {
+        $ids = $championship->betSlips()->pluck('odd_id')->toArray();
+        $ids = array_map('strval', $ids);
 
         return [
-            'message' => 'Updated Successfully',
-            'data' => $championship->betSlipItems
+            'odd_ids' => $ids
         ];
     }
 
-    public function updateBetSlip(Championship $championship, BetSlipItem $betSlipItem){
+    public function updateBetSlip(Championship $championship, BetSlipItem $betSlipItem)
+    {
 
         $betSlipItem->update([
             'points' => request()->points
@@ -125,7 +140,19 @@ class ChampionshipController extends ApiController
 
 
         return [
-            'message' => "Updated Successfully ".request()->points,
+            'message' => "Updated Successfully " . request()->points,
+            'body' => new BetSlipItemResource($betSlipItem)
+        ];
+    }
+
+    public function deleteBetSlip(Championship $championship, BetSlipItem $betSlipItem)
+    {
+
+        $betSlipItem->delete();
+
+
+        return [
+            'message' => "Deleted Successfully ",
         ];
     }
 }
