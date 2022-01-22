@@ -64,7 +64,7 @@ class ChampionShipPageController extends ApiController
     {
         $odds = new FixtureOddsView();
 
-        $page = $odds->get($fixture);
+        $page = $odds->get($fixture, $championship->id);
         return $page;
     }
 

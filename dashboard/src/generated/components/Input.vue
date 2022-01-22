@@ -11,6 +11,7 @@
         :class="classes"
         :disabled="config.disabled"
         :placeholder="config.placeholder"
+        @change="change"
       />
     </VControl>
     <VControl v-if="config.addons.length > 0">
@@ -64,6 +65,7 @@ const config = reactive({
   error: false,
   icon: '',
   addons: [],
+  on_change: [],
   repo: {
     key: ''
   },
@@ -78,6 +80,12 @@ onMounted(() => {
 
 function onEnter(){
   config.on_enter.forEach(event => {
+    return publish(event.action, event.payload, event.topic)
+  })
+}
+
+function change(e: string){
+  config.on_change.forEach(event => {
     return publish(event.action, event.payload, event.topic)
   })
 }

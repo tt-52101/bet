@@ -5,7 +5,7 @@ namespace App\Http\Championships\Models;
 use App\Core\Auth\Models\User;
 use App\Core\Filters\Filterable;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Auth;
 class Championship extends Model
 {
     use Filterable;
@@ -46,5 +46,24 @@ class Championship extends Model
             'start_points' => $this->points,
             'position' => 0
         ]);
+    }
+
+    public function betSlips(){
+        return $this->belongsToMany(Odd::class,'championship_bet_slips');
+    }
+
+    public function betSlipItems(){
+        return $this->hasMany(BetSlipItem::class,'championship_id');
+    }
+
+    public function attachUniqueOdds($ids)
+    {
+        $ids = collect($ids);
+        $existing_ids = $this->betSlips()->whereIn('championship_bet_slips.odd_id', $ids)->pluck('odd_id');
+        $this->betSlips()->attach($ids->diff($existing_ids),[
+            'user_id' => Auth::user()->id
+        ]);
+
+        $this->betSlips()->sync($ids);
     }
 }
