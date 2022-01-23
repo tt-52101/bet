@@ -78,6 +78,12 @@ class MenuSeeder extends Seeder
                 'icon' => '',
                 'children' => [
                     [
+                        'title' => 'Bets',
+                        'name' => 'football_bet',
+                        'url' => '/pages/auth/bet',
+                        'icon' => '',
+                    ],
+                    [
                         'title' => 'Fixtures',
                         'name' => 'football_fixtures',
                         'url' => '/pages/auth/fixture',

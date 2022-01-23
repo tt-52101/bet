@@ -68,7 +68,7 @@ class Championship extends Model
 
     public function bets()
     {
-        return $this->hasMany(ChampionshipBet::class, 'championship_bets');
+        return $this->hasMany(Bet::class, 'championship_bets');
     }
 
     public function finalizeBet($user_id)
@@ -79,6 +79,7 @@ class Championship extends Model
         foreach ($bet_slip_items as $bet) {
             $bets[] = [
                 'odd_id' => $bet->odd_id,
+                'fixture_id' => $bet->odd->fixture_id,
                 'championship_id' => $this->id,
                 'user_id' => $user_id,
                 'points' => $bet->points,
@@ -95,7 +96,7 @@ class Championship extends Model
 
         $this->betSlipItems()->delete();
 
-        ChampionshipBet::insert($bets);
+        Bet::insert($bets);
     }
 
     public function betPoints(){

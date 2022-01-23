@@ -19,6 +19,8 @@ Route::post('championship/{championship}/bet-slip/finalize', 'BetSlipController@
 Route::post('championship/{championship}/join', 'ChampionshipController@join');
 Route::resource('championship', 'ChampionshipController');
 
+
+Route::resource('bet', 'BetController');
 Route::resource('country', 'CountryController');
 Route::resource('league', 'LeagueController');
 Route::resource('team', 'TeamController');

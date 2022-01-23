@@ -3,6 +3,8 @@
 namespace App\Core\Pages\Profile;
 
 use App\Core\Controllers\ApiController;
+use App\Http\Championships\Pages\Bet\Components\BetCard;
+use App\Http\Championships\Pages\Bet\Views\BetIndexView;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipStatsCard;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
@@ -30,10 +32,11 @@ class ProfilePageController extends ApiController
             'not_user_id' => $user
         ];
 
-        $fixture = new FixtureCard();
-        $fixtures = new FixtureIndexView($fixture);
-        $fixtures->column_size = 12;
-        $fixtures->filters= [
+        $bet_card = new BetCard();
+        $bets = new BetIndexView($bet_card);
+
+        $bets->column_size = 12;
+        $bets->filters= [
             'per_page' => 2,
         ];
 
@@ -69,7 +72,7 @@ class ProfilePageController extends ApiController
                                             label: 'History',
                                             value: 'history',
                                             children: [
-                                                $fixtures->schema()
+                                                $bets->schema()
                                             ]
                                         ),
                                     ]

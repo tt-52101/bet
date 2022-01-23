@@ -57,3 +57,10 @@ Route::prefix('odd')->group(function(){
     Route::get('new', 'Odd\\OddPageController@new');
     Route::get('edit/{odd}', 'Odd\\OddPageController@edit');
 });
+
+
+Route::prefix('bet')->group(function(){
+    Route::get('/', 'Bet\\BetPageController@page');
+    Route::get('new', 'Bet\\BetPageController@new');
+    Route::get('edit/{bet}', 'Bet\\BetPageController@edit');
+});
