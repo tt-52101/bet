@@ -2,10 +2,11 @@
 
 namespace App\Http\Championships\Policies;
 
-use App\Http\BetCategorys\Models\BetCategory;
+use App\Http\Championships\Models\BetCategory;
 
 use App\Core\Policies\DefaultPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Core\Auth\Models\User;
 
 class BetCategoryPolicy extends DefaultPolicy
 {

@@ -75,6 +75,13 @@ class TableSeeder extends Seeder
             'user_entries' => false
         ];
 
+        $tables[] = [
+            'title' => 'Bet Categories',
+            'title_gr' => 'Bet Categories',
+            'name' => 'bet_category',
+            'user_entries' => false
+        ];
+
         $this->createTables($tables);
     }
 
