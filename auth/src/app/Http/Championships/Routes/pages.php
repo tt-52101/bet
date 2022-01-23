@@ -7,6 +7,9 @@ Route::prefix('championship')->group(function(){
     Route::get('/{championship}/wizard/league', 'Championship\\ChampionShipPageController@leagueSelect');
     Route::get('{championship}/fixture/{fixture}', 'Championship\\ChampionShipPageController@fixture');
 
+    Route::get('{championship}/bet-confirm', 'BetSlip\\BetSlipPageController@betConfirm');
+
+
     Route::get('edit/{championship}', 'Championship\\ChampionShipPageController@edit');
     Route::get('join/{championship}', 'Championship\\ChampionShipPageController@join');
     Route::get('play/{championship}', 'Championship\\ChampionShipPageController@play');

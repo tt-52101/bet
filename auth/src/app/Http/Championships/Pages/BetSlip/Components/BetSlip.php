@@ -2,27 +2,19 @@
 
 namespace App\Http\Championships\Pages\BetSlip\Components;
 
-use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Components\{Avatar,
-    AvatarStack,
-    Block,
+use BenBodan\BetUi\Components\{
     Builder,
-    Button,
-    Card,
     Column,
     Component,
-    Form,
-    Input,
-    Progress,
     Row,
-    Text
 };
+use App\Http\Championships\Models\Championship;
 
 class BetSlip extends Component
 {
 
-    public function schema($championship = '')
+    public function schema(Championship $championship)
     {   $bet_card = new BetSlipCard();
         $bet_points = new BetSlipPoints();
 
@@ -35,7 +27,7 @@ class BetSlip extends Component
                 ),
                 new Builder(
                     repository: new RestRepo(
-                        url: env('APP_URL') . "/auth/api/championship/$championship/bet-slip",
+                        url: env('APP_URL') . "/auth/api/championship/{$championship->id}/bet-slip",
                     ),
                     name: 'bet_cart',
                     children: [

@@ -2,6 +2,7 @@
 
 namespace App\Http\Championships\Pages\Championship\Views;
 
+use App\Http\Championships\Models\Championship;
 use App\Http\Championships\Pages\BetSlip\Components\BetSlip;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Components\{Accordion,
@@ -28,7 +29,6 @@ use BenBodan\BetUi\Components\{Accordion,
     Builder
 };
 use BenBodan\BetUi\Repositories\RestRepo;
-use BenBodan\BetUi\Repositories\StateRepo;
 
 class ChampionshipPlayView
 {
@@ -38,9 +38,8 @@ class ChampionshipPlayView
 
     }
 
-    public function schema($data = [])
+    public function schema(Championship $championship)
     {
-        $id = $data['id'];
         $bet_slip = new BetSlip();
 
         return new Row(
@@ -65,7 +64,7 @@ class ChampionshipPlayView
                             children: [
                                 new Builder(
                                     repository: new RestRepo(
-                                        url: env('APP_URL') . "/auth/api/championship/$id/fixtures",
+                                        url: env('APP_URL') . "/auth/api/championship/{$championship->id}/fixtures",
                                         filters: [
                                             'has_odds' => true
                                         ]
@@ -104,7 +103,7 @@ class ChampionshipPlayView
                                                                 new Event(
                                                                     'route',
                                                                     action: 'push',
-                                                                    payload: "/pages/auth/championship_${id}_fixture_" . '$id'
+                                                                    payload: "/pages/auth/championship_{$championship->id}_fixture_" . '$id'
                                                                 ),
                                                             ]
                                                         )
@@ -121,7 +120,7 @@ class ChampionshipPlayView
                 new Column(
                     desktop: 4,
                     children: [
-                        $bet_slip->schema($id)
+                        $bet_slip->schema($championship)
                     ]
                 )
             ]
@@ -129,11 +128,11 @@ class ChampionshipPlayView
     }
 
 
-    public function get($data = [])
+    public function get(Championship $championship)
     {
         $page = new Page(
             children: [
-                $this->schema($data)
+                $this->schema($championship)
             ]
         );
         return $page();

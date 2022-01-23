@@ -13,6 +13,7 @@ Route::get('championship/{championship}/bet-slip-ids/', 'ChampionshipController@
 
 
 Route::get('championship/{championship}/bet-slip/points', 'BetSlipController@points');
+Route::post('championship/{championship}/bet-slip/finalize', 'BetSlipController@finalize');
 
 
 Route::post('championship/{championship}/join', 'ChampionshipController@join');

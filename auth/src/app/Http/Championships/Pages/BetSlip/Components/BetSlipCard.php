@@ -18,15 +18,15 @@ use BenBodan\BetUi\Components\{Avatar,
     Row,
     Text
 };
-
+use App\Http\Championships\Models\Championship;
 class BetSlipCard extends Component
 {
 
-    public function schema($championship = '') {
+    public function schema(Championship $championship) {
         return new Form(
             name: 'bet_slip_$id',
             repo: new RestRepo(
-                url: env('APP_URL') . "/auth/api/championship/$championship/bet-slip"
+                url: env('APP_URL') . "/auth/api/championship/{$championship->id}/bet-slip"
             ),
             on_deleted: [
                 new Event(

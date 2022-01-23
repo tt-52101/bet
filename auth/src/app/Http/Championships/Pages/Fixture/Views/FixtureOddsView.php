@@ -2,6 +2,7 @@
 
 namespace App\Http\Championships\Pages\Fixture\Views;
 
+use App\Http\Championships\Models\Championship;
 use App\Http\Championships\Models\Odd;
 use App\Http\Championships\Pages\BetSlip\Components\BetSlip;
 use App\Http\Championships\Pages\Fixture\Components\FixtureForm;
@@ -25,18 +26,12 @@ use App\Http\Championships\Pages\Odd\Components\OddSelectCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
-use Hamcrest\Core\Every;
+use App\Http\Championships\Models\Fixture;
 
 class FixtureOddsView
 {
 
-    public function __construct()
-    {
-
-    }
-
-
-    public function odds($data, $category_id, $championship = '')
+    public function odds(Fixture $fixture, $category_id)
     {
         $card = new OddSelectCard();
         $odds = new OddIndexView($card);
@@ -44,18 +39,18 @@ class FixtureOddsView
         $odds->filters = [
             'bet_category_id' => $category_id,
             'bookmaker_id' => 5,
-            'fixture_id' => $data['id']
+            'fixture_id' => $fixture->id
         ];
 
         return $odds;
     }
 
-    public function schema($data = [], string $championship = '', $bet_slip_items = [])
+    public function schema(Fixture $fixture, Championship $championship)
     {
-
-        $match_winner = $this->odds($data, 1, $championship);
-        $over_under = $this->odds($data, 5, $championship);
-        $exact_score = $this->odds($data, 10, $championship);
+        $bet_slip_items = [];
+        $match_winner = $this->odds($fixture, 1);
+        $over_under = $this->odds($fixture, 5);
+        $exact_score = $this->odds($fixture, 10);
 
         $bet_slip = new BetSlip();
 
@@ -67,12 +62,11 @@ class FixtureOddsView
                         new Form(
                             name: 'bet_slip_form',
                             repo: new RestRepo(
-                                url: env('APP_URL') . "/auth/api/championship/$championship/bet-slip",
-                                show:  env('APP_URL') . "/auth/api/championship/$championship/bet-slip-ids"
+                                url: env('APP_URL') . "/auth/api/championship/{$championship->id}/bet-slip",
+                                show: env('APP_URL') . "/auth/api/championship/{$championship->id}/bet-slip-ids"
                             ),
                             data: [
-                                'win' => 100,
-                                'odd_ids' => $bet_slip_items
+                                'odd_ids' => $championship->betSlipIds()
                             ],
                             on_created: [
                                 new Event(
@@ -116,11 +110,11 @@ class FixtureOddsView
     }
 
 
-    public function get($data = [], $championship = '', $bet_slip_items)
+    public function get(Fixture $fixture, Championship $championship)
     {
         $page = new Page(
             children: [
-                $this->schema($data, $championship, $bet_slip_items)
+                $this->schema($fixture, $championship)
             ]
         );
         return $page();

@@ -25,18 +25,16 @@ class BetSlipController extends ApiController
     {
 
         $user = Auth::user()->id;
-        $odds = $championship->betSlipItems;
-        $points = 100;
-        $return = 0;
 
-        foreach ($odds as $odd){
-            $points -=  $odd->points;
-            $return += round((float) $odd->odd->odd * $odd->points,2);
-        }
+        return $championship->points($user);
+    }
+
+    public function finalize(Championship $championship)
+    {
+
 
         return [
-            'points' => round($points),
-            'return' => round($return)
+            'message' => 'Bet Finalized'
         ];
     }
 }
