@@ -4,10 +4,17 @@ namespace App\Core\Filters;
 
 class TableFilters extends QueryFilters
 {
+
+    public function keyword($value = "")
+    {
+        return $this->builder
+            ->where('tables.title', 'like', '%' . $value . '%');
+    }
+
     public function title($value = "")
     {
         return $this->builder
-            ->where('tables_tr.title', 'like', '%' . $value . '%');
+            ->where('tables.title', 'like', '%' . $value . '%');
     }
 
     public function policy_id($id) {
@@ -21,8 +28,4 @@ class TableFilters extends QueryFilters
             ->where('tables.name', 'like', '%' . $value . '%');
     }
 
-    public function user_entries($value) {
-        return $this->builder
-            ->where('tables.user_entries',(int) $value);
-    }
 }

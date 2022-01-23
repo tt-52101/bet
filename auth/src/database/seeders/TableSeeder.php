@@ -20,7 +20,6 @@ class TableSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         Table::truncate();
-        TableTranslation::truncate();
         Schema::enableForeignKeyConstraints();
 
 
@@ -28,56 +27,48 @@ class TableSeeder extends Seeder
 
         $tables[] = [
             'title' => 'Language',
-            'title_gr' => 'Γλώσσες',
             'name' => 'language',
             'user_entries' => false,
         ];
 
         $tables[] = [
             'title' => 'Users',
-            'title_gr' => 'Χρήστες',
             'name' => 'user',
             'user_entries' => false,
         ];
 
         $tables[] = [
             'title' => 'Policy',
-            'title_gr' => 'Δικαιώματα Πινάκων',
             'name' => 'policy',
             'user_entries' => false,
         ];
 
         $tables[] = [
             'title' => 'Permission',
-            'title_gr' => 'Δικαιώματα',
             'name' => 'permission',
             'user_entries' => false,
         ];
 
         $tables[] = [
             'title' => 'Role',
-            'title_gr' => 'Ρόλοι',
             'name' => 'role',
             'user_entries' => false,
         ];
 
         $tables[] = [
             'title' => 'Table',
-            'title_gr' => 'Πίνακες',
             'name' => 'table',
             'user_entries' => false,
         ];
 
         $tables[] = [
             'title' => 'Menu',
-            'title_gr' => 'Μενού',
             'name' => 'menu',
             'user_entries' => false
         ];
 
         $tables[] = [
             'title' => 'Bet Categories',
-            'title_gr' => 'Bet Categories',
             'name' => 'bet_category',
             'user_entries' => false
         ];
@@ -96,19 +87,8 @@ class TableSeeder extends Seeder
 
             $tb = Table::create([
                 'name' => $table['name'],
-                'user_entries' => $table['user_entries']
-            ]);
-
-            TableTranslation::create([
                 'title' => $table['title'],
-                'table_id' => $tb->id,
-                'lang_id' => 1,
-            ]);
-
-            TableTranslation::create([
-                'title' => $table['title_gr'],
-                'table_id' => $tb->id,
-                'lang_id' => 2,
+                'user_entries' => $table['user_entries']
             ]);
         }
     }

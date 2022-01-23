@@ -58,7 +58,7 @@ class TableController extends ApiController
 
         return [
             'message' => 'Table Updated Successfully',
-            'entry' => new TableResource($table)
+            'body' => new TableResource($table)
         ];
     }
 
