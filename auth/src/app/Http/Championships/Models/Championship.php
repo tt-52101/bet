@@ -66,23 +66,77 @@ class Championship extends Model
         return $this->hasMany(BetSlipItem::class, 'championship_id');
     }
 
+    public function bets()
+    {
+        return $this->hasMany(ChampionshipBet::class, 'championship_bets');
+    }
+
+    public function finalizeBet($user_id)
+    {
+        $bet_slip_items = $this->betSlipItems;
+        $bets = [];
+
+        foreach ($bet_slip_items as $bet) {
+            $bets[] = [
+                'odd_id' => $bet->odd_id,
+                'championship_id' => $this->id,
+                'user_id' => $user_id,
+                'points' => $bet->points,
+                'odd' => $bet->odd->odd
+            ];
+        }
+
+
+        // Remove Points
+        $member = $this->members()->where('user_id', $user_id)->first();
+        $member->update([
+            'points' => $member->points - $this->betPoints()
+        ]);
+
+        $this->betSlipItems()->delete();
+
+        ChampionshipBet::insert($bets);
+    }
+
+    public function betPoints(){
+        return $this->betSlipItems()->sum('points');
+    }
+
+    public function members(){
+        return $this->hasMany(ChampionshipMember::class, 'championship_id');
+    }
+
     public function points()
     {
+        $user_id = Auth::user()->id;
+        $member = $this->members()->where('championship_user.user_id', $user_id)->first();
+
         $odds = $this->betSlipItems;
-        $points = 100;
+        $points = $member->points;
         $return = 0;
         $bet = 0;
+        $missing_bet = false;
+        $small_bet = false;
 
         foreach ($odds as $odd) {
             $points -= $odd->points;
             $bet += $odd->points;
             $return += round((float)$odd->odd->odd * $odd->points, 2);
+            if ($odd->points == 0) {
+                $missing_bet = true;
+            }
+
+            if ($odd->points < 1) {
+                $small_bet = true;
+            }
         }
 
         return [
             'bet' => round($bet, 2),
             'points' => round($points, 2),
-            'return' => round($return, 2)
+            'return' => round($return, 2),
+            'missing' => $missing_bet,
+            'small_bet' => $small_bet
         ];
     }
 

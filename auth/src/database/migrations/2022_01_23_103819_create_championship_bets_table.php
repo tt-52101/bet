@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChampionshipBetSlipsTable extends Migration
+class CreateChampionshipBetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateChampionshipBetSlipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('championship_bet_slips', function (Blueprint $table) {
+        Schema::create('championship_bets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('championship_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('odd_id');
-
+            $table->float('odd', 8,2)->unsigned()->default(1)->nullable();
             $table->float('points', 8,2)->unsigned()->default(1)->nullable();
-
-            $table->unique(['user_id', 'championship_id', 'odd_id']);
             $table->timestamps();
 
             $table->foreign('championship_id')->references('id')->on('championships')->onDelete('cascade');
@@ -37,6 +35,6 @@ class CreateChampionshipBetSlipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('championship_bet_slips');
+        Schema::dropIfExists('championship_bets');
     }
 }

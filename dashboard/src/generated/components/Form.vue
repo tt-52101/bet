@@ -93,7 +93,9 @@ onUnmounted(() => {
 
 const {post, update, get, del} = useApi()
 const {getData, setData} = useState();
-const notyf = new Notyf()
+const notyf = new Notyf({
+  duration: 3000
+})
 
 function publishEvents(events: []) {
   events.forEach(event => {

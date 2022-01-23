@@ -32,6 +32,27 @@ class BetSlipController extends ApiController
     public function finalize(Championship $championship)
     {
 
+        $bet  = $championship->points();
+
+
+        if($championship->betSlipItems()->count() == 0) {
+            return $this->respondForbidden('Το Δελτίο στοιχήματος είναι κενό');
+        }
+
+        if($bet['points'] < 0) {
+            return $this->respondForbidden('Οι πόντοι σας δεν επαρκούν για αυτό το στοίχημα');
+        }
+
+        if($bet['missing']) {
+            return $this->respondForbidden('Θα πρέπει να συμπληρώσεται όλα τα πονταρίσματα');
+        }
+
+        if($bet['small_bet']) {
+            return $this->respondForbidden('Το ποντάρισμα σας θα πρέπει να είναι τουλάχιστον 1 point');
+        }
+
+        $user_id = Auth::user()->id;
+        $championship->finalizeBet($user_id);
 
         return [
             'message' => 'Bet Finalized'
