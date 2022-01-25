@@ -10,6 +10,8 @@ use BenBodan\BetUi\Components\{Accordion,
     Avatar,
     AvatarStack,
     Block,
+    BreadCrumb,
+    BreadCrumbItem,
     Button,
     ButtonGroup,
     Form,
@@ -26,8 +28,7 @@ use BenBodan\BetUi\Components\{Accordion,
     Row,
     Column,
     Text,
-    Builder
-};
+    Builder};
 use BenBodan\BetUi\Repositories\RestRepo;
 
 class ChampionshipPlayView
@@ -44,6 +45,22 @@ class ChampionshipPlayView
 
         return new Row(
             children: [
+                new Column(
+                    children: [
+                        new BreadCrumb(
+                            items: [
+                                new BreadCrumbItem(
+                                    label: 'Profile',
+                                    icon: 'feather:user',
+                                    link: '/pages/auth/profile'
+                                ),
+                                new BreadCrumbItem(
+                                    label: $championship->title,
+                                )
+                            ]
+                        ),
+                    ]
+                ),
                 new Column(
                     desktop: 8,
                     children: [

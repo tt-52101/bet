@@ -18,18 +18,18 @@ class ProfilePageController extends ApiController
 
     public function page()
     {
-        $user = Auth::user()->id;
+        $user = Auth::user();
 
         $my_championship = new ChampionshipStatsCard();
         $my_championships = new ChampionshipIndexView($my_championship);
         $my_championships->filters = [
-            'user_id' => $user
+            'user_id' => $user->id
         ];
 
         $championship = new ChampionshipCard();
         $championships = new ChampionshipIndexView($championship);
         $championships->filters = [
-            'not_user_id' => $user
+            'not_user_id' => $user->id
         ];
 
         $bet_card = new BetCard();
@@ -38,6 +38,7 @@ class ProfilePageController extends ApiController
         $bets->column_size = 12;
         $bets->filters= [
             'per_page' => 2,
+            'user_id' => $user->id
         ];
 
         $page = new Page(
@@ -92,8 +93,8 @@ class ProfilePageController extends ApiController
                                                     badge: ''
                                                 )
                                             ],
-                                            title: 'Username',
-                                            subtitle: 'ben.bodan@gmail.com',
+                                            title: $user->name,
+                                            subtitle: $user->email,
                                             action: [
                                                 new Button(
                                                     title: 'Edit'

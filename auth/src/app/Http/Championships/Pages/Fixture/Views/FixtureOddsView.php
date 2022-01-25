@@ -11,6 +11,8 @@ use BenBodan\BetUi\Components\{Accordion,
     Avatar,
     AvatarStack,
     Block,
+    BreadCrumb,
+    BreadCrumbItem,
     Button,
     Form,
     Input,
@@ -19,8 +21,7 @@ use BenBodan\BetUi\Components\{Accordion,
     Page,
     Row,
     Column,
-    Builder
-};
+    Builder};
 use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Components\OddSelectCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
@@ -59,8 +60,45 @@ class FixtureOddsView
         return new Row(
             children: [
                 new Column(
+                    children: [
+                        new BreadCrumb(
+                            items: [
+                                new BreadCrumbItem(
+                                    label: 'Profile',
+                                    icon: 'feather:user',
+                                    link: '/pages/auth/profile'
+                                ),
+                                new BreadCrumbItem(
+                                    label: $championship->title,
+                                    link: "/pages/auth/championship_play_{$championship->id}"
+                                )
+                            ]
+                        ),
+                    ]
+                ),
+                new Column(
                     desktop: 8,
                     children: [
+                        new Card(
+                            children: [
+                               new Block(
+                                   icon: [
+                                       new AvatarStack(
+                                           items: [
+                                               new Avatar(
+                                                   picture: $fixture->home->logo
+                                               ),
+                                               new Avatar(
+                                                   picture: $fixture->away->logo
+                                               ),
+                                           ]
+                                       )
+                                   ],
+                                   title: "{$fixture->home->name} - {$fixture->home->name}",
+                                   subtitle: $fixture->date
+                               )
+                            ]
+                        ),
                         new Form(
                             name: 'bet_slip_form',
                             repo: new RestRepo(
