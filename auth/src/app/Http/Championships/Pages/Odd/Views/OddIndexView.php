@@ -49,7 +49,7 @@ class OddIndexView
                         url: env('APP_URL') . '/auth/api/odd',
                         filters: $this->filters
                     ),
-                    name: 'paginated_countries',
+                    name: 'paginated_odds',
                     children: [
                         new Column(
                             desktop: $this->column_size,
@@ -65,7 +65,7 @@ class OddIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('paginated_countries.query.keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_odds.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function pagination()
@@ -73,10 +73,10 @@ class OddIndexView
         return new Column(
             children: [
                 new Pagination(
-                    name: "paginated_countries.meta",
+                    name: "paginated_odds.meta",
                     on_change: [
                         new Event(
-                            topic: 'paginated_countries',
+                            topic: 'paginated_odds',
                             action: 'get',
                         )
                     ]
@@ -90,7 +90,7 @@ class OddIndexView
     {
         return [
             new Event(
-                topic: 'paginated_countries',
+                topic: 'paginated_odds',
                 action: 'search',
             )
         ];

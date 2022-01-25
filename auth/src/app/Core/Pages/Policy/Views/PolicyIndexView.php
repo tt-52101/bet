@@ -43,7 +43,7 @@ class PolicyIndexView
                 $this->pagination(),
                 new Builder(
                     repository: new RestRepo(env('APP_URL') . '/auth/api/policy'),
-                    name: 'paginated_countries',
+                    name: 'paginated_policies',
                     children: [
                         new Column(
                             desktop: 4,
@@ -59,7 +59,7 @@ class PolicyIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('paginated_countries.query.keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_policies.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function pagination()
@@ -67,10 +67,10 @@ class PolicyIndexView
         return new Column(
             children: [
                 new Pagination(
-                    name: "paginated_countries.meta",
+                    name: "paginated_policies.meta",
                     on_change: [
                         new Event(
-                            topic: 'paginated_countries',
+                            topic: 'paginated_policies',
                             action: 'get',
                         )
                     ]
@@ -85,7 +85,7 @@ class PolicyIndexView
     {
         return [
             new Event(
-                topic: 'paginated_countries',
+                topic: 'paginated_policies',
                 action: 'search',
             )
         ];

@@ -43,7 +43,7 @@ class BetCategoryIndexView
                 $this->pagination(),
                 new Builder(
                     repository: new RestRepo(env('APP_URL') . '/auth/api/bet-category'),
-                    name: 'paginated_countries',
+                    name: 'paginated_bet_categories',
                     children: [
                         new Column(
                             desktop: 4,
@@ -59,7 +59,7 @@ class BetCategoryIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('paginated_countries.query.keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_bet_categories.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function pagination()
@@ -67,10 +67,10 @@ class BetCategoryIndexView
         return new Column(
             children: [
                 new Pagination(
-                    name: "paginated_countries.meta",
+                    name: "paginated_bet_categories.meta",
                     on_change: [
                         new Event(
-                            topic: 'paginated_countries',
+                            topic: 'paginated_bet_categories',
                             action: 'get',
                         )
                     ]
@@ -85,7 +85,7 @@ class BetCategoryIndexView
     {
         return [
             new Event(
-                topic: 'paginated_countries',
+                topic: 'paginated_bet_categories',
                 action: 'search',
             )
         ];

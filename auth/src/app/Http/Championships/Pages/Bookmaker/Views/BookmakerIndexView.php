@@ -43,7 +43,7 @@ class BookmakerIndexView
                 $this->pagination(),
                 new Builder(
                     repository: new RestRepo(env('APP_URL') . '/auth/api/bookmaker'),
-                    name: 'paginated_countries',
+                    name: 'paginated_bookmakers',
                     children: [
                         new Column(
                             desktop: 4,
@@ -59,7 +59,7 @@ class BookmakerIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('paginated_countries.query.keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_bookmakers.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function pagination()
@@ -67,10 +67,10 @@ class BookmakerIndexView
         return new Column(
             children: [
                 new Pagination(
-                    name: "paginated_countries.meta",
+                    name: "paginated_bookmakers.meta",
                     on_change: [
                         new Event(
-                            topic: 'paginated_countries',
+                            topic: 'paginated_bookmakers',
                             action: 'get',
                         )
                     ]
@@ -85,7 +85,7 @@ class BookmakerIndexView
     {
         return [
             new Event(
-                topic: 'paginated_countries',
+                topic: 'paginated_bookmakers',
                 action: 'search',
             )
         ];

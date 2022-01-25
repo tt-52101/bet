@@ -43,7 +43,7 @@ class PermissionIndexView
                 $this->pagination(),
                 new Builder(
                     repository: new RestRepo(env('APP_URL') . '/auth/api/permission'),
-                    name: 'paginated_countries',
+                    name: 'paginated_permissions',
                     children: [
                         new Column(
                             desktop: 4,
@@ -59,7 +59,7 @@ class PermissionIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('paginated_countries.query.keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_permissions.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function pagination()
@@ -67,10 +67,10 @@ class PermissionIndexView
         return new Column(
             children: [
                 new Pagination(
-                    name: "paginated_countries.meta",
+                    name: "paginated_permissions.meta",
                     on_change: [
                         new Event(
-                            topic: 'paginated_countries',
+                            topic: 'paginated_permissions',
                             action: 'get',
                         )
                     ]
@@ -85,7 +85,7 @@ class PermissionIndexView
     {
         return [
             new Event(
-                topic: 'paginated_countries',
+                topic: 'paginated_permissions',
                 action: 'search',
             )
         ];
