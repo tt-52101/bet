@@ -144,7 +144,12 @@ class ChampionshipController extends ApiController
         if (Gate::denies('view', new Championship())) {
             return $this->respondForbidden("You don't have permission");
         }
-        return new BetSlipItemCollection($championship->betSlipItems);
+
+        // BetSlip User Items
+        $user_id = Auth::user()->id;
+        $bets = $championship->betSlipItems()->where('user_id', $user_id)->get();
+
+        return new BetSlipItemCollection($bets);
     }
 
     public function betSlipIds(Championship $championship)
@@ -152,12 +157,11 @@ class ChampionshipController extends ApiController
         if (Gate::denies('view', new Championship())) {
             return $this->respondForbidden("You don't have permission");
         }
-        $ids = $championship->betSlips()->pluck('odd_id')->toArray();
-        $ids = array_map('strval', $ids);
+        $user_id = Auth::user()->id;
 
         return [
             'win' => 10,
-            'odd_ids' => $ids,
+            'odd_ids' => $championship->betSlipIds($user_id),
         ];
     }
 

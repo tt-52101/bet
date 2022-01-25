@@ -3,6 +3,7 @@
 namespace App\Http\Championships\Models;
 
 use App\Core\Filters\Filterable;
+use App\Http\Championships\Scopes\MyBets;
 use Illuminate\Database\Eloquent\Model;
 
 class Bet extends Model
@@ -21,6 +22,10 @@ class Bet extends Model
         'points',
         'odds'
     ];
+
+    protected static function booted(){
+        static::addGlobalScope(new MyBets());
+    }
 
     public function championshipOdd()
     {

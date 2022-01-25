@@ -27,6 +27,7 @@ use App\Http\Championships\Pages\Odd\Views\OddIndexView;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use App\Http\Championships\Models\Fixture;
+use Illuminate\Support\Facades\Auth;
 
 class FixtureOddsView
 {
@@ -53,6 +54,7 @@ class FixtureOddsView
         $exact_score = $this->odds($fixture, 10);
 
         $bet_slip = new BetSlip();
+        $user = Auth::user()->id;
 
         return new Row(
             children: [
@@ -66,7 +68,7 @@ class FixtureOddsView
                                 show: env('APP_URL') . "/auth/api/championship/{$championship->id}/bet-slip-ids"
                             ),
                             data: [
-                                'odd_ids' => $championship->betSlipIds()
+                                'odd_ids' => $championship->betSlipIds($user)
                             ],
                             on_created: [
                                 new Event(

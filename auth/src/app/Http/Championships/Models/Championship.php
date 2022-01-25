@@ -55,9 +55,9 @@ class Championship extends Model
         return $this->belongsToMany(Odd::class, 'championship_bet_slips');
     }
 
-    public function betSlipIds()
+    public function betSlipIds($user_id)
     {
-        $bet_slip = $this->betSlips()->pluck('odd_id')->toArray();
+        $bet_slip = $this->betSlips()->where('user_id', $user_id)->pluck('odd_id')->toArray();
         return array_map('strval', $bet_slip);
     }
 
@@ -87,7 +87,6 @@ class Championship extends Model
             ];
         }
 
-
         // Remove Points
         $member = $this->members()->where('user_id', $user_id)->first();
         $member->update([
@@ -99,11 +98,13 @@ class Championship extends Model
         Bet::insert($bets);
     }
 
-    public function betPoints(){
+    public function betPoints()
+    {
         return $this->betSlipItems()->sum('points');
     }
 
-    public function members(){
+    public function members()
+    {
         return $this->hasMany(ChampionshipMember::class, 'championship_id');
     }
 
@@ -143,12 +144,36 @@ class Championship extends Model
 
     public function attachUniqueOdds($ids)
     {
-        $ids = collect($ids);
-        $existing_ids = $this->betSlips()->whereIn('championship_bet_slips.odd_id', $ids)->pluck('odd_id');
-        $this->betSlips()->attach($ids->diff($existing_ids), [
-            'user_id' => Auth::user()->id
-        ]);
+        $user_id = Auth::user()->id;
 
-        $this->betSlips()->sync($ids);
+        $this->attachBetSlipItems($user_id, $ids);
+        $this->detachUnusedBetSlipItems($user_id, $ids);
+    }
+
+    private function attachBetSlipItems($user_id, $ids)
+    {
+        $ids = collect($ids);
+        $existing_ids = $this->betSlips()
+            ->where('user_id', $user_id)
+            ->whereIn('championship_bet_slips.odd_id', $ids)->pluck('odd_id');
+
+        $new_ids = $ids->diff($existing_ids);
+        $bets = [];
+
+        foreach ($new_ids as $id) {
+            $bets[] = [
+                'user_id' => $user_id,
+                'championship_id' => $this->id,
+                'odd_id' => $id
+            ];
+        }
+
+        BetSlipItem::insert($bets);
+    }
+
+    private function detachUnusedBetSlipItems($user_id, $ids): void
+    {
+        $this->betSlipItems()->where('user_id', $user_id)
+            ->whereNotIn('championship_bet_slips.odd_id', $ids)->delete();
     }
 }
