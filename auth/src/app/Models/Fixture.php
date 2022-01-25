@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Filters\Filterable;
+use App\Http\Championships\Models\Championship;
 use Jenssegers\Mongodb\Eloquent\Model;
 use App\Models\Odd;
 
@@ -48,5 +49,9 @@ class Fixture extends Model
     public function odds()
     {
         return $this->belongsTo(Odd::class, 'fixture.id', 'fixture.id');
+    }
+
+    public function championships(){
+        return $this->belongsToMany(Championship::class);
     }
 }

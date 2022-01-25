@@ -113,7 +113,7 @@ class Championship extends Model
         $user_id = Auth::user()->id;
         $member = $this->members()->where('championship_user.user_id', $user_id)->first();
 
-        $odds = $this->betSlipItems;
+        $odds = $this->betSlipItems()->where('user_id', $user_id)->get();
         $points = $member->points;
         $return = 0;
         $bet = 0;

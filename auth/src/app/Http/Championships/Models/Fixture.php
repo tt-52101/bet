@@ -57,4 +57,8 @@ class Fixture extends Model
     public function odds(){
         return $this->hasMany(Odd::class, 'fixture_id');
     }
+
+    public function championships(){
+        return $this->belongsToMany(Championship::class);
+    }
 }

@@ -118,6 +118,11 @@ class ChampionshipController extends ApiController
         if (Gate::denies('view', new Championship())) {
             return $this->respondForbidden("You don't have permission");
         }
+
+        request()->merge([
+            'championship_id' => $championship->id
+        ]);
+
         $filters = new FixtureFilters(request());
         $fixtures = Fixture::filter($filters)->paginate(10);
 

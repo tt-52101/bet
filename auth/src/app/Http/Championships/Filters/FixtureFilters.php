@@ -22,6 +22,12 @@ class FixtureFilters extends QueryFilters
             });
     }
 
+    public function championship_id($id){
+        return $this->builder->whereHas('league.championships', function ($q) use($id){
+           $q->where('championships.id', $id);
+        });
+    }
+
     public function has_odds($value)
     {
         if ($value) {
