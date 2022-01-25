@@ -26,6 +26,10 @@ class League extends Model
         return $this->hasMany(Fixture::class, 'league_id');
     }
 
+    public function teams(){
+        return $this->hasMany(Team::class);
+    }
+
     public function championships(){
         return $this->belongsToMany(Championship::class, 'championship_leagues');
     }

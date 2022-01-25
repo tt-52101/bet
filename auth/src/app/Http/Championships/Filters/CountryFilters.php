@@ -10,4 +10,11 @@ class CountryFilters extends QueryFilters
     {
         return $this->builder->where('countries.name', 'LIKE', "%" . $keyword . "%");
     }
+
+    public function has_teams($value = false) {
+        if($value) {
+            return $this->builder
+                ->whereHas('leagues.teams');
+        }
+    }
 }

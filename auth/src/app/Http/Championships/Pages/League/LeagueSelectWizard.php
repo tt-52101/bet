@@ -72,7 +72,8 @@ class LeagueSelectWizard extends ApiController
 
         $countries->column_size = 6;
         $countries->filters = [
-            'per_page' => 10
+            'per_page' => 10,
+            'has_teams' => true
         ];
         return $countries->schema();
     }
@@ -95,7 +96,8 @@ class LeagueSelectWizard extends ApiController
         $leagues->column_size = 12;
         $leagues->filters = [
             'per_page' => 4,
-            'country_id' => $country_id
+            'country_id' => $country_id,
+            'has_teams' => true
         ];
         return $leagues->schema();
     }

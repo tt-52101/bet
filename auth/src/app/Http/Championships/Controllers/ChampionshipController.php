@@ -48,7 +48,7 @@ class ChampionshipController extends ApiController
 
         return [
             'message' => 'Championship Updated Successfully',
-            'entry' => $championship
+            'body' => $championship
         ];
     }
 
@@ -120,7 +120,9 @@ class ChampionshipController extends ApiController
         }
 
         request()->merge([
-            'championship_id' => $championship->id
+            'championship_id' => $championship->id,
+            'date_gte' => $championship->start_at,
+            'date_lte' => $championship->end_at,
         ]);
 
         $filters = new FixtureFilters(request());

@@ -35,6 +35,16 @@ class FixtureFilters extends QueryFilters
         }
     }
 
+    public function date_gte($value){
+        return $this->builder
+            ->where('fixtures.date','>=', $value);
+    }
+
+    public function date_lte($value){
+        return $this->builder
+            ->where('fixtures.date','<=', $value);
+    }
+
     public function league_id($id)
     {
         return $this->builder->where('fixtures.league_id', $id);

@@ -17,6 +17,14 @@ class LeagueFilters extends QueryFilters
             });
     }
 
+    public function has_teams($value = false)
+    {
+        if ($value) {
+            return $this->builder
+                ->whereHas('teams');
+        }
+    }
+
     public function has_fixtures($value)
     {
         if ($value) {
