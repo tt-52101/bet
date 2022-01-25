@@ -8,6 +8,7 @@ use App\Http\Championships\Resources\BetCollection;
 
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\Bet;
+use Illuminate\Support\Facades\Gate;
 
 class BetController extends ApiController
 {
@@ -15,6 +16,9 @@ class BetController extends ApiController
 
     public function index(BetRepository $countries)
     {
+        if (Gate::denies('view', new Bet())) {
+            return $this->respondForbidden("You don't have permission to view");
+        }
         if (request()->has('per_page') && request()->per_page < 20) {
             $this->per_page = request()->per_page;
         }
@@ -24,12 +28,17 @@ class BetController extends ApiController
 
     public function show(BetRepository $bet)
     {
+        if (Gate::denies('view', new Bet())) {
+            return $this->respondForbidden("You don't have permission to view");
+        }
         return new BetResource($bet);
     }
 
     public function update(BetRepository $bet)
     {
-
+        if (Gate::denies('update', new Bet())) {
+            return $this->respondForbidden("You don't have permission to view");
+        }
         $bet->update(request()->all());
 
         return [
@@ -40,7 +49,9 @@ class BetController extends ApiController
 
     public function store(BetRepository $bet)
     {
-
+        if (Gate::denies('create', new Bet())) {
+            return $this->respondForbidden("You don't have permission to view");
+        }
         $bet = $bet->create(request()->all());
 
         return [

@@ -2,6 +2,7 @@
 
 namespace App\Http\Championships\Controllers;
 
+use App\Core\Auth\Models\User;
 use App\Http\Championships\Models\BetSlipItem;
 use App\Http\Championships\Resources\BetSlipItem as BetSlipItemResource;
 use App\Http\Championships\Models\Fixture;
@@ -16,25 +17,33 @@ use App\Http\Championships\Models\Championship;
 use App\Http\Championships\Resources\FixtureCollection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Championships\Filters\FixtureFilters;
-use App\Http\Championships\Models\Odd;
+use Illuminate\Support\Facades\Gate;
 
 class ChampionshipController extends ApiController
 {
 
     public function index(ChampionshipRepository $championships)
     {
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $championships = $championships->paginate(10);
         return new ChampionshipCollection($championships);
     }
 
     public function show(ChampionshipRepository $championship)
     {
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         return new ChampionshipResource($championship);
     }
 
     public function update(ChampionshipRepository $championship)
     {
-
+        if (Gate::denies('update', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $championship->update(request()->all());
 
         return [
@@ -45,7 +54,9 @@ class ChampionshipController extends ApiController
 
     public function store(ChampionshipRepository $championship)
     {
-
+        if (Gate::denies('create', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $championship = $championship->create(request()->all());
 
         return [
@@ -56,7 +67,9 @@ class ChampionshipController extends ApiController
 
     public function join(ChampionshipRepository $championship)
     {
-
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $championship = $championship->get();
         $user = Auth::user()->id;
 
@@ -77,6 +90,9 @@ class ChampionshipController extends ApiController
 
     public function addLeague(Championship $championship)
     {
+        if (Gate::denies('create', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $league = League::find(request()->league_id);
         $championship->leagues()->attach($league);
 
@@ -87,6 +103,9 @@ class ChampionshipController extends ApiController
 
     public function removeLeague(Championship $championship, League $league)
     {
+        if (Gate::denies('create', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $championship->leagues()->detach($league);
 
         return [
@@ -96,6 +115,9 @@ class ChampionshipController extends ApiController
 
     public function fixtures(Championship $championship)
     {
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $filters = new FixtureFilters(request());
         $fixtures = Fixture::filter($filters)->paginate(10);
 
@@ -104,7 +126,9 @@ class ChampionshipController extends ApiController
 
     public function syncBetSlip(Championship $championship)
     {
-
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $user = Auth::user()->id;
         $selected_odds = request()->odd_ids;
 
@@ -117,12 +141,17 @@ class ChampionshipController extends ApiController
 
     public function betSlips(Championship $championship)
     {
-
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         return new BetSlipItemCollection($championship->betSlipItems);
     }
 
     public function betSlipIds(Championship $championship)
     {
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
         $ids = $championship->betSlips()->pluck('odd_id')->toArray();
         $ids = array_map('strval', $ids);
 
@@ -134,6 +163,9 @@ class ChampionshipController extends ApiController
 
     public function updateBetSlip(Championship $championship, BetSlipItem $betSlipItem)
     {
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
 
         $betSlipItem->update([
             'points' => request()->points
@@ -148,6 +180,9 @@ class ChampionshipController extends ApiController
 
     public function deleteBetSlip(Championship $championship, BetSlipItem $betSlipItem)
     {
+        if (Gate::denies('view', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
 
         $betSlipItem->delete();
 

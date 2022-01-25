@@ -2,8 +2,8 @@
 
 namespace App\Http\Championships\Policies;
 
-use App\Http\Teams\Models\Team;
-
+use App\Http\Championships\Models\Team;
+use App\Core\Auth\Models\User;
 use App\Core\Policies\DefaultPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

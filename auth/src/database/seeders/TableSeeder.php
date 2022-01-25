@@ -68,8 +68,56 @@ class TableSeeder extends Seeder
         ];
 
         $tables[] = [
+            'title' => 'Countries',
+            'name' => 'country',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
+            'title' => 'Leagues',
+            'name' => 'league',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
+            'title' => 'Team',
+            'name' => 'team',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
+            'title' => 'Bookmaker',
+            'name' => 'bookmaker',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
+            'title' => 'Championships',
+            'name' => 'championship',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
+            'title' => 'Odds',
+            'name' => 'odd',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
+            'title' => 'Fixtures',
+            'name' => 'fixture',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
             'title' => 'Bet Categories',
             'name' => 'bet_category',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
+            'title' => 'Bets',
+            'name' => 'bet',
             'user_entries' => false
         ];
 

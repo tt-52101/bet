@@ -49,7 +49,7 @@ class BetIndexView
                         url: env('APP_URL') . '/auth/api/bet',
                         filters: $this->filters
                     ),
-                    name: 'paginated_countries',
+                    name: 'paginated_bets',
                     children: [
                         new Column(
                             desktop: $this->column_size,
@@ -65,7 +65,7 @@ class BetIndexView
 
     public function searchInput()
     {
-        return (new SearchInput('paginated_countries.query.keyword'))->onEnter($this->onSearch());
+        return (new SearchInput('paginated_bets.query.keyword'))->onEnter($this->onSearch());
     }
 
     public function pagination()
@@ -73,10 +73,10 @@ class BetIndexView
         return new Column(
             children: [
                 new Pagination(
-                    name: "paginated_countries.meta",
+                    name: "paginated_bets.meta",
                     on_change: [
                         new Event(
-                            topic: 'paginated_countries',
+                            topic: 'paginated_bets',
                             action: 'get',
                         )
                     ]
@@ -91,7 +91,7 @@ class BetIndexView
     {
         return [
             new Event(
-                topic: 'paginated_countries',
+                topic: 'paginated_bets',
                 action: 'search',
             )
         ];

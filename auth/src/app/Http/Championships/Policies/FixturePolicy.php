@@ -2,9 +2,9 @@
 
 namespace App\Http\Championships\Policies;
 
-use App\Http\Fixtures\Models\Fixture;
-
+use App\Http\Championships\Models\Fixture;
 use App\Core\Policies\DefaultPolicy;
+use App\Core\Auth\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FixturePolicy extends DefaultPolicy

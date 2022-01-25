@@ -38,7 +38,3 @@ Route::prefix('permission')->group(function(){
 Route::prefix('profile')->group(function(){
     Route::get('/', 'Profile\\ProfilePageController@page');
 });
-
-Route::prefix('fixture')->group(function(){
-    Route::get('/', 'User\\FixturePageController@page');
-});

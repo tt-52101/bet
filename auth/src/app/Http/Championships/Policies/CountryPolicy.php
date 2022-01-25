@@ -2,8 +2,8 @@
 
 namespace App\Http\Championships\Policies;
 
-use App\Http\Countrys\Models\Country;
-
+use App\Http\Championships\Models\Country;
+use App\Core\Auth\Models\User;
 use App\Core\Policies\DefaultPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -14,7 +14,7 @@ class CountryPolicy extends DefaultPolicy
     protected $table_name;
 
     function __construct(){
-        $this->defaultPolicy = new DefaultPolicy('championship');
+        $this->defaultPolicy = new DefaultPolicy('country');
     }
 
     public function view(User $user, Country $country){

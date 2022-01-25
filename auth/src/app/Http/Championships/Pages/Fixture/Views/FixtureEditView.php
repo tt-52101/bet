@@ -4,6 +4,7 @@ namespace App\Http\Championships\Pages\Fixture\Views;
 
 use App\Http\Championships\Pages\Fixture\Components\FixtureForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
+use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
 
 class FixtureEditView
@@ -11,7 +12,6 @@ class FixtureEditView
 
     public function __construct(
         public FixtureForm  $form,
-        public OddIndexView $odds,
     )
     {
 
@@ -19,8 +19,11 @@ class FixtureEditView
 
     public function schema($data = [])
     {
-        $this->odds->column_size = 12;
-        $this->odds->filters = [
+        $odd_card = new OddCard();
+        $odds = new OddIndexView($odd_card);
+
+        $odds->column_size = 12;
+        $odds->filters = [
             'fixture_id' => $data['id'],
             'per_page' => 3
         ];
@@ -41,7 +44,7 @@ class FixtureEditView
                                 new AccordionItem(
                                     title: 'Odds',
                                     children: [
-                                        $this->odds->schema()
+                                        $odds->schema()
                                     ]
                                 ),
                             ]

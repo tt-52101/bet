@@ -2,7 +2,8 @@
 
 namespace App\Http\Championships\Policies;
 
-use App\Http\Bookmakers\Models\Bookmaker;
+use App\Http\Championships\Models\Bookmaker;
+use App\Core\Auth\Models\User;
 
 use App\Core\Policies\DefaultPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;

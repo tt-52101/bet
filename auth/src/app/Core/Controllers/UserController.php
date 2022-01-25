@@ -15,7 +15,7 @@ class UserController extends ApiController
     public function index(UserService $users)
     {
         if (Gate::denies('view', new User())) {
-            return $this->respondForbidden("You don't have permission to view");
+            return $this->respondForbidden("You don't have permission");
         }
         $users = $users->paginate(10);
         return new UserCollection($users);
