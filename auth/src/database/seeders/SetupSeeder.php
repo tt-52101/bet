@@ -15,7 +15,7 @@ class SetupSeeder extends Seeder
     public function run()
     {
         $this->call([
-            LanguageSeeder::class,
+            PermissionSeeder::class,
             RoleSeeder::class,
             TableSeeder::class,
             PolicySeeder::class,

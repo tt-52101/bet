@@ -29,6 +29,12 @@ Route::prefix('policy')->group(function(){
     Route::get('/edit/{policy}', 'Policy\\PolicyPageController@edit');
 });
 
+Route::prefix('permission')->group(function(){
+    Route::get('/', 'Permission\\PermissionPageController@page');
+    Route::get('/new', 'Permission\\PermissionPageController@new');
+    Route::get('/edit/{permission}', 'Permission\\PermissionPageController@edit');
+});
+
 Route::prefix('profile')->group(function(){
     Route::get('/', 'Profile\\ProfilePageController@page');
 });

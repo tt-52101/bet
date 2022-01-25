@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Core\Pages\Policy\Views;
+namespace App\Core\Pages\Permission\Views;
 
-use App\Core\Pages\Policy\Components\PolicyForm;
-use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
-use App\Http\Championships\Pages\Odd\Components\OddCard;
-use App\Http\Championships\Pages\Odd\Views\OddIndexView;
+use App\Core\Pages\Permission\Components\PermissionForm;
+use BenBodan\BetUi\Components\{Page, Row, Column};
 
-class PolicyEditView
+class PermissionEditView
 {
 
     public function __construct(
-        public PolicyForm $form,
+        public PermissionForm $form,
     )
     {
 
@@ -26,7 +24,7 @@ class PolicyEditView
                     children: [
                         $this->form->schema($data)
                     ]
-                )
+                ),
             ]
         );
     }

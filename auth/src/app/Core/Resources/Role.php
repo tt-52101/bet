@@ -19,6 +19,7 @@ class Role extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'name' => $this->name,
+            'permission_ids' => $this->permissions->pluck('id'),
             'public' => (bool) $this->public,
             'active' => (bool) $this->active,
         ];

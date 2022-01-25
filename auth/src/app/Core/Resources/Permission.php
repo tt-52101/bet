@@ -4,23 +4,23 @@ namespace App\Core\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Language extends JsonResource
+class Permission extends JsonResource
 {
     public static $wrap = null;
-
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'id' => (int) $this->id,
+            'id' => $this->id,
             'title' => $this->title,
-            'code' => $this->code,
-            'active' =>  (bool) $this->active,
+            'name' => $this->name,
+            'role_ids' => $this->roles->pluck('id'),
+            'active' => (bool) $this->active,
         ];
     }
 }

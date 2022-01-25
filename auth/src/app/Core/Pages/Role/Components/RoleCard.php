@@ -19,7 +19,6 @@ class RoleCard
                         new Avatar(
                             initials: '$name',
                             size: 'medium',
-                            color: 'primary'
                         ),
                     ],
                     action: [

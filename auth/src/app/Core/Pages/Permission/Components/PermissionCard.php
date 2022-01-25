@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Core\Pages\Policy\Components;
+namespace App\Core\Pages\Permission\Components;
 
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Components\{Avatar, Block, Button, Card, Text};
 
-class PolicyCard
+class PermissionCard
 {
 
     public function schema()
@@ -13,11 +13,11 @@ class PolicyCard
         return new Card(
             children: [
                 new Block(
-                    title: '$name',
-                    subtitle: '$role',
+                    title: '$title',
+                    subtitle: '$name',
                     icon: [
                         new Avatar(
-                            initials: '$name',
+                            initials: '$title',
                             size: 'medium',
                         ),
                     ],
@@ -41,7 +41,7 @@ class PolicyCard
         return new Event(
             action: 'push',
             topic: 'route',
-            payload: '/pages/auth/policy_edit_$id'
+            payload: '/pages/auth/permission_edit_$id'
         );
     }
 }

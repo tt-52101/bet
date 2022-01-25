@@ -15,5 +15,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('table', 'TableController');
     Route::resource('policy', 'PolicyController');
     Route::resource('role', 'RoleController');
+    Route::resource('permission', 'PermissionController');
 });
 

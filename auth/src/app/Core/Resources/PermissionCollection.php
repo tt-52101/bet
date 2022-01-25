@@ -2,10 +2,9 @@
 
 namespace App\Core\Resources;
 
-use App\Core\Models\Language;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class LanguageCollection extends ResourceCollection
+class PermissionCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

@@ -171,13 +171,13 @@ class UserForm
             ]
         );
 
-        $roles = Role::lang('gr')->get()->toArray();
+        $roles = Role::all();
         $account_fields[] = new Column(
             children: [
                 new Select(
                     name: 'roles_id',
                     multiple: true,
-                    options: $roles
+                    options: $roles->toArray()
                 )
             ]
         );

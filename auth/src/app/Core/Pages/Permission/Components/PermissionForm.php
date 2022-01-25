@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Core\Pages\Role\Components;
+namespace App\Core\Pages\Permission\Components;
 
-use App\Core\Models\Permission;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Components\{Avatar,
@@ -19,13 +18,13 @@ use BenBodan\BetUi\Components\{Avatar,
     Select,
     Text
 };
-use App\Core\Models\Table;
 use App\Core\Models\Role;
-class RoleForm
+
+class PermissionForm
 {
 
     public function __construct(
-        private string $name = 'role',
+        private string $name = 'permission',
     )
     {
         $this->host = env('APP_URL');
@@ -35,7 +34,7 @@ class RoleForm
     {
 
         return new Form(
-            repo: new RestRepo(env('APP_URL') . '/auth/api/role'),
+            repo: new RestRepo(env('APP_URL') . '/auth/api/permission'),
             name: "{$this->name}_form",
             data: $data,
             children: [
@@ -62,7 +61,7 @@ class RoleForm
                 new Event(
                     action: 'push',
                     topic: 'route',
-                    payload: '/pages/auth/role_edit_$id'
+                    payload: '/pages/auth/permission_edit_$id'
                 )
             ]
         );
@@ -91,24 +90,23 @@ class RoleForm
             ]
         );
 
-        $permissions = Permission::all();
+        $roles = Role::all();
         $fields[] = new Column(
             children: [
                 new Select(
-                    name: 'permission_ids',
+                    name: 'role_ids',
                     multiple: true,
-                    options: $permissions->toArray()
+                    options: $roles->toArray()
                 )
             ]
         );
-
 
         $fields[] = new Column(
             desktop: 4,
             children: [
                 new SwitchInput(
-                    name: 'public',
-                    title: 'Public'
+                    name: 'active',
+                    title: 'Active'
                 )
             ]
         );
