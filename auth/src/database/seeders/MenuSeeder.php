@@ -145,6 +145,12 @@ class MenuSeeder extends Seeder
                         'url' => '/pages/auth/table',
                         'icon' => '',
                     ],
+                    [
+                        'title' => 'Policies',
+                        'name' => 'policy',
+                        'url' => '/pages/auth/policy',
+                        'icon' => '',
+                    ],
                 ]
             ],
         ];

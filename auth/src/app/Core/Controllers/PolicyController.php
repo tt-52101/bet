@@ -57,7 +57,7 @@ class PolicyController extends ApiController
 
         return [
             'message' => 'Policy Updated Successfully',
-            'entry' => new PolicyResource($policy)
+            'body' => new PolicyResource($policy)
         ];
     }
 

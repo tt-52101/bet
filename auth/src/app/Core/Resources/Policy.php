@@ -18,6 +18,8 @@ class Policy extends JsonResource
         return [
             'id' => $this->id,
             'table_title' => $this->table_title,
+            'name' => $this->table?->name,
+            'role' => $this->role?->name,
             'table_id' => $this->table_id,
             'role_title' => $this->role_title,
             'role_id' => $this->role_id,
