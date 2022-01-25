@@ -17,6 +17,12 @@ Route::prefix('table')->group(function(){
 });
 
 
+Route::prefix('role')->group(function(){
+    Route::get('/', 'Role\\RolePageController@page');
+    Route::get('/new', 'Role\\RolePageController@new');
+    Route::get('/edit/{role}', 'Role\\RolePageController@edit');
+});
+
 Route::prefix('policy')->group(function(){
     Route::get('/', 'Policy\\PolicyPageController@page');
     Route::get('/new', 'Policy\\PolicyPageController@new');

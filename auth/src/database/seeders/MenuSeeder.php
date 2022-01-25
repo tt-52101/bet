@@ -151,6 +151,12 @@ class MenuSeeder extends Seeder
                         'url' => '/pages/auth/policy',
                         'icon' => '',
                     ],
+                    [
+                        'title' => 'Roles',
+                        'name' => 'roles',
+                        'url' => '/pages/auth/role',
+                        'icon' => '',
+                    ],
                 ]
             ],
         ];

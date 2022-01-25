@@ -19,34 +19,22 @@ class RoleSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         Role::truncate();
-        RoleTranslation::truncate();
         Schema::enableForeignKeyConstraints();
 
         $this->createRoles();
     }
 
     public function createRoles(){
-        $this->createRole('admin','Διαχειριστής', 'Admin');
-        $this->createRole('guest','Επισκέπτης', 'Guest');
+        $this->createRole('admin', 'Admin');
+        $this->createRole('guest', 'Guest');
     }
 
-    public function createRole($name, $title_gr, $title) {
+    public function createRole($name, $title) {
         $role = Role::create([
             'name' => $name,
+            'title' => $title,
             'active' => true,
             'public' => true,
-        ]);
-
-        $tr = RoleTranslation::create([
-            'title' => $title,
-            'role_id' => $role->id,
-            'lang_id' => 2,
-        ]);
-
-        $tr = RoleTranslation::create([
-            'title' => $title_gr,
-            'role_id' => $role->id,
-            'lang_id' => 1,
         ]);
     }
 }

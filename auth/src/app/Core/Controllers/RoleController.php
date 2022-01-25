@@ -62,7 +62,7 @@ class RoleController extends ApiController
 
         return [
             'message' => 'Role Updated Successfully',
-            'entry' => new RoleResource($role)
+            'body' => new RoleResource($role)
         ];
     }
 

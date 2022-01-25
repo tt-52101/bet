@@ -19,6 +19,7 @@ class SetupSeeder extends Seeder
             RoleSeeder::class,
             TableSeeder::class,
             PolicySeeder::class,
+            MenuSeeder::class,
             UserSeeder::class,
             CountrySeeder::class,
             LeagueSeeder::class,
@@ -26,7 +27,7 @@ class SetupSeeder extends Seeder
             BookmakerSeeder::class,
             BetCategorySeeder::class,
             FixtureSeeder::class,
-            OddSeeder::class,
+            // OddSeeder::class,
         ]);
     }
 }
