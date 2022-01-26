@@ -16,6 +16,7 @@ use BenBodan\BetUi\Components\{Accordion,
     ButtonGroup,
     Form,
     Input,
+    Pagination,
     Radio,
     Selectable,
     Table,
@@ -64,6 +65,15 @@ class ChampionshipPlayView
                 new Column(
                     desktop: 8,
                     children: [
+                        new Pagination(
+                            name: "paginated_fixtures.meta",
+                            on_change: [
+                                new Event(
+                                    topic: 'paginated_fixtures',
+                                    action: 'get',
+                                )
+                            ]
+                        ),
                         new Table(
                             columns: [
                                 new TableColumn(
@@ -80,6 +90,7 @@ class ChampionshipPlayView
                             ],
                             children: [
                                 new Builder(
+                                    name:'paginated_fixtures',
                                     repository: new RestRepo(
                                         url: env('APP_URL') . "/auth/api/championship/{$championship->id}/fixtures",
                                         filters: [

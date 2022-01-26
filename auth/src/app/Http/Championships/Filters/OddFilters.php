@@ -36,6 +36,12 @@ class OddFilters extends QueryFilters
         return $this->builder->where('odds.bookmaker_id', $id);
     }
 
+    public function league_id($id){
+        return $this->builder->whereHas('fixture.league', function($q) use($id){
+            $q->where('leagues.id', $id);
+        });
+    }
+
     public function value($value){
         return $this->builder->where('odds.value', $value);
     }

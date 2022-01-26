@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Championships\Tests\Helpers;
+use App\Http\Championships\Models\Bookmaker;
 use App\Http\Championships\Models\Country;
 use App\Http\Championships\Models\FixtureStatus;
 use App\Http\Championships\Models\League;
@@ -88,6 +89,14 @@ class FixtureHelper {
 
             'home_goals' => null,
             'away_goals' => null,
+        ]);
+    }
+
+    public static function createBookmaker($api_id = 1, $name = 'name' , $title = 'title'){
+        Bookmaker::create([
+            'name' => $name,
+            'title' => $title,
+            'api_id' => $api_id
         ]);
     }
 }

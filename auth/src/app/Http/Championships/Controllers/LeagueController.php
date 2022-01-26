@@ -3,12 +3,14 @@
 namespace App\Http\Championships\Controllers;
 
 use App\Core\Auth\Models\User;
+use App\Http\Championships\Jobs\SyncLeagueOdds;
 use App\Http\Championships\Repositories\LeagueRepository;
 use App\Http\Championships\Resources\League as LeagueResource;
 use App\Http\Championships\Resources\LeagueCollection;
 
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\League;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Championships\Jobs\SyncLeagueFixtures;
 
@@ -63,7 +65,18 @@ class LeagueController extends ApiController
         ];
     }
 
-    public function sync(League $league) {
+    public function syncOdds(League $league) {
+
+        $season = Carbon::parse(request()->from)->format('Y');
+        $job = new SyncLeagueOdds($league, $season);
+        $this->dispatch($job);
+
+        return [
+            'message' => 'League Sync Started',
+        ];
+    }
+
+    public function syncFixtures(League $league) {
         $from = request()->get('from');
         $to = request()->get('to');
 
