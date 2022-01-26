@@ -12,6 +12,7 @@ class Fixture extends Model
 
     protected $fillable = [
         'api_id',
+        'status_id',
 
         'country_id',
         'league_id',
@@ -26,12 +27,15 @@ class Fixture extends Model
         'away_goals',
 
         'date',
-        'status',
     ];
 
     public function setDateAttribute($value)
     {
         $this->attributes['date'] =  Carbon::parse($value);
+    }
+
+    public function status(){
+        return $this->belongsTo(FixtureStatus::class);
     }
 
     public function home()
@@ -65,6 +69,10 @@ class Fixture extends Model
     public function sync(array $json){
 
         $date = $json['fixture']['timestamp'];
+
+        $status = $json['fixture']['status']['short'];
+        $status_id = FixtureStatus::where('name', $status)->first()->id;
+
         $home_winner = $json['teams']['home']['winner'];
         $away_winner = $json['teams']['away']['winner'];
 
@@ -75,7 +83,7 @@ class Fixture extends Model
 
         $this->update([
             'date' => $date,
-            'status' => $status,
+            'status_id' => $status_id,
             'home_winner' => $home_winner,
             'away_winner' => $away_winner,
             'home_goals' => $home_goals,
@@ -88,6 +96,9 @@ class Fixture extends Model
         $league = $json['league']['id'];
         $league_id = League::where('api_id', $league)->first()->id;
 
+        $status = $json['fixture']['status']['short'];
+        $status_id = FixtureStatus::where('name', $status)->first()->id;
+
         $country_name = $json['league']['country'];
         $country_id = Country::where('countries.name', $country_name)->first()->id;
 
@@ -98,7 +109,7 @@ class Fixture extends Model
             'api_id' => $json['fixture']['id'],
 
             'date' => $json['fixture']['timestamp'],
-            'status' => $json['fixture']['status']['long'],
+            'status_id' => $status_id,
 
             'country_id' => $country_id,
             'league_id' => $league_id,

@@ -38,7 +38,7 @@ class  FixturesApiMock implements FixturesApiInterface
         self::$response[] = $fixture;
     }
 
-    public static function fixture($fixture_id, $country, $home_id, $home_team, $away_id, $away_team, $home_win = true)
+    public static function fixture($fixture_id, $country, $home_id, $home_team, $away_id, $away_team, $home_win = true , $status = 'FT')
     {
         return [
             "fixture" => [
@@ -53,7 +53,7 @@ class  FixturesApiMock implements FixturesApiInterface
                 ],
                 "status" => [
                     "long" => 'Match Finished',
-                    "short" => "FT",
+                    "short" => $status,
                     "elapsed" => 90
                 ],
             ],

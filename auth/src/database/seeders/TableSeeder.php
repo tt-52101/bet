@@ -121,6 +121,12 @@ class TableSeeder extends Seeder
             'user_entries' => false
         ];
 
+        $tables[] = [
+            'title' => 'Fixture Statuses',
+            'name' => 'fixture_status',
+            'user_entries' => false
+        ];
+
         $this->createTables($tables);
     }
 

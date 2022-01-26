@@ -6,6 +6,7 @@ use App\Api\FootballApi\Fixtures\FixturesApiMock;
 use App\Http\Championships\Jobs\SyncLeagueFixtures;
 use App\Http\Championships\Models\Country;
 use App\Http\Championships\Models\Fixture;
+use Database\Seeders\FixtureStatusSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Http\Championships\Models\League;
@@ -24,6 +25,7 @@ class LeagueFixtureSyncFeatureTest extends TestCase
     public function test_new_fixtures_are_created()
     {
         FixtureHelper::init();
+        $this->seed(FixtureStatusSeeder::class);
 
         $league = League::first();
 
@@ -38,7 +40,9 @@ class LeagueFixtureSyncFeatureTest extends TestCase
     public function test_existing_fixtures_are_updated()
     {
         FixtureHelper::init();
-        $fixture = FixtureHelper::createFixture(2, 1, 'status');
+        $this->seed(FixtureStatusSeeder::class);
+
+        $fixture = FixtureHelper::createFixture(2, 1, 'NS');
 
         $league = League::find(1);
 
@@ -50,6 +54,6 @@ class LeagueFixtureSyncFeatureTest extends TestCase
         $fixtures = Fixture::all()->count();
 
         $this->assertTrue($fixtures === 2);
-        $this->assertTrue($sync_fixture->status !== 'status');
+        $this->assertTrue($sync_fixture->status->name !== 'NS');
     }
 }

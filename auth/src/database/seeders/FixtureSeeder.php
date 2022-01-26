@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Http\Championships\Models\Country;
 use App\Http\Championships\Models\Fixture;
+use App\Http\Championships\Models\FixtureStatus;
 use App\Http\Championships\Models\League;
 use App\Http\Championships\Models\Team;
 use App\Models\Fixture as FixtureApi;
@@ -29,17 +30,21 @@ class FixtureSeeder extends Seeder
             $league = $fixture->league['id'];
             $league_id = League::where('api_id', $league)->first()->id;
 
+            $status = $fixture->fixture['status']['short'];
+            $status_id = FixtureStatus::where('name', $status)->first()->id;
+
             $country_name = $fixture->league['country'];
             $country_id = Country::where('countries.name', $country_name)->first()->id;
 
             $home_id = Team::where('api_id', $fixture->teams['home']['id'])->first()->id;
             $away_id = Team::where('api_id', $fixture->teams['away']['id'])->first()->id;
 
+            var_dump($status_id);
             Fixture::create([
                 'api_id' => $fixture->fixture['id'],
 
                 'date' => $fixture->fixture['timestamp'],
-                'status' => $fixture->fixture['status']['long'],
+                'status_id' => $status_id,
 
                 'country_id' => $country_id,
                 'league_id' => $league_id,
@@ -52,7 +57,6 @@ class FixtureSeeder extends Seeder
 
                 'home_goals' => $fixture->goals['home'],
                 'away_goals' => $fixture->goals['away'],
-
             ]);
         }
     }

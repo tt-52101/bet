@@ -15,6 +15,7 @@ class CreateFixturesTable extends Migration
     {
         Schema::create('fixtures', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('api_id');
             $table->unsignedBigInteger('league_id');
             $table->unsignedBigInteger('country_id');
@@ -29,8 +30,8 @@ class CreateFixturesTable extends Migration
             $table->unsignedBigInteger('away_goals')->nullable();
 
             $table->timestamp('date');
-            $table->string('status');
 
+            $table->foreign('status_id')->references('id')->on('fixture_statuses')->onDelete('cascade');
             $table->foreign('home_id')->references('id')->on('teams')->onDelete('cascade');
             $table->foreign('away_id')->references('id')->on('teams')->onDelete('cascade');
 

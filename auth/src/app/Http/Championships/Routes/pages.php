@@ -40,6 +40,12 @@ Route::prefix('fixture')->group(function(){
     Route::get('edit/{fixture}', 'Fixture\\FixturePageController@edit');
 });
 
+Route::prefix('fixture-status')->group(function(){
+    Route::get('/', 'FixtureStatus\\FixtureStatusPageController@page');
+    Route::get('new', 'FixtureStatus\\FixtureStatusPageController@new');
+    Route::get('edit/{fixture_status}', 'FixtureStatus\\FixtureStatusPageController@edit');
+});
+
 Route::prefix('bookmaker')->group(function(){
     Route::get('/', 'Bookmaker\\BookmakerPageController@page');
     Route::get('new', 'Bookmaker\\BookmakerPageController@new');

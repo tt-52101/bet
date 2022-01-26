@@ -2,9 +2,11 @@
 
 namespace App\Http\Championships\Tests\Helpers;
 use App\Http\Championships\Models\Country;
+use App\Http\Championships\Models\FixtureStatus;
 use App\Http\Championships\Models\League;
 use App\Http\Championships\Models\Team;
 use App\Http\Championships\Models\Fixture;
+use Database\Seeders\FixtureStatusSeeder;
 
 class FixtureHelper {
     public static function init(){
@@ -12,7 +14,6 @@ class FixtureHelper {
         self::createLeagues('Greece');
         self::createLeagues('Italy');
         self::createTeams(1);
-
     }
 
     public static function createCountries(){
@@ -64,14 +65,17 @@ class FixtureHelper {
     }
 
 
-    public static function createFixture($fixture_id, $league_id, $status) {
+    public static function createFixture($fixture_id, $league_id, $status = 'FT') {
         $league = League::find($league_id);
         $teams = $league->teams;
+
+        $status_id = FixtureStatus::where('name', $status)->first()->id;
+
         return $fixture = Fixture::create([
             'api_id' => $fixture_id,
 
             'date' => null,
-            'status' => $status,
+            'status_id' => $status_id,
 
             'country_id' => $league->country_id,
             'league_id' => $league_id,

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Http\Championships\Models\FixtureStatus;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,7 @@ class SetupSeeder extends Seeder
             TeamSeeder::class,
             BookmakerSeeder::class,
             BetCategorySeeder::class,
+            FixtureStatusSeeder::class,
             FixtureSeeder::class,
             // OddSeeder::class,
         ]);

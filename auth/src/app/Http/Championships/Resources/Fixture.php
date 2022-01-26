@@ -21,7 +21,8 @@ class Fixture extends JsonResource
             'api_id' => $this->api_id,
 
             'date' => $this->date,
-            'status' => $this->status,
+            'status' => $this->status?->title,
+            'status_id' => $this->status_id,
 
             'country' => $this->country?->name,
             'country_id' => $this->country_id,

@@ -44,7 +44,7 @@ class FixtureController extends ApiController
 
         return [
             'message' => 'Fixture Updated Successfully',
-            'body' => $fixture
+            'body' => new FixtureResource($fixture)
         ];
     }
 

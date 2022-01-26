@@ -90,6 +90,12 @@ class MenuSeeder extends Seeder
                         'icon' => '',
                     ],
                     [
+                        'title' => 'Fixture Statuses',
+                        'name' => 'football_fixture_statuses',
+                        'url' => '/pages/auth/fixture-status',
+                        'icon' => '',
+                    ],
+                    [
                         'title' => 'Odds',
                         'name' => 'football_odds',
                         'url' => '/pages/auth/odd',

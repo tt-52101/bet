@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Championships\Pages\Fixture\Components;
+namespace App\Http\Championships\Pages\FixtureStatus\Components;
 
 
 use App\Http\Championships\Models\Country;
-use App\Http\Championships\Models\FixtureStatus;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Components\{Avatar,
-    AvatarStack,
     Button,
     ButtonGroup,
     Card,
@@ -20,15 +18,13 @@ use BenBodan\BetUi\Components\{Avatar,
     Row,
     SwitchInput,
     Select,
-    Text
-};
-use App\Http\Championships\Models\Fixture;
+    Text};
 
-class FixtureForm
+class FixtureStatusForm
 {
 
     public function __construct(
-        private string $name = 'fixture',
+        private string $name = 'fixtureStatus',
     )
     {
         $this->host = env('APP_URL');
@@ -38,7 +34,7 @@ class FixtureForm
     {
 
         return new Form(
-            repo: new RestRepo(env('APP_URL') . '/auth/api/fixture'),
+            repo: new RestRepo(env('APP_URL') . '/auth/api/fixture-status'),
             name: "{$this->name}_form",
             data: $data,
             children: [
@@ -49,17 +45,11 @@ class FixtureForm
                         )
                     ],
                     header_right: [
-                        new AvatarStack(
-                            size: 'large',
-                            items: [
-                                new Avatar(
-                                    picture: '$home_logo',
-                                ),
-                                new Avatar(
-                                    picture: '$away_logo',
-                                ),
-                            ]
-                        )
+                        new Avatar(
+                            initials: '$title',
+                            size: 'big',
+                            color: 'primary'
+                        ),
                     ],
                     children: [
                         new Row(
@@ -72,7 +62,7 @@ class FixtureForm
                 new Event(
                     action: 'push',
                     topic: 'route',
-                    payload: '/pages/auth/fixture_edit_$id'
+                    payload: '/pages/auth/fixtureStatus_edit_$id'
                 )
             ]
         );
@@ -85,78 +75,17 @@ class FixtureForm
         $fields[] = new Column(
             children: [
                 new Input(
-                    name: 'api_id',
-                    placeholder: 'Api Id'
-                )
-            ]
-        );
-
-        $statuses = FixtureStatus::all()->toArray();
-        $fields[] = new Column(
-            children: [
-                new Select(
-                    name: 'status_id',
-                    options: $statuses
+                    name: 'title',
+                    placeholder: 'Title'
                 )
             ]
         );
 
         $fields[] = new Column(
-            desktop: 6,
             children: [
                 new Input(
-                    name: 'country',
-                    placeholder: 'Country',
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 6,
-            children: [
-                new Input(
-                    name: 'league',
-                    placeholder: 'League'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 6,
-            children: [
-                new Input(
-                    name: 'home_goals',
-                    placeholder: 'Home Goals'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 6,
-            children: [
-                new Input(
-                    name: 'away_goals',
-                    placeholder: 'Away Goals'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 6,
-            children: [
-                new SwitchInput(
-                    name: 'home_winner',
-                    title: 'Home WInner'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 6,
-            children: [
-                new SwitchInput(
-                    name: 'away_winner',
-                    title: 'Away Winner'
+                    name: 'name',
+                    placeholder: 'Name'
                 )
             ]
         );
