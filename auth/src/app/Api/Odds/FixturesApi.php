@@ -7,9 +7,19 @@ use GuzzleHttp\Exception\RequestException;
 
 class   FixturesApi
 {
-    public function get(int $league, int $season)
+    public static function get(int $league, int $season, $from = '', $to = '')
     {
         $client = new Client();
+
+        $query = [
+            'league' => $league,
+            'season' => $season,
+        ];
+
+        if ($from || $to) {
+            $query['from'] = $from;
+            $query['to'] = $to;
+        }
 
         try {
             $response = $client->request('get', 'https://v3.football.api-sports.io/fixtures', [
@@ -17,10 +27,7 @@ class   FixturesApi
                     'x-rapidapi-key' => env('FOOTBALL_API_KEY'),
                     'x-rapidapi-host' => 'v3.football.api-sports.io'
                 ],
-                'query' => [
-                    'league' => $league,
-                    'season' => $season
-                ]
+                'query' => $query
             ]);
 
             return json_decode($response->getBody(), true);

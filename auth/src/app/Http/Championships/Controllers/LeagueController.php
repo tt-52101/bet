@@ -10,6 +10,7 @@ use App\Http\Championships\Resources\LeagueCollection;
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Models\League;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Championships\Jobs\SyncLeagueFixtures;
 
 class LeagueController extends ApiController
 {
@@ -59,6 +60,18 @@ class LeagueController extends ApiController
         return [
             'message' => 'League Created Successfully',
             'entry' => $league
+        ];
+    }
+
+    public function sync(League $league) {
+        $from = request()->get('from');
+        $to = request()->get('to');
+
+        $sync_job = new SyncLeagueFixtures($league, $from, $to);
+        $this->dispatch($sync_job);
+
+        return [
+            'message' => 'League Sync Started',
         ];
     }
 }

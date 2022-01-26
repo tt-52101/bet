@@ -61,4 +61,35 @@ class Fixture extends Model
     public function championships(){
         return $this->belongsToMany(Championship::class);
     }
+
+    public static function createFromJson(array $json) {
+        $json = collect($json);
+        $league = $json['league']['id'];
+        $league_id = League::where('api_id', $league)->first()->id;
+
+        $country_name = $json['league']['country'];
+        $country_id = Country::where('countries.name', $country_name)->first()->id;
+
+        $home_id = Team::where('api_id', $json['teams']['home']['id'])->first()->id;
+        $away_id = Team::where('api_id', $json['teams']['away']['id'])->first()->id;
+
+        return Fixture::create([
+            'api_id' => $json['fixture']['id'],
+
+            'date' => $json['fixture']['timestamp'],
+            'status' => $json['fixture']['status']['long'],
+
+            'country_id' => $country_id,
+            'league_id' => $league_id,
+
+            'home_id' => $home_id,
+            'away_id' => $away_id,
+
+            'home_winner' => $json['teams']['home']['winner'],
+            'away_winner' => $json['teams']['away']['winner'],
+
+            'home_goals' => $json['goals']['home'],
+            'away_goals' => $json['goals']['away'],
+        ]);
+    }
 }

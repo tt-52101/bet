@@ -22,7 +22,10 @@ Route::resource('championship', 'ChampionshipController');
 
 Route::resource('bet', 'BetController');
 Route::resource('country', 'CountryController');
+
+Route::post('league/{league}/sync', 'LeagueController@sync');
 Route::resource('league', 'LeagueController');
+
 Route::resource('team', 'TeamController');
 Route::resource('fixture', 'FixtureController');
 Route::resource('bookmaker', 'BookmakerController');
