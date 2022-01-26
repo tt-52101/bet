@@ -39,6 +39,7 @@ class SyncFixture implements ShouldQueue
     {
         $fixture_id = $this->fixture['fixture']['id'];
         $fixture = $this->findFixture($fixture_id);
+
         if(!$fixture) {
             $fixture = $this->createFixture($this->fixture);
         }

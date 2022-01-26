@@ -2,6 +2,7 @@
 
 namespace App\Http\Championships\Jobs;
 
+use App\Api\FootballApi\Fixtures\FixturesApiInterface;
 use App\Http\Championships\Models\League;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -10,12 +11,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Api\Odds\FixturesApi;
+use App\Api\FootballApi\Fixtures\FixturesApi;
 
 class SyncLeagueFixtures implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public FixturesApiInterface $repository;
     /**
      * Create a new job instance.
      *
@@ -24,10 +26,10 @@ class SyncLeagueFixtures implements ShouldQueue
     public function __construct(
         private League $league,
         private string $from_date,
-        private string $to_date
+        private string $to_date,
     )
     {
-        //
+        $this->repository = new FixturesApi();
     }
 
     /**
@@ -42,7 +44,9 @@ class SyncLeagueFixtures implements ShouldQueue
         $to = Carbon::parse($this->to_date)->format('Y-m-d');
         $league_id = (int) $this->league->api_id;
 
-        $fixtures = FixturesApi::get($league_id, $season, $from, $to)['response'];
+        $repository = new $this->repository;
+
+        $fixtures = $repository::get($league_id, $season, $from, $to)['response'];
         $this->updateOrCreateFixture($fixtures);
     }
 

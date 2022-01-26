@@ -64,6 +64,7 @@ class Fixture extends Model
 
     public static function createFromJson(array $json) {
         $json = collect($json);
+
         $league = $json['league']['id'];
         $league_id = League::where('api_id', $league)->first()->id;
 
