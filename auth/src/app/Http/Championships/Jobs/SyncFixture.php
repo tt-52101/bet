@@ -24,7 +24,7 @@ class SyncFixture implements ShouldQueue
      */
     public function __construct(
         private League $league,
-        private array $fixture
+        private array  $fixture
     )
     {
 
@@ -40,16 +40,19 @@ class SyncFixture implements ShouldQueue
         $fixture_id = $this->fixture['fixture']['id'];
         $fixture = $this->findFixture($fixture_id);
 
-        if(!$fixture) {
-            $fixture = $this->createFixture($this->fixture);
+        if (!$fixture) {
+            return $this->createFixture($this->fixture);
         }
+        return $fixture->sync($this->fixture);
     }
 
-    public function findFixture($id){
+    public function findFixture($id)
+    {
         return Fixture::where('api_id', $id)->first();
     }
 
-    public function createFixture(array $json){
+    public function createFixture(array $json)
+    {
         return Fixture::createFromJson($json);
     }
 }

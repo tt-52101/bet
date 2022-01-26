@@ -15,6 +15,7 @@ use App\Http\Championships\Tests\Helpers\FixtureHelper;
 class LeagueFixtureSyncFeatureTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -25,13 +26,30 @@ class LeagueFixtureSyncFeatureTest extends TestCase
         FixtureHelper::init();
 
         $league = League::first();
+
         $job = new SyncLeagueFixtures($league, '', '');
         $job->repository = new FixturesApiMock();
-
         dispatch($job);
 
         $fixtures = Fixture::all()->count();
+        $this->assertTrue($fixtures === 2);
+    }
+
+    public function test_existing_fixtures_are_updated()
+    {
+        FixtureHelper::init();
+        $fixture = FixtureHelper::createFixture(2, 1, 'status');
+
+        $league = League::find(1);
+
+        $job = new SyncLeagueFixtures($league, '', '');
+        $job->repository = new FixturesApiMock();
+        dispatch($job);
+
+        $sync_fixture = Fixture::find($fixture->id);
+        $fixtures = Fixture::all()->count();
 
         $this->assertTrue($fixtures === 2);
+        $this->assertTrue($sync_fixture->status !== 'status');
     }
 }

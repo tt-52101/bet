@@ -62,4 +62,28 @@ class FixtureHelper {
             ]);
         }
     }
+
+
+    public static function createFixture($fixture_id, $league_id, $status) {
+        $league = League::find($league_id);
+        $teams = $league->teams;
+        return $fixture = Fixture::create([
+            'api_id' => $fixture_id,
+
+            'date' => null,
+            'status' => $status,
+
+            'country_id' => $league->country_id,
+            'league_id' => $league_id,
+
+            'home_id' => $teams[0]['id'],
+            'away_id' => $teams[0]['id'],
+
+            'home_winner' => null,
+            'away_winner' => null,
+
+            'home_goals' => null,
+            'away_goals' => null,
+        ]);
+    }
 }
