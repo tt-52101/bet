@@ -47,8 +47,8 @@ class SyncBookmakereOdds implements ShouldQueue
     public function createOrUpdateBets(array $bets)
     {
         foreach ($bets as $bet) {
-            $category = BetCategory::where('api_id', $bet['id'])->first();
-            $this->createOrUpdateOdds($category, $bet['values']);
+            $category = BetCategory::where('api_id', $bet->id)->first();
+            $this->createOrUpdateOdds($category, $bet->odds);
         }
     }
 
@@ -58,9 +58,9 @@ class SyncBookmakereOdds implements ShouldQueue
                 'fixture_id' => $this->fixture->id,
                 'bookmaker_id' => $this->bookmaker->id,
                 'bet_category_id' => $category->id,
-                'value' => $odd['value']
+                'value' => $odd->value
             ], [
-                'odd' => round($odd['odd'], 2)
+                'odd' => round($odd->odd, 2)
             ]);
         }
     }

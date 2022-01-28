@@ -28,7 +28,7 @@ class SetupSeeder extends Seeder
             BookmakerSeeder::class,
             BetCategorySeeder::class,
             FixtureStatusSeeder::class,
-            FixtureSeeder::class,
+            //FixtureSeeder::class,
             // OddSeeder::class,
         ]);
     }

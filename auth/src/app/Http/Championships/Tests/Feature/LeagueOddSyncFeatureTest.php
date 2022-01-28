@@ -30,18 +30,19 @@ class LeagueOddSyncFeatureTest extends TestCase
         $this->seed(BetCategorySeeder::class);
 
         FixtureHelper::createFixture(1,1);
+        FixtureHelper::createBookmaker(0, 'Default', 'Default');
+
         FixtureHelper::createBookmaker(1, 'Bookmaker 1', 'Bookmaker 1');
         FixtureHelper::createBookmaker(2, 'Bookmaker 2', 'Bookmaker 2');
 
         $league = League::first();
 
-        $job = new SyncLeagueOdds($league, '', '');
+        $job = new SyncLeagueOdds($league, 1);
         $job->repository = new OddsApiMock();
         dispatch($job);
 
         $odds = Odd::all()->count();
-
-        $this->assertTrue($odds === 6);
+        $this->assertTrue($odds === 9);
     }
 
 }

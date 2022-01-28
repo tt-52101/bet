@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Api\Odds\FixturesApi;
 use App\Http\Championships\Models\Fixture;
+use App\Api\Models\Fixture as FixtureResponse;
 
 class SyncFixtureOdds implements ShouldQueue
 {
@@ -24,7 +25,7 @@ class SyncFixtureOdds implements ShouldQueue
      * @return void
      */
     public function __construct(
-        private array $fixture
+        private FixtureResponse $fixture
     )
     {
 
@@ -37,19 +38,19 @@ class SyncFixtureOdds implements ShouldQueue
      */
     public function handle()
     {
-        $fixture_id = $this->fixture['fixture']['id'];
+        $fixture_id = $this->fixture->id;
         $fixture = $this->findFixture($fixture_id);
-
         if (!is_null($fixture)) {
-            $this->syncBookmakerOdds($fixture, $this->fixture['bookmakers']);
+            $this->syncBookmakerOdds($fixture, $this->fixture->bookmakers);
         }
     }
 
     public function syncBookmakerOdds(Fixture $fixture, array $bookmakers)
     {
         foreach ($bookmakers as $book) {
-            $bookmaker = Bookmaker::where('api_id', $book['id'])->first();
-            $job = new SyncBookmakereOdds($fixture, $bookmaker, $book['bets']);
+            $bookmaker = Bookmaker::where('api_id', $book->id)->first();
+
+            $job = new SyncBookmakereOdds($fixture, $bookmaker, $book->bets);
             dispatch($job);
         }
     }

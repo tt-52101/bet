@@ -21,6 +21,10 @@ class BookmakerSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $bookmakers = BookmakerApi::get();
+        Bookmaker::create([
+            'name' => 'Default',
+            'api_id' => 0,
+        ]);
 
         foreach ($bookmakers as $bookmaker) {
             Bookmaker::create([

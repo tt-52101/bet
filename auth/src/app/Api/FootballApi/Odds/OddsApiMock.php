@@ -28,8 +28,8 @@ class  OddsApiMock implements OddsApiInterface
     private static function setDefaultResponse()
     {
         self::$response = [
-            self::league(1, 2),
-            self::league(1, 1)
+            self::league(1, 1),
+            self::league(1, 2)
         ];
     }
 
@@ -40,7 +40,8 @@ class  OddsApiMock implements OddsApiInterface
                 'id' => $league_id,
             ],
             'fixture' => [
-                'id' => $fixture_id
+                'id' => $fixture_id,
+                'timestamp' => 1
             ],
             'bookmakers' => self::bookmakers()
         ];

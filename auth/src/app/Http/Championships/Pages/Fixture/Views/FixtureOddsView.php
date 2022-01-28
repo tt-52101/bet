@@ -40,7 +40,7 @@ class FixtureOddsView
         $odds->column_size = 6;
         $odds->filters = [
             'bet_category_id' => $category_id,
-            'bookmaker_id' => 5,
+            'bookmaker_id' => 1,
             'fixture_id' => $fixture->id
         ];
 
