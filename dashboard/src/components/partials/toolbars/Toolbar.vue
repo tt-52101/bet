@@ -42,13 +42,6 @@ const localFlagSrc = computed(() => {
       </label>
     </div>
 
-    <a
-      class="toolbar-link right-panel-trigger"
-      @click="activePanel = 'languages'"
-    >
-      <img :src="localFlagSrc" alt="" />
-    </a>
-
     <slot></slot>
   </div>
 </template>

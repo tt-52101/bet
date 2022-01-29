@@ -51,6 +51,10 @@ class Fixture extends Model
         return $result->bothTeamsScore($this, $value);
     }
 
+    public function getStartAtAttribute(){
+        return Carbon::parse($this->date)->setTimezone('Europe/Athens')->format('d-m-y H:m');
+    }
+
 
     public function isOverUnder($value){
         $result = new Result();

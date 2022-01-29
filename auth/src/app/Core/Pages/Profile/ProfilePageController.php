@@ -38,9 +38,9 @@ class ProfilePageController extends ApiController
         $bet_card = new BetCard();
         $bets = new BetIndexView($bet_card);
 
-        $bets->column_size = 12;
+        $bets->column_size = 6;
         $bets->filters= [
-            'per_page' => 2,
+            'per_page' => 6,
             'user_id' => $user->id
         ];
 

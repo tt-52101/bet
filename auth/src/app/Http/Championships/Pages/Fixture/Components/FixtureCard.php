@@ -14,7 +14,7 @@ class FixtureCard
             children: [
                 new Block(
                     title: '$home_name - $away_name',
-                    subtitle: '$date',
+                    subtitle: '$start_at',
                     icon: [
                         new AvatarStack(
                             size: 'large',

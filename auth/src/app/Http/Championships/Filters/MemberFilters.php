@@ -12,4 +12,8 @@ class MemberFilters extends QueryFilters
             $q->where('email','LIKE', "%" . $keyword . "%");
         });
     }
+
+    public function user_id($id){
+        return $this->builder->where('user_id', $id);
+    }
 }

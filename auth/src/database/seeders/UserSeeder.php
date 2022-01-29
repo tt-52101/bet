@@ -42,7 +42,5 @@ class UserSeeder extends Seeder
             'email' => 'guest@gmail.com',
             'password' =>'winter'
         ]);
-
-
     }
 }

@@ -57,6 +57,13 @@ class PlayerSetupSeeder extends Seeder
                 'delete' => false
             ],
             [
+                'table' => 'member',
+                'create' => false,
+                'read' => true,
+                'update' => false,
+                'delete' => false
+            ],
+            [
                 'table' => 'fixture',
                 'create' => false,
                 'read' => true,

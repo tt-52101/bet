@@ -28,7 +28,7 @@ function getMenu() {
 <template>
   <div class="sidebar-panel is-generic">
     <div class="subpanel-header">
-      <h3 class="no-mb">Dashboards</h3>
+      <h3 class="no-mb">Dashboard</h3>
       <div class="panel-close" @click="emit('close')">
         <i aria-hidden="true" class="iconify" data-icon="feather:x"></i>
       </div>

@@ -16,14 +16,18 @@ class Member extends JsonResource
      */
     public function toArray($request)
     {
-        $win_percentage = ($this->wins()->count() / $this->bets()->count()) * 100;
+        $win_percentage = 0;
+        $wins = $this->wins()->count();
+        if ($wins > 0) {
+            $win_percentage = ($wins / $this->bets()->count()) * 100;
+        }
         return [
             'id' => $this->id,
             'user_email' => $this->user->email,
             'championship_title' => $this->championship->title,
             'championship_id' => $this->championship_id,
             'start_points' => $this->start_points,
-            'win_percentage' => $win_percentage,
+            'win_percentage' => round($win_percentage,2),
             'bets_count' => $this->bets()->count(),
             'points' => $this->points
         ];

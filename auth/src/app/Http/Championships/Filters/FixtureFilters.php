@@ -3,6 +3,7 @@
 namespace App\Http\Championships\Filters;
 
 use App\Core\Filters\QueryFilters;
+use Carbon\Carbon;
 
 class FixtureFilters extends QueryFilters
 {
@@ -44,10 +45,12 @@ class FixtureFilters extends QueryFilters
 
     public function playable($playable = false){
         if($playable) {
+            $date = Carbon::now()->format('Y-m-d H:m');
             return $this->builder
                 ->whereHas('status', function ($q) use($playable) {
                     $q->whereIn('name', ['NS']);
-                });
+                })
+                ->where('date', '>=',$date);
         }
     }
 
@@ -57,6 +60,7 @@ class FixtureFilters extends QueryFilters
     }
 
     public function date_lte($value){
+
         return $this->builder
             ->where('fixtures.date','<=', $value);
     }

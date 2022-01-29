@@ -15,12 +15,12 @@
         <VAvatar size="large" picture="/images/avatars/svg/vuero-1.svg" />
 
         <div class="meta">
-          <span>Erik Kovalsky</span>
-          <span>Product Manager</span>
+          <span>Username</span>
+          <span>email</span>
         </div>
       </div>
 
-      <a href="#" role="menuitem" class="dropdown-item is-media">
+      <router-link to="/pages/auth/profile" role="menuitem" class="dropdown-item is-media">
         <div class="icon">
           <i aria-hidden="true" class="lnil lnil-user-alt"></i>
         </div>
@@ -28,7 +28,7 @@
           <span>Profile</span>
           <span>View your profile</span>
         </div>
-      </a>
+      </router-link>
 
       <hr class="dropdown-divider" />
 

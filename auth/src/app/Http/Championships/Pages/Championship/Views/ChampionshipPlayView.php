@@ -31,6 +31,7 @@ use BenBodan\BetUi\Components\{Accordion,
     Text,
     Builder};
 use BenBodan\BetUi\Repositories\RestRepo;
+use Carbon\Carbon;
 
 class ChampionshipPlayView
 {
@@ -97,7 +98,6 @@ class ChampionshipPlayView
                                         filters: [
                                             'has_odds' => true,
                                             'playable' => true,
-                                            'date_gte' => $championship->start,
                                             'date_lte' => $championship->end,
                                         ]
                                     ),
@@ -121,7 +121,7 @@ class ChampionshipPlayView
                                                                 )
                                                             ],
                                                             title: '$home_name - $away_name',
-                                                            subtitle: '$date - $status'
+                                                            subtitle: '$start_at - $status'
                                                         ),
                                                     ]
                                                 ),

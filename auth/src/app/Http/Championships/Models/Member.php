@@ -5,6 +5,7 @@ namespace App\Http\Championships\Models;
 use App\Core\Auth\Models\User;
 use App\Core\Filters\Filterable;
 use App\Http\Championships\Factories\ChampionshipFactory;
+use App\Http\Championships\Scopes\MyMembership;
 use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model
@@ -17,6 +18,11 @@ class Member extends Model
         'points',
         'start_points'
     ];
+
+    protected static function booted()
+    {
+        self::addGlobalScope(new MyMembership());
+    }
 
     public function championship(){
         return $this->belongsTo(Championship::class);
