@@ -41,6 +41,22 @@ class Fixture extends Model
         return $result->finished($this);
     }
 
+    public function isExactScore($score){
+        $result = new Result();
+        return $result->isExactScore($this, $score);
+    }
+
+    public function bothTeamsScored($value){
+        $result = new Result();
+        return $result->bothTeamsScore($this, $value);
+    }
+
+
+    public function isOverUnder($value){
+        $result = new Result();
+        return $result->isOverUnder($this, $value);
+    }
+
     public function isDraw(){
         $draw = new Draw();
         return $draw->isDraw($this);

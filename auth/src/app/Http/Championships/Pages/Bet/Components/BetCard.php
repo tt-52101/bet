@@ -39,7 +39,7 @@ class BetCard
                 )
             ],
             footer_left: [
-                new Text('Ποντάρισμα: $points'),
+                new Text('Ποντάρισμα: $points  - x$odd'),
             ],
             footer_right: [
                 new Text('Επιστροφή: $return')

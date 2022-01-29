@@ -54,6 +54,8 @@ class FixtureOddsView
         $over_under = $this->odds($fixture, 5);
         $exact_score = $this->odds($fixture, 10);
 
+        $bot_teams_score = $this->odds($fixture, 8);
+
         $bet_slip = new BetSlip();
         $user = Auth::user()->id;
 
@@ -127,6 +129,12 @@ class FixtureOddsView
                                     title: 'Γκολ Over/Under',
                                     children: [
                                         $over_under->schema()
+                                    ]
+                                ),
+                                new AccordionItem(
+                                    title: 'Nα σκοράρουν και οι δύο ομάδες',
+                                    children: [
+                                        $bot_teams_score->schema()
                                     ]
                                 ),
                                 new AccordionItem(

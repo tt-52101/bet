@@ -25,7 +25,7 @@ class Bet extends JsonResource
             'championship_title' => $this->championship?->title,
 
             'odd_id' => $this->odd_id,
-            'odd' => $this->odd,
+            'odd' => round($this->odd,2),
             'value' => $this->playedOdd?->value,
             'return' => $this->return,
             'points' => $this->points,
