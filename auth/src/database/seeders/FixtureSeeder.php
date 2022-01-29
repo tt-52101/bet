@@ -6,6 +6,7 @@ use App\Http\Championships\Models\Country;
 use App\Http\Championships\Models\Fixture;
 use App\Http\Championships\Models\FixtureStatus;
 use App\Http\Championships\Models\League;
+use App\Http\Championships\Models\Season;
 use App\Http\Championships\Models\Team;
 use App\Models\Fixture as FixtureApi;
 use Illuminate\Database\Seeder;
@@ -40,7 +41,7 @@ class FixtureSeeder extends Seeder
             $away_id = Team::where('api_id', $fixture->teams['away']['id'])->first()->id;
 
             var_dump($status_id);
-            Fixture::create([
+            $db_fixture = Fixture::create([
                 'api_id' => $fixture->fixture['id'],
 
                 'date' => $fixture->fixture['timestamp'],

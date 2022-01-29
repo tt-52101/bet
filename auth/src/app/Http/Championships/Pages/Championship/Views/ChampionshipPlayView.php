@@ -94,7 +94,8 @@ class ChampionshipPlayView
                                     repository: new RestRepo(
                                         url: env('APP_URL') . "/auth/api/championship/{$championship->id}/fixtures",
                                         filters: [
-                                            'has_odds' => true
+                                            'has_odds' => true,
+                                            'playable' => true
                                         ]
                                     ),
                                     children: [
@@ -117,7 +118,7 @@ class ChampionshipPlayView
                                                                 )
                                                             ],
                                                             title: '$home_name - $away_name',
-                                                            subtitle: '$date'
+                                                            subtitle: '$date - $status'
                                                         ),
                                                     ]
                                                 ),

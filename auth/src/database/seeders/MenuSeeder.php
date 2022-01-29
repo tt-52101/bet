@@ -114,6 +114,12 @@ class MenuSeeder extends Seeder
                         'icon' => '',
                     ],
                     [
+                        'title' => 'Seasons',
+                        'name' => 'football_seasons',
+                        'url' => '/pages/auth/season',
+                        'icon' => '',
+                    ],
+                    [
                         'title' => 'Teams',
                         'name' => 'football_teams',
                         'url' => '/pages/auth/team',

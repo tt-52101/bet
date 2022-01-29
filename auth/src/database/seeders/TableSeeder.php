@@ -80,6 +80,12 @@ class TableSeeder extends Seeder
         ];
 
         $tables[] = [
+            'title' => 'Seasons',
+            'name' => 'season',
+            'user_entries' => false
+        ];
+
+        $tables[] = [
             'title' => 'Team',
             'name' => 'team',
             'user_entries' => false

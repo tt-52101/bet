@@ -35,6 +35,15 @@ class FixtureFilters extends QueryFilters
         }
     }
 
+    public function playable($playable = false){
+        if($playable) {
+            return $this->builder
+                ->whereHas('status', function ($q) use($playable) {
+                    $q->whereIn('name', ['NS']);
+                });
+        }
+    }
+
     public function date_gte($value){
         return $this->builder
             ->where('fixtures.date','>=', $value);

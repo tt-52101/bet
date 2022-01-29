@@ -28,6 +28,12 @@ Route::prefix('league')->group(function(){
     Route::get('edit/{league}', 'League\\LeaguePageController@edit');
 });
 
+Route::prefix('season')->group(function(){
+    Route::get('/', 'Season\\SeasonPageController@page');
+    Route::get('new', 'Season\\SeasonPageController@new');
+    Route::get('edit/{season}', 'Season\\SeasonPageController@edit');
+});
+
 Route::prefix('team')->group(function(){
     Route::get('/', 'Team\\TeamPageController@page');
     Route::get('new', 'Team\\TeamPageController@new');
