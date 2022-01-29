@@ -1,5 +1,5 @@
 <template>
-    <label class="m-1">{{config.title}}</label>
+    <div class="m-1 pr-label">{{config.title}} : {{value}} %</div>
     <VProgress :size="config.size" :max="config.max" :color="config.color" :value="value" />
 </template>
 
@@ -66,3 +66,11 @@ export default {
   name: 'gProgress'
 }
 </script>
+
+
+<style lang="scss">
+.pd-label {
+  display: block;
+  margin-bottom: 20px;
+}
+</style>

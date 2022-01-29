@@ -35,5 +35,6 @@ Route::resource('fixture', 'FixtureController');
 Route::resource('fixture-status', 'FixtureStatusController');
 
 Route::resource('bookmaker', 'BookmakerController');
+Route::resource('member', 'MemberController');
 Route::resource('bet-category', 'BetCategoryController');
 Route::resource('odd', 'OddController');

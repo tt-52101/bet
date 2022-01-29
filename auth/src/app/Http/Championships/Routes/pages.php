@@ -34,6 +34,12 @@ Route::prefix('season')->group(function(){
     Route::get('edit/{season}', 'Season\\SeasonPageController@edit');
 });
 
+Route::prefix('member')->group(function(){
+    Route::get('/', 'Member\\MemberPageController@page');
+    Route::get('new', 'Member\\MemberPageController@new');
+    Route::get('edit/{member}', 'Member\\MemberPageController@edit');
+});
+
 Route::prefix('team')->group(function(){
     Route::get('/', 'Team\\TeamPageController@page');
     Route::get('new', 'Team\\TeamPageController@new');

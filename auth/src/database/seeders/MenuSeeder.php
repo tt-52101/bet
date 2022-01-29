@@ -72,6 +72,12 @@ class MenuSeeder extends Seeder
                 'icon' => '',
             ],
             [
+                'title' => 'Members',
+                'name' => 'members',
+                'url' => '/pages/auth/member',
+                'icon' => '',
+            ],
+            [
                 'title' => 'Football',
                 'name' => 'football',
                 'url' => '',

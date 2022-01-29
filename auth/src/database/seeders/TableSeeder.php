@@ -133,6 +133,12 @@ class TableSeeder extends Seeder
             'user_entries' => false
         ];
 
+        $tables[] = [
+            'title' => 'Members',
+            'name' => 'member',
+            'user_entries' => false
+        ];
+
         $this->createTables($tables);
     }
 

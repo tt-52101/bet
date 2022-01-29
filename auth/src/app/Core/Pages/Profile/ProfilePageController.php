@@ -10,6 +10,8 @@ use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
 use App\Http\Championships\Pages\Fixture\Components\FixtureCard;
 use App\Http\Championships\Pages\Fixture\Views\FixtureIndexView;
+use App\Http\Championships\Pages\Member\Components\MemberPlayCard;
+use App\Http\Championships\Pages\Member\Views\MemberIndexView;
 use BenBodan\BetUi\Components\{Avatar, Block, Button, Gauge, Row, Column, Card, Page, Tab, Tabs};
 use Illuminate\Support\Facades\Auth;
 
@@ -20,8 +22,9 @@ class ProfilePageController extends ApiController
     {
         $user = Auth::user();
 
-        $my_championship = new ChampionshipStatsCard();
-        $my_championships = new ChampionshipIndexView($my_championship);
+        $my_championship = new MemberPlayCard();
+        $my_championships = new MemberIndexView($my_championship);
+        $my_championships->column_size = 6;
         $my_championships->filters = [
             'user_id' => $user->id
         ];
