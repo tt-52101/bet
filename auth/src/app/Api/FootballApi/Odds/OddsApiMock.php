@@ -8,7 +8,7 @@ class  OddsApiMock implements OddsApiInterface
 {
     public static $response = [];
 
-    public static function get(int $league, int $season,): array
+    public static function get(int $league, int $season, int $page = 1): array
     {
         if (count(self::$response) == 0) {
             self::setDefaultResponse();
@@ -19,7 +19,7 @@ class  OddsApiMock implements OddsApiInterface
             "results" => 1,
             "paging" => [
                 'current' => 1,
-                'total' => 3
+                'total' => 1
             ],
             "response" => self::$response
         ];

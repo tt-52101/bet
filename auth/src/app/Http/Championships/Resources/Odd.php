@@ -34,7 +34,7 @@ class Odd extends JsonResource
             'date' => $this->fixture->date,
 
             'value' => $this->value,
-            'odd' => $this->odd,
+            'odd' => (float) round($this->odd,2),
         ];
     }
 }

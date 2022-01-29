@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class OddsApi implements OddsApiInterface
 {
-    public static function get(int $league, int $season): array
+    public static function get(int $league, int $season, int $page = 1): array
     {
         $client = new Client();
 
@@ -20,6 +20,7 @@ class OddsApi implements OddsApiInterface
                 'query' => [
                     'league' => $league,
                     'season' => $season,
+                    'page' => $page
                 ]
             ]);
 

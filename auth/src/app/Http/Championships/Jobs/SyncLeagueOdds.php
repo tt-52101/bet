@@ -33,6 +33,7 @@ class SyncLeagueOdds implements ShouldQueue
     public function __construct(
         private League $league,
         private string $season,
+        private int $page = 1
     )
     {
         $this->repository = new OddsApi();
@@ -45,13 +46,29 @@ class SyncLeagueOdds implements ShouldQueue
      */
     public function handle()
     {
-        $league_id = (int)$this->league->api_id;
 
         $repository = new $this->repository;
+        $this->getOdds($this->page, $repository);
+    }
 
-        $json = $repository::get($league_id, $this->season)['response'];
+    public function getOdds($page , $repository){
 
-        $fixtures = (new OddsParser($json))->fixtures();
+        $league_id = (int)$this->league->api_id;
+        $response = $repository::get($league_id, $this->season, $page);
+
+        $odds = $response['response'];
+        $total = $response['paging']['total'];
+        $current = $response['paging']['current'];
+        var_dump($current);
+        $this->syncOdds($odds);
+        if ($total > $current){
+            $job = new SyncLeagueOdds($this->league, $this->season, $page+1);
+            dispatch($job);
+        }
+    }
+
+    public function syncOdds($odds){
+        $fixtures = (new OddsParser($odds))->fixtures();
         $this->createAverageBets($fixtures);
         $this->updateOrCreateOdds($fixtures);
     }

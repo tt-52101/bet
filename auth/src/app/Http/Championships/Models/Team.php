@@ -37,6 +37,6 @@ class Team extends Model
     }
 
     public function awayFixtures(){
-        return $this->hasMany(Fixture::class, 'home_id');
+        return $this->hasMany(Fixture::class, 'away_id');
     }
 }

@@ -79,8 +79,6 @@ class Fixture extends Model
         $home_goals = $json['goals']['home'];
         $away_goals = $json['goals']['away'];
 
-        $status = $json['fixture']['status']['long'];
-
         $this->update([
             'date' => $date,
             'status_id' => $status_id,

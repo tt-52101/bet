@@ -65,6 +65,7 @@ class ChampionshipPlayView
                 new Column(
                     desktop: 8,
                     children: [
+
                         new Pagination(
                             name: "paginated_fixtures.meta",
                             on_change: [
