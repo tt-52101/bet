@@ -24,7 +24,7 @@ use BenBodan\BetUi\Components\{Avatar,
 };
 use Carbon\Carbon;
 
-class LeagueOddSyncForm
+class LeagueSyncTeams
 {
 
     public function schema($data = [])
@@ -33,7 +33,7 @@ class LeagueOddSyncForm
         return new Card(
             header_right: [
                 new Button(
-                    title: 'Sync Odds',
+                    title: 'Sync Teams',
                     rounded: true,
                     on_click: [
                         new Event(
@@ -47,12 +47,8 @@ class LeagueOddSyncForm
                 new Form(
                     name: 'league_sync_form',
                     repo: new RestRepo(
-                        url: env('APP_URL') . "/auth/api/league/{$league_id}/odds/sync",
+                        url: env('APP_URL') . "/auth/api/league/{$league_id}/teams/sync",
                     ),
-                    data: [
-                        'from' => Carbon::now(),
-                        'to' => Carbon::now()->addDays(7),
-                    ],
                     children: [
                         new Row(
                             children: $this->fields($league_id)
@@ -66,7 +62,6 @@ class LeagueOddSyncForm
     public function fields($league_id)
     {
         $fields = [];
-
         $seasons = Season::where('league_id', $league_id)->orderBy('year', 'desc')->get();
         $seasons = (new SeasonCollection($seasons))->resolve()['data'];
         $fields[] = new Column(
@@ -79,27 +74,6 @@ class LeagueOddSyncForm
                 )
             ]
         );
-
-        $fields[] = new Column(
-            desktop: 6,
-            children: [
-                new Datepicker(
-                    title: 'From',
-                    name: 'from'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            desktop: 6,
-            children: [
-                new Datepicker(
-                    title: 'To',
-                    name: 'to'
-                )
-            ]
-        );
-
         return $fields;
     }
 

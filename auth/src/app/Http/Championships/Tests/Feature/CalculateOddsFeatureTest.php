@@ -2,7 +2,6 @@
 
 namespace App\Http\Championships\Tests\Feature;
 
-use App\Api\FootballApi\Odds\OddsParser;
 use App\Api\Models\Bet;
 use App\Api\Models\Bookmaker;
 use App\Api\Models\Odd;

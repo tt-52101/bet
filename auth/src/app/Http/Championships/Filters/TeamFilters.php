@@ -20,6 +20,12 @@ class TeamFilters extends QueryFilters
             });
     }
 
+    public function league_id($id)
+    {
+        return $this->builder->where('teams.league_id', $id);
+    }
+
+
     public function has_odds($value)
     {
         if ($value) {

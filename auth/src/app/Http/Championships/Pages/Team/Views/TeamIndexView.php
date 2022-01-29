@@ -10,6 +10,8 @@ use BenBodan\BetUi\Components\{Card, Page, Pagination, Row, Column, Builder, Swi
 
 class TeamIndexView
 {
+    public int $column_size = 6;
+    public array $filters = [];
 
     public function __construct(
         public TeamCard $card,
@@ -54,11 +56,14 @@ class TeamIndexView
             children: [
                 $this->pagination(),
                 new Builder(
-                    repository: new RestRepo(env('APP_URL') . '/auth/api/team'),
+                    repository: new RestRepo(
+                        url: env('APP_URL') . '/auth/api/team',
+                        filters: $this->filters
+                    ),
                     name: 'paginated_teams',
                     children: [
                         new Column(
-                            desktop: 4,
+                            desktop: $this->column_size,
                             children: [
                                $this->card->schema()
                             ]

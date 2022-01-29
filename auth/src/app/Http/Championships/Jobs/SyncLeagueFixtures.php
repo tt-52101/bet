@@ -27,6 +27,7 @@ class SyncLeagueFixtures implements ShouldQueue
         private League $league,
         private string $from_date,
         private string $to_date,
+        private int $season = 2020
     )
     {
         $this->repository = new FixturesApi();
@@ -39,14 +40,13 @@ class SyncLeagueFixtures implements ShouldQueue
      */
     public function handle()
     {
-        $season = (int) Carbon::parse($this->from_date)->format('Y');
         $from = Carbon::parse($this->from_date)->format('Y-m-d');
         $to = Carbon::parse($this->to_date)->format('Y-m-d');
         $league_id = (int) $this->league->api_id;
 
         $repository = new $this->repository;
 
-        $fixtures = $repository::get($league_id, $season, $from, $to)['response'];
+        $fixtures = $repository::get($league_id, $this->season, $from, $to)['response'];
         $this->updateOrCreateFixture($fixtures);
     }
 

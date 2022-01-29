@@ -16,7 +16,7 @@ class FixtureRepository extends LocalService
     public function paginate($per_page)
     {
         $this->filters = new FixtureFilters($this->request);
-        return Fixture::filter($this->filters)->paginate($per_page);
+        return Fixture::filter($this->filters)->orderBy('date', 'desc')->paginate($per_page);
     }
 
     public function find($id)

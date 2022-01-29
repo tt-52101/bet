@@ -19,8 +19,11 @@ use BenBodan\BetUi\Components\{Accordion,
     Tabs
 };
 use App\Http\Championships\Pages\League\Components\LeagueOddSyncForm;
+use App\Http\Championships\Pages\League\Components\LeagueSyncTeams;
 use App\Http\Championships\Pages\Odd\Components\OddCard;
 use App\Http\Championships\Pages\Odd\Views\OddIndexView;
+use App\Http\Championships\Pages\Team\Components\TeamCard;
+use App\Http\Championships\Pages\Team\Views\TeamIndexView;
 use BenBodan\BetUi\Repositories\RestRepo;
 use Carbon\Carbon;
 use BenBodan\BetUi\Events\Event;
@@ -70,6 +73,11 @@ class LeagueEditView
                                     label: 'Sync Odds',
                                     value: 'odds',
                                     children: $this->odds($data)
+                                ),
+                                new Tab(
+                                    label: 'Sync Teams',
+                                    value: 'teams',
+                                    children: $this->teams($data)
                                 )
                             ]
                         ),
@@ -118,6 +126,32 @@ class LeagueEditView
                         title: 'Odds',
                         children: [
                             $odds->schema()
+                        ]
+                    ),
+                ]
+            )
+        ];
+    }
+
+    public function teams($data = [])
+    {
+        $form = new LeagueSyncTeams();
+        $card = new TeamCard();
+        $teams = new TeamIndexView($card);
+        $teams->column_size = 12;
+        $teams->filters = [
+            'per_page' => 4,
+            'league_id' => $data['id']
+        ];
+
+        return [
+            $form->schema($data),
+            new Accordion(
+                items: [
+                    new AccordionItem(
+                        title: 'Teams',
+                        children: [
+                            $teams->schema()
                         ]
                     ),
                 ]

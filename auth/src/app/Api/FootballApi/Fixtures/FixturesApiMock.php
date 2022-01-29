@@ -2,8 +2,6 @@
 
 namespace App\Api\FootballApi\Fixtures;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 
 class  FixturesApiMock implements FixturesApiInterface
 {

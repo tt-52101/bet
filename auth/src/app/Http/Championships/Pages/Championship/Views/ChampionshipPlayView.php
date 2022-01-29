@@ -95,7 +95,9 @@ class ChampionshipPlayView
                                         url: env('APP_URL') . "/auth/api/championship/{$championship->id}/fixtures",
                                         filters: [
                                             'has_odds' => true,
-                                            'playable' => true
+                                            'playable' => true,
+                                            'date_gte' => $championship->start,
+                                            'date_lte' => $championship->end,
                                         ]
                                     ),
                                     children: [

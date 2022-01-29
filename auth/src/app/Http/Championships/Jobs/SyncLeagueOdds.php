@@ -16,7 +16,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Api\FootballApi\Fixtures\FixturesApi;
+use App\Api\FootballApi\Fixtures\TeamsApi;
 use App\Http\Championships\Models\Fixture;
 
 class SyncLeagueOdds implements ShouldQueue

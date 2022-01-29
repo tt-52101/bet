@@ -2,6 +2,7 @@
 
 namespace App\Http\Championships\Tests\Feature;
 
+use App\Api\FootballApi\Fixtures\FixturesApi;
 use App\Api\FootballApi\Fixtures\FixturesApiMock;
 use App\Http\Championships\Jobs\SyncLeagueFixtures;
 use App\Http\Championships\Models\Country;
@@ -12,7 +13,6 @@ use Tests\TestCase;
 use App\Http\Championships\Models\League;
 use App\Http\Championships\Models\Team;
 use App\Http\Championships\Tests\Helpers\FixtureHelper;
-
 class LeagueFixtureSyncFeatureTest extends TestCase
 {
     use RefreshDatabase;

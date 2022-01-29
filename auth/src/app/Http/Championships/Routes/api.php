@@ -24,7 +24,9 @@ Route::resource('bet', 'BetController');
 Route::resource('country', 'CountryController');
 
 Route::post('league/{league}/odds/sync', 'LeagueController@syncOdds');
+Route::post('league/{league}/teams/sync', 'LeagueController@syncTeams');
 Route::post('league/{league}/sync', 'LeagueController@syncFixtures');
+
 Route::resource('league', 'LeagueController');
 Route::resource('season', 'SeasonController');
 

@@ -4,6 +4,8 @@ namespace App\Http\Championships\Pages\League\Components;
 
 
 use App\Http\Championships\Models\Country;
+use App\Http\Championships\Models\Season;
+use App\Http\Championships\Resources\SeasonCollection;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Components\{Avatar,
@@ -53,7 +55,7 @@ class LeagueFixtureSyncForm
                     ],
                     children: [
                         new Row(
-                            children: $this->fields()
+                            children: $this->fields($league_id)
                         )
                     ]
                 )
@@ -61,9 +63,22 @@ class LeagueFixtureSyncForm
         );
     }
 
-    public function fields()
+    public function fields(int $league_id)
     {
         $fields = [];
+
+        $seasons = Season::where('league_id', $league_id)->orderBy('year', 'desc')->get();
+        $seasons = (new SeasonCollection($seasons))->resolve()['data'];
+        $fields[] = new Column(
+            children: [
+                new Select(
+                    name: 'season',
+                    valueProp: 'year',
+                    labelProp: 'year',
+                    options: $seasons->toArray()
+                )
+            ]
+        );
 
         $fields[] = new Column(
             desktop: 6,
