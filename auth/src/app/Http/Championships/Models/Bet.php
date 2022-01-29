@@ -27,7 +27,27 @@ class Bet extends Model
         static::addGlobalScope(new MyBets());
     }
 
-    public function championshipOdd()
+    public function win($win){
+        $return = 0;
+        $status = 2;
+
+        if($win) {
+            $status = 1;
+            $return = round($this->points * $this->odd,2);
+
+            // Add Winning Points
+            if($this->status != 1){
+                $this->championship->addMemberPoints($this->user_id, $return);
+            }
+        }
+
+        $this->update([
+            'status' => $status,
+            'return' => $return
+        ]);
+    }
+
+    public function playedOdd()
     {
         return $this->belongsTo(Odd::class, 'odd_id');
     }

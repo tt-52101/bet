@@ -35,6 +35,13 @@ class FixtureFilters extends QueryFilters
         }
     }
 
+    public function has_bets($value)
+    {
+        if ($value) {
+            return $this->builder->whereHas('bets');
+        }
+    }
+
     public function playable($playable = false){
         if($playable) {
             return $this->builder

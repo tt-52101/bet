@@ -3,9 +3,11 @@
 namespace App\Http\Championships\Models;
 
 use App\Core\Filters\Filterable;
-use App\Http\Championships\Factories\ChampionshipFactory;
+use App\Http\Championships\Results\Draw;
+use App\Http\Championships\Results\Result;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+
 class Fixture extends Model
 {
     use Filterable;
@@ -32,6 +34,38 @@ class Fixture extends Model
     public function setDateAttribute($value)
     {
         $this->attributes['date'] =  Carbon::parse($value);
+    }
+
+    public function finished(){
+        $result = new Result();
+        return $result->finished($this);
+    }
+
+    public function isDraw(){
+        $draw = new Draw();
+        return $draw->isDraw($this);
+    }
+
+    public function isHomeWin(){
+        $result = new Result();
+        return $result->isHomeWin($this);
+    }
+
+    public function isAwayWin(){
+        $result = new Result();
+        return $result->isAwayWin($this);
+    }
+
+    public function bets(){
+        return $this->hasMany(Bet::class);
+    }
+
+    public function categoryBets($category){
+       $bets = Bet::withoutGlobalScopes()->whereHas('playedOdd.category', function ($q) use ($category){
+           $q->where('name', $category);
+       });
+
+       return $bets;
     }
 
     public function status(){

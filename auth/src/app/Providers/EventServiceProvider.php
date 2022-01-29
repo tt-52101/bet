@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
+use App\Http\Championships\Models\Fixture;
+use App\Http\Championships\Observers\FixtureObserver;
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Http\Championships\Events\FixtureUpdated;
+use App\Http\Championships\Listeners\ValidateMatchWinners;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +23,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        FixtureUpdated::class => [
+            ValidateMatchWinners::class
+        ]
+
     ];
 
     /**
@@ -27,6 +36,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Fixture::observe(FixtureObserver::class);
     }
 }

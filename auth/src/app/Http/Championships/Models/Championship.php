@@ -98,6 +98,13 @@ class Championship extends Model
         Bet::insert($bets);
     }
 
+    public function addMemberPoints($user_id, $points){
+        $member = $this->members()->where('user_id', $user_id)->first();
+        $member->update([
+            'points' => $member->points + $points
+        ]);
+    }
+
     public function betPoints()
     {
         return $this->betSlipItems()->sum('points');

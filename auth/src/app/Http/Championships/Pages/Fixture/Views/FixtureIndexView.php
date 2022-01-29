@@ -27,12 +27,31 @@ class FixtureIndexView
                 new Column(
                     desktop: 6,
                     children: [
-                        new SwitchInput(
-                            name: 'paginated_fixtures.query.has_odds',
-                            title: 'Has Odds',
-                            on_change: $this->onSearch()
+                        new Row(
+                            children: [
+                                new Column(
+                                    desktop: 6,
+                                    children: [
+                                        new SwitchInput(
+                                            name: 'paginated_fixtures.query.has_odds',
+                                            title: 'Has Odds',
+                                            on_change: $this->onSearch()
 
-                        )
+                                        ),
+                                    ]
+                                ),
+                                new Column(
+                                    desktop: 6,
+                                    children: [
+                                        new SwitchInput(
+                                            name: 'paginated_fixtures.query.has_bets',
+                                            title: 'Has Bets',
+                                            on_change: $this->onSearch()
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
                     ]
                 ),
                 new Column(

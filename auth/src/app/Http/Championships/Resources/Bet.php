@@ -19,13 +19,14 @@ class Bet extends JsonResource
         return [
             'id' => $this->id,
 
-            'category' => $this->championshipOdd?->category?->title,
+            'category' => $this->playedOdd?->category?->title,
 
             'championship_id' => $this->championship_id,
             'championship_title' => $this->championship?->title,
 
             'odd_id' => $this->odd_id,
             'odd' => $this->odd,
+            'value' => $this->playedOdd?->value,
             'return' => $this->return,
             'points' => $this->points,
             'user_id' => $this->user_id,

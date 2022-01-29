@@ -15,7 +15,7 @@ class BetCard
                 new Text('$championship_title')
             ],
             header_right: [
-                new Text('status')
+                new Text('$value')
             ],
             children: [
                 new Block(
