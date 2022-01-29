@@ -16,6 +16,10 @@ use BenBodan\BetUi\Components\{Accordion,
     Row,
     Builder,
     Text};
+use App\Http\Championships\Pages\Bet\Components\BetCard;
+use App\Http\Championships\Pages\Bet\Views\BetIndexView;
+use App\Http\Championships\Pages\Member\Components\MemberCard;
+use App\Http\Championships\Pages\Member\Views\MemberIndexView;
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Events\Event;
 use App\Core\Auth\Models\User;
@@ -36,6 +40,22 @@ class UserEditView
 
     public function schema($data = [])
     {
+        $member_card = new MemberCard();
+        $memberships = new MemberIndexView($member_card);
+        $memberships->column_size = 12;
+        $memberships->filters = [
+            'per_page' => 2,
+            'user_id' => $data['id']
+        ];
+
+        $bet_card = new BetCard();
+        $bets = new BetIndexView($bet_card);
+        $bets->column_size = 12;
+        $bets->filters = [
+            'per_page' => 2,
+            'user_id' => $data['id']
+        ];
+
         return new Page(
             children: [
                 new Row(
@@ -68,17 +88,15 @@ class UserEditView
                                 new Accordion(
                                     items: [
                                         new AccordionItem(
-                                            title: 'Competitions',
-                                            content: 'Test 2',
+                                            title: 'Championships',
                                             children: [
-                                                new Text('Currently')
+                                                $memberships->schema()
                                             ]
                                         ),
                                         new AccordionItem(
-                                            title: 'History',
-                                            content: 'Test 2',
+                                            title: 'Bets',
                                             children:  [
-                                                $this->users->schema()
+                                                $bets->schema()
                                             ]
                                         ),
                                     ]

@@ -59,61 +59,8 @@ useHead({
           alt=""
         />
 
-        <div class="hero-body">
-          <div class="container">
-            <div class="columns is-vcentered">
-              <div class="column is-5">
-                <h1 class="title is-1 is-bold">
-                  Easier development. Beautiful projects
-                </h1>
-                <h3 class="subtitle is-4 pt-2 light-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Isto
-                  modo ne improbos quidem.
-                </h3>
-                <div class="buttons">
-                  <VButton color="primary" bold rounded raised>
-                    Get Started
-                  </VButton>
-                  <VButton color="primary" outlined bold rounded raised>
-                    14-day Trial
-                  </VButton>
-                </div>
-              </div>
-              <div class="column is-7">
-                <img
-                  class="light-image-l hero-mockup"
-                  src="/@src/assets/illustrations/landing/app-2.png"
-                  alt=""
-                />
-                <img
-                  class="dark-image-l hero-mockup"
-                  src="/@src/assets/illustrations/landing/app-2-dark.png"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!--Feature boxes section-->
-      <a id="features" name="features" aria-label="Features" />
-      <MarketingFeaturesIcons />
-
-      <!--Pricing section-->
-      <MarketingPricings />
-
-      <!--Mockup Section-->
-      <MarketingMockup />
-
-      <!--Side Features Section-->
-      <MarketingSideFeatures />
-
-      <!--About section-->
-      <MarketingAbout />
-
-      <!-- Footer -->
-      <LandingFooter />
 
       <!-- Back To Top Button -->
       <div id="backtotop">

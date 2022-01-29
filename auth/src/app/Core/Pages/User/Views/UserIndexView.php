@@ -2,7 +2,7 @@
 
 namespace App\Core\Pages\User\Views;
 
-use BenBodan\BetUi\Components\{Button, Card, Column, Input, Page, Pagination, Row, Builder, Text};
+use BenBodan\BetUi\Components\{Avatar, Block, Button, Card, Column, Input, Page, Pagination, Row, Builder, Text};
 use BenBodan\BetUi\Repositories\RestRepo;
 use BenBodan\BetUi\Events\Event;
 
@@ -104,19 +104,26 @@ class UserIndexView
     public function userCard()
     {
         return new Card(
-            header_right: [
-                new Button(
-                    icon: 'fa fa-edit',
-                    title: 'Edit',
-                    rounded: true,
-                    on_click: [
-                        $this->editEvent()
-                    ]
-                )
-            ],
             children: [
-                new Text('$email'),
-                new Text('$name'),
+                new Block(
+                    icon: [
+                        new Avatar(
+                            initials: '$name'
+                        )
+                    ],
+                    action: [
+                        new Button(
+                            icon: 'fa fa-edit',
+                            title: 'Edit',
+                            rounded: true,
+                            on_click: [
+                                $this->editEvent()
+                            ]
+                        )
+                    ],
+                    title: '$name',
+                    subtitle: '$email'
+                ),
             ]
         );
     }
@@ -133,7 +140,7 @@ class UserIndexView
                             name: "paginated_{$this->name}",
                             children: [
                                 new Column(
-                                    desktop: 6,
+                                    desktop: 4,
                                     children: [
                                         $this->userCard()
                                     ]

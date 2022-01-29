@@ -67,7 +67,7 @@ watchEffect(() => {
               }
             "
           >
-            Awesome Features
+            Beta
           </RouterLink>
         </div>
       </div>
@@ -103,11 +103,7 @@ watchEffect(() => {
             Login
           </RouterLink>
         </div>
-        <div class="navbar-item">
-          <VButton :to="{ name: 'auth-signup' }" color="primary" rounded raised>
-            <strong>Sign up</strong>
-          </VButton>
-        </div>
+
       </div>
     </div>
   </nav>

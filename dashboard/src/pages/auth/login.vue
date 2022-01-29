@@ -35,7 +35,7 @@ const handleLogin = async () => {
         router.push(redirect)
       } else {
         router.push({
-          name: 'app',
+          path: '/pages/auth/profile',
         })
       }
 
