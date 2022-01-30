@@ -45,7 +45,7 @@ class FixtureFilters extends QueryFilters
 
     public function playable($playable = false){
         if($playable) {
-            $date = Carbon::now()->format('Y-m-d H:m');
+            $date = Carbon::now();
             return $this->builder
                 ->whereHas('status', function ($q) use($playable) {
                     $q->whereIn('name', ['NS']);

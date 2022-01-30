@@ -20,7 +20,7 @@ class Bet extends JsonResource
             'id' => $this->id,
 
             'category' => $this->playedOdd?->category?->title,
-
+            'status_label' => $this->statusLabel(),
             'championship_id' => $this->championship_id,
             'championship_title' => $this->championship?->title,
 

@@ -34,7 +34,9 @@ class BetCard
                         )
                     ],
                     action: [
-
+                        new Button(
+                            title: '$status_label'
+                        )
                     ]
                 )
             ],

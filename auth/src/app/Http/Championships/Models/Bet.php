@@ -27,6 +27,18 @@ class Bet extends Model
         static::addGlobalScope(new MyBets());
     }
 
+    public function statusLabel(){
+        if($this->status === 0) {
+            return '-';
+        }
+
+        if($this->status === 1) {
+            return 'Win';
+        }
+
+        return 'Lost';
+    }
+
     public function win($win){
         $return = 0;
         $status = 2;

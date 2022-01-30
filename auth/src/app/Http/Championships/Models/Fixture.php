@@ -33,7 +33,15 @@ class Fixture extends Model
 
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] =  Carbon::parse($value);
+        $this->attributes['date'] =  Carbon::parse($value, 'Europe/Athens')->tz('UTC');
+    }
+
+    public function getStartAtAttribute(){
+        return Carbon::parse($this->attributes['date'], 'UTC')->tz('Europe/Athens')->toDateTimeString();
+    }
+
+    public function getDateAttribute(){
+        return Carbon::parse( $this->attributes['date'] , 'UTC')->tz('Europe/Athens')->toDateTimeString();
     }
 
     public function finished(){
@@ -50,11 +58,6 @@ class Fixture extends Model
         $result = new Result();
         return $result->bothTeamsScore($this, $value);
     }
-
-    public function getStartAtAttribute(){
-        return Carbon::parse($this->date)->setTimezone('Europe/Athens')->format('d-m-y H:m');
-    }
-
 
     public function isOverUnder($value){
         $result = new Result();

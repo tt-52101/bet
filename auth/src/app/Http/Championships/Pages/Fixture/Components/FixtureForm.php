@@ -2,7 +2,6 @@
 
 namespace App\Http\Championships\Pages\Fixture\Components;
 
-
 use App\Http\Championships\Models\Country;
 use App\Http\Championships\Models\FixtureStatus;
 use BenBodan\BetUi\Events\Event;
@@ -97,6 +96,15 @@ class FixtureForm
                 new Select(
                     name: 'status_id',
                     options: $statuses
+                )
+            ]
+        );
+
+        $fields[] = new Column(
+            children: [
+                new Datepicker(
+                    title: 'Date',
+                    name: 'date'
                 )
             ]
         );
