@@ -4,8 +4,8 @@ import {useUserSession} from "../stores/userSession";
 class Api {
   constructor(name, authorized = true, session = useUserSession()) {
 
-    let server = 'http://localhost/auth';
-
+    let server = import.meta.env.VITE_API_BASE_URL;
+    console.log(server);
     this.server = server;
     this.endpoint = `${name}`;
     this.headers = {};

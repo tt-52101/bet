@@ -54,7 +54,7 @@ export function createRouter() {
      * and update "base" config in vite.config.ts
      */
     // history: createWebHistory('my-subdirectory'),
-    history: createWebHistory(),
+    history: createWebHistory('/auth/dash'),
     routes,
   })
 

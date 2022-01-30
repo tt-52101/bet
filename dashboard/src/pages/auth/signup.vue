@@ -231,16 +231,7 @@ useHead({
         <div class="hero-body">
           <div class="columns">
             <div class="column is-10 is-offset-1">
-              <img
-                class="light-image has-light-shadow has-light-border"
-                src="/@src/assets/illustrations/apps/vuero-banking-light.png?format=webp"
-                alt=""
-              />
-              <img
-                class="dark-image has-light-shadow"
-                src="/@src/assets/illustrations/apps/vuero-banking-dark.png?format=webp"
-                alt=""
-              />
+
             </div>
           </div>
         </div>
