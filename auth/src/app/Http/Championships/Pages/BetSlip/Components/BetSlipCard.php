@@ -108,7 +108,6 @@ class BetSlipCard extends Component
                 new Input(
                     name: 'win',
                     disabled: true,
-                    placeholder: 'x $odd',
                 ),
             ]
         );

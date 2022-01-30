@@ -35,12 +35,19 @@ class SyncChampionships implements ShouldQueue
      */
     public function handle()
     {
-         $championships = Championship::withoutGlobalScopes()
-             ->isPublished()->get();
+        $now = Carbon::now();
 
-        foreach ($championships as $championship) {
-            $job = new SyncChampionship($championship);
-            dispatch($job);
-         }
+        $start = Carbon::createFromTimeString('12:00');
+        $end = Carbon::createFromTimeString('24:00');
+
+        if ($now->between($start, $end)) {
+            $championships = Championship::withoutGlobalScopes()
+                ->isPublished()->get();
+
+            foreach ($championships as $championship) {
+                $job = new SyncChampionship($championship);
+                dispatch($job);
+            }
+        }
     }
 }
