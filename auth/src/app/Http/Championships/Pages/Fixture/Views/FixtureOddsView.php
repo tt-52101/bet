@@ -96,7 +96,7 @@ class FixtureOddsView
                                            ]
                                        )
                                    ],
-                                   title: "{$fixture->home->name} - {$fixture->home->name}",
+                                   title: "{$fixture->home->name} - {$fixture->away->name}",
                                    subtitle: $fixture->date
                                )
                             ]

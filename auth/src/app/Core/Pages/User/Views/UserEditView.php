@@ -15,7 +15,8 @@ use BenBodan\BetUi\Components\{Accordion,
     Pagination,
     Row,
     Builder,
-    Text};
+    Text
+};
 use App\Http\Championships\Pages\Bet\Components\BetCard;
 use App\Http\Championships\Pages\Bet\Views\BetIndexView;
 use App\Http\Championships\Pages\Member\Components\MemberCard;
@@ -29,8 +30,8 @@ class UserEditView
 {
 
     public function __construct(
-        private string $name = 'users',
-        public UserForm $form,
+        private string       $name = 'users',
+        public UserForm      $form,
         public UserIndexView $users
     )
     {
@@ -40,22 +41,48 @@ class UserEditView
 
     public function schema($data = [])
     {
-        $member_card = new MemberCard();
-        $memberships = new MemberIndexView($member_card);
-        $memberships->column_size = 12;
-        $memberships->filters = [
-            'per_page' => 2,
-            'user_id' => $data['id']
-        ];
 
-        $bet_card = new BetCard();
-        $bets = new BetIndexView($bet_card);
-        $bets->column_size = 12;
-        $bets->filters = [
-            'per_page' => 2,
-            'user_id' => $data['id']
-        ];
+        $side_colum = new Column();
 
+        if ($data) {
+            $member_card = new MemberCard();
+            $memberships = new MemberIndexView($member_card);
+            $memberships->column_size = 12;
+            $memberships->filters = [
+                'per_page' => 2,
+                'user_id' => $data['id']
+            ];
+
+            $bet_card = new BetCard();
+            $bets = new BetIndexView($bet_card);
+            $bets->column_size = 12;
+            $bets->filters = [
+                'per_page' => 2,
+                'user_id' => $data['id']
+            ];
+
+            $side_colum = new Column(
+                desktop: 6,
+                children: [
+                    new Accordion(
+                        items: [
+                            new AccordionItem(
+                                title: 'Championships',
+                                children: [
+                                    $memberships->schema()
+                                ]
+                            ),
+                            new AccordionItem(
+                                title: 'Bets',
+                                children: [
+                                    $bets->schema()
+                                ]
+                            ),
+                        ]
+                    )
+                ]
+            );
+        }
         return new Page(
             children: [
                 new Row(
@@ -82,27 +109,7 @@ class UserEditView
                                 $this->form->schema($data)
                             ]
                         ),
-                        new Column(
-                            desktop: 6,
-                            children: [
-                                new Accordion(
-                                    items: [
-                                        new AccordionItem(
-                                            title: 'Championships',
-                                            children: [
-                                                $memberships->schema()
-                                            ]
-                                        ),
-                                        new AccordionItem(
-                                            title: 'Bets',
-                                            children:  [
-                                                $bets->schema()
-                                            ]
-                                        ),
-                                    ]
-                                )
-                            ]
-                        )
+                        $side_colum
                     ]
                 )
             ]
