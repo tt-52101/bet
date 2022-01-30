@@ -24,6 +24,7 @@ class Member extends JsonResource
         return [
             'id' => $this->id,
             'user_email' => $this->user->email,
+            'user_id' => $this->user_id,
             'championship_title' => $this->championship->title,
             'championship_id' => $this->championship_id,
             'start_points' => $this->start_points,

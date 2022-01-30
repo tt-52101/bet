@@ -2,6 +2,8 @@
 
 namespace App\Http\Championships\Pages\Member\Views;
 
+use App\Http\Championships\Pages\Bet\Components\BetCard;
+use App\Http\Championships\Pages\Bet\Views\BetIndexView;
 use App\Http\Championships\Pages\Member\Components\MemberForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
 use App\Http\Championships\Pages\Odd\Components\OddCard;
@@ -20,16 +22,17 @@ class MemberEditView
     public function schema($data = [])
     {
 
-        $odd_card = new OddCard();
-        $odds = new OddIndexView($odd_card);
+        $bet_card = new BetCard();
+        $bets = new BetIndexView($bet_card);
 
         if ($data) {
-            $odds->column_size = 12;
-            $odds->filters = [
-                'member_id' => $data['id'],
+            $bets->column_size = 12;
+            $bets->filters = [
+                'user_id' => $data['id'],
                 'per_page' => 3
             ];
         }
+
         return new Row(
             children: [
                 new Column(
@@ -44,9 +47,9 @@ class MemberEditView
                         new Accordion(
                             items: [
                                 new AccordionItem(
-                                    title: 'Odds',
+                                    title: 'Member Bets',
                                     children: [
-                                        $odds->schema()
+                                        $bets->schema()
                                     ]
                                 ),
                             ]

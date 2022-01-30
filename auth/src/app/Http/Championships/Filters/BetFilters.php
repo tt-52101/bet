@@ -28,4 +28,8 @@ class BetFilters extends QueryFilters
     public function user_id($id) {
         return $this->builder->where('championship_bets.user_id', $id);
     }
+
+    public function fixture_id($id) {
+        return $this->builder->where('championship_bets.fixture_id', $id);
+    }
 }

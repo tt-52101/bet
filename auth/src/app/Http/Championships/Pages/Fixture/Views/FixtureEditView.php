@@ -2,6 +2,8 @@
 
 namespace App\Http\Championships\Pages\Fixture\Views;
 
+use App\Http\Championships\Pages\Bet\Components\BetCard;
+use App\Http\Championships\Pages\Bet\Views\BetIndexView;
 use App\Http\Championships\Pages\Fixture\Components\FixtureForm;
 use BenBodan\BetUi\Components\{Accordion, AccordionItem, Button, Card, Page, Row, Column, Builder};
 use App\Http\Championships\Pages\Odd\Components\OddCard;
@@ -28,6 +30,14 @@ class FixtureEditView
             'per_page' => 3
         ];
 
+        $bet_card = new BetCard();
+        $bets = new BetIndexView($bet_card);
+        $bets->column_size = 12;
+        $bets->filters = [
+            'fixture_id' => $data['id'],
+            'per_page' => 3
+        ];
+
         return new Row(
             children: [
                 new Column(
@@ -45,6 +55,16 @@ class FixtureEditView
                                     title: 'Odds',
                                     children: [
                                         $odds->schema()
+                                    ]
+                                ),
+                            ]
+                        ),
+                        new Accordion(
+                            items: [
+                                new AccordionItem(
+                                    title: 'Bets',
+                                    children: [
+                                        $bets->schema()
                                     ]
                                 ),
                             ]
