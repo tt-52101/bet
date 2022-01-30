@@ -46,8 +46,8 @@ class ChampionshipForm
                     ],
                     header_right: [
                         new SwitchInput(
-                            name: 'public',
-                            title: 'Public'
+                            name: 'published',
+                            title: 'Published'
                         )
                     ],
                     children: [
@@ -124,15 +124,6 @@ class ChampionshipForm
             children: [
                 new SwitchInput(
                     name: 'football',
-                    title: 'Football'
-                )
-            ]
-        );
-
-        $fields[] = new Column(
-            children: [
-                new Progress(
-                    name: 'progress',
                     title: 'Football'
                 )
             ]

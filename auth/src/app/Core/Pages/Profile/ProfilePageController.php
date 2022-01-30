@@ -5,6 +5,7 @@ namespace App\Core\Pages\Profile;
 use App\Core\Controllers\ApiController;
 use App\Http\Championships\Pages\Bet\Components\BetCard;
 use App\Http\Championships\Pages\Bet\Views\BetIndexView;
+use App\Http\Championships\Pages\Championship\Components\ChampionshipJoinCard;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipStatsCard;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipCard;
 use App\Http\Championships\Pages\Championship\Views\ChampionshipIndexView;
@@ -29,7 +30,7 @@ class ProfilePageController extends ApiController
             'user_id' => $user->id
         ];
 
-        $championship = new ChampionshipCard();
+        $championship = new ChampionshipJoinCard();
         $championships = new ChampionshipIndexView($championship);
         $championships->filters = [
             'not_user_id' => $user->id
@@ -65,7 +66,7 @@ class ProfilePageController extends ApiController
                                         ),
                                         new Tab(
                                             icon: 'feather:calendar',
-                                            label: 'Championships',
+                                            label: 'New Championships',
                                             value: 'championships',
                                             children: [
                                                 $championships->schema()
@@ -73,7 +74,7 @@ class ProfilePageController extends ApiController
                                         ),
                                         new Tab(
                                             icon: 'feather:activity',
-                                            label: 'History',
+                                            label: 'My Bets',
                                             value: 'history',
                                             children: [
                                                 $bets->schema()
@@ -99,9 +100,6 @@ class ProfilePageController extends ApiController
                                             title: $user->name,
                                             subtitle: $user->email,
                                             action: [
-                                                new Button(
-                                                    title: 'Edit'
-                                                )
                                             ]
                                         )
                                     ],

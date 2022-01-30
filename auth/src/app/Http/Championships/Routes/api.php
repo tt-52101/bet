@@ -17,6 +17,7 @@ Route::post('championship/{championship}/bet-slip/finalize', 'BetSlipController@
 
 
 Route::post('championship/{championship}/join', 'ChampionshipController@join');
+Route::post('championship/{championship}/sync', 'ChampionshipController@sync');
 Route::resource('championship', 'ChampionshipController');
 
 

@@ -1,4 +1,7 @@
 <template>
+<div>
+  <label for="">{{config.title || config.placeholder}}</label>
+
   <VField :addons="config.addons.length > 0">
     <VControl
       :expanded="config.addons.length > 0"
@@ -14,7 +17,7 @@
         @change="change"
       />
       <div v-else>
-          {{value}}
+        {{value}}
       </div>
     </VControl>
     <VControl v-if="config.addons.length > 0">
@@ -26,6 +29,7 @@
       </component>
     </VControl>
   </VField>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -59,6 +63,7 @@ const state = reactive({
 
 const config = reactive({
   value: 'test',
+  title: '',
   name: '',
   rounded: false,
   focus: '',

@@ -22,6 +22,7 @@ class CreateChampionshipsTable extends Migration
             $table->dateTime('end_at');
 
             $table->boolean('football')->default(true)->nullable();
+            $table->boolean('published')->default(false)->nullable();
             // Starting Points
             $table->unsignedBigInteger('points')->default(0)->nullable();
             $table->timestamps();

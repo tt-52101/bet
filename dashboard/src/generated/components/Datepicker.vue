@@ -1,4 +1,6 @@
 <template>
+<div>
+  <label for="">{{config.title}}</label>
   <v-date-picker is24hr v-model="value" :mode="config.type" color="green" :model-config="config.model" trim-weeks>
     <template #default="{ inputValue, inputEvents }">
       <VField>
@@ -8,6 +10,7 @@
       </VField>
     </template>
   </v-date-picker>
+</div>
 </template>
 
 <script setup lang="ts">

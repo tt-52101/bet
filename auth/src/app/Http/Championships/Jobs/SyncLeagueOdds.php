@@ -59,8 +59,10 @@ class SyncLeagueOdds implements ShouldQueue
         $odds = $response['response'];
         $total = $response['paging']['total'];
         $current = $response['paging']['current'];
-        var_dump($current);
         $this->syncOdds($odds);
+        $this->league->update([
+            'odds_sync' => Carbon::now()
+        ]);
         if ($total > $current){
             $job = new SyncLeagueOdds($this->league, $this->season, $page+1);
             dispatch($job);

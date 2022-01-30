@@ -16,6 +16,8 @@ class League extends Model
         'logo',
         'country_id',
         'api_id',
+        'fixtures_sync',
+        'odds_sync',
         'active'
     ];
 
@@ -24,15 +26,23 @@ class League extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function fixtures(){
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
+    }
+
+    public function fixtures()
+    {
         return $this->hasMany(Fixture::class, 'league_id');
     }
 
-    public function teams(){
+    public function teams()
+    {
         return $this->hasMany(Team::class);
     }
 
-    public function championships(){
+    public function championships()
+    {
         return $this->belongsToMany(Championship::class, 'championship_leagues');
     }
 }

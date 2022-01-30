@@ -56,5 +56,8 @@ class SyncLeagueFixtures implements ShouldQueue
             $sync_fixture = new SyncFixture($this->league, $fixture);
             dispatch($sync_fixture);
         }
+        $this->league->update([
+            'fixtures_sync' => Carbon::now()
+        ]);
     }
 }

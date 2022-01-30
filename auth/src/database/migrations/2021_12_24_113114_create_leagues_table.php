@@ -21,6 +21,9 @@ class CreateLeaguesTable extends Migration
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('api_id');
 
+            $table->dateTime('fixtures_sync')->nullable();
+            $table->dateTime('odds_sync')->nullable();
+
             $table->boolean('active')->default(true)->nullable();
 
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');

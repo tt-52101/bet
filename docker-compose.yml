@@ -27,6 +27,26 @@ services:
       dockerfile: php.Dockerfile
     tty: true
     working_dir: /var/www/html
+    environment:
+      CONTAINER_ROLE: queue
+    volumes:
+      - ./auth/src:/var/www/html
+      - ./auth/src/storage/app/public/:/var/www/html/public/storage/
+      - ./auth/docker/apache:/etc/apache2/sites-enabled/
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - app-network
+
+  scheduler:
+    build:
+      context: ./docker/images
+      dockerfile: php.Dockerfile
+    tty: true
+    environment:
+      CONTAINER_ROLE: scheduler
+    working_dir: /var/www/html
     command: sh -c "php artisan queue:work --verbose --tries=3 --timeout=90"
     volumes:
       - ./auth/src:/var/www/html

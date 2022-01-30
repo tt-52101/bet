@@ -121,6 +121,26 @@ class LeagueForm
         );
 
         $fields[] = new Column(
+            desktop: 6,
+            children: [
+                new Datepicker(
+                    title: 'Fixture Last Sync',
+                    name: 'fixtures_sync'
+                )
+            ]
+        );
+
+        $fields[] = new Column(
+            desktop: 6,
+            children: [
+                new Datepicker(
+                    title: 'Odds Last Syn',
+                    name: 'odds_sync'
+                )
+            ]
+        );
+
+        $fields[] = new Column(
             desktop: 4,
             children: [
                 new SwitchInput(

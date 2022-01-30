@@ -3,6 +3,8 @@
 namespace App\Http\Championships\Controllers;
 
 use App\Core\Auth\Models\User;
+use App\Http\Championships\Jobs\SyncChampionship;
+use App\Http\Championships\Jobs\SyncChampionships;
 use App\Http\Championships\Models\BetSlipItem;
 use App\Http\Championships\Resources\BetSlipItem as BetSlipItemResource;
 use App\Http\Championships\Models\Fixture;
@@ -44,7 +46,7 @@ class ChampionshipController extends ApiController
         if (Gate::denies('update', new Championship())) {
             return $this->respondForbidden("You don't have permission");
         }
-        $championship->update(request()->all());
+        $championship = $championship->update(request()->all());
 
         return [
             'message' => 'Championship Updated Successfully',
@@ -62,6 +64,20 @@ class ChampionshipController extends ApiController
         return [
             'message' => 'Championship Created Successfully',
             'entry' => $championship
+        ];
+    }
+
+    public function sync(ChampionshipRepository $championship)
+    {
+        if (Gate::denies('create', new Championship())) {
+            return $this->respondForbidden("You don't have permission");
+        }
+
+        $job = new SyncChampionship($championship->get());
+        $this->dispatch($job);
+
+        return [
+            'message' => 'Championship Sync Started',
         ];
     }
 

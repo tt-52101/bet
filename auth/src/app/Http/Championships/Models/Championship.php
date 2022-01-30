@@ -4,6 +4,7 @@ namespace App\Http\Championships\Models;
 
 use App\Core\Auth\Models\User;
 use App\Core\Filters\Filterable;
+use App\Http\Championships\Scopes\PublishedChampionships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +18,17 @@ class Championship extends Model
         'start_at',
         'end_at',
         'points',
-        'football'
+        'football',
+        'published'
     ];
+
+    protected static function booted(){
+        static::addGlobalScope(new PublishedChampionships());
+    }
+
+    public function ScopeIsPublished($q){
+        return $q->where('championships.published', true);
+    }
 
     public function leagues()
     {

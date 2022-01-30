@@ -4,6 +4,7 @@ namespace App\Http\Championships\Pages\Championship\Views;
 
 use App\Http\Championships\Pages\Championship\Components\ChampionshipLeagueCard;
 use App\Http\Championships\Pages\Championship\Components\ChampionshipForm;
+use App\Http\Championships\Pages\Championship\Components\ChampionshipSyncForm;
 use App\Http\Championships\Pages\League\Views\LeagueIndexView;
 use BenBodan\BetUi\Events\Event;
 use BenBodan\BetUi\Repositories\RestRepo;
@@ -22,6 +23,8 @@ class ChampionshipEditView
     public function schema($data = [])
     {
         $id = $data['id'];
+        $sync = new ChampionshipSyncForm();
+
         return new Row(
             children: [
                 new Column(
@@ -41,6 +44,12 @@ class ChampionshipEditView
                                     children: [
                                         $this->leagueModal($id),
                                         $this->leagues($id),
+                                    ]
+                                ),
+                                new AccordionItem(
+                                    title: 'Sync',
+                                    children: [
+                                        $sync->schema($data)
                                     ]
                                 )
                             ]

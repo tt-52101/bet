@@ -14,3 +14,4 @@ WORKDIR /app
 
 COPY --from=build /app/dist .
 COPY ./nginx/vuejs.conf /opt/bitnami/nginx/conf/server_blocks/nginx.conf
+

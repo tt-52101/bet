@@ -32,3 +32,17 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite
+
+
+## Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
+# Copy required filles
+COPY ./start.sh /usr/local/bin/start
+RUN chmod +x /usr/local/bin/start
+
+# Change current user to www
+USER www
+
+CMD ["/usr/local/bin/start"]

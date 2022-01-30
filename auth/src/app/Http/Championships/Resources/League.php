@@ -25,6 +25,8 @@ class League extends JsonResource
             'country_flag' => $this->country?->flag,
             'country' => $this->country?->name,
             'country_id' => $this->country_id,
+            'fixtures_sync' => $this->fixtures_sync,
+            'odds_sync' => $this->odds_sync,
             'active' => (bool)$this->active,
         ];
     }
