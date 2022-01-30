@@ -84,7 +84,7 @@ class Fixture extends Model
     }
 
     public function categoryBets($category){
-       $bets = Bet::withoutGlobalScopes()->whereHas('playedOdd.category', function ($q) use ($category){
+       $bets = Bet::withoutGlobalScopes()->where('championship_bets.fixture_id', $this->id)->whereHas('playedOdd.category', function ($q) use ($category){
            $q->where('name', $category);
        });
 
