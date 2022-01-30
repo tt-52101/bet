@@ -30,6 +30,9 @@ class BetSeeder extends Seeder
      */
     public function run()
     {
+        $this->countries();
+        $this->bets();
+        $this->bookmakers();
         $this->leagues();
     }
 
