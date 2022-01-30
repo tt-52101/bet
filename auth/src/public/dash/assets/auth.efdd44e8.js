@@ -1,4 +1,4 @@
-import { _ as _export_sfc } from "./index.c92bb4bd.js";
+import { _ as _export_sfc } from "./index.4023ea6a.js";
 import { o as openBlock, b as createElementBlock, A as renderSlot, k as resolveComponent, C as createBlock, s as withCtx, q as createVNode } from "./vendor.32cd07bc.js";
 const _sfc_main$1 = {};
 const _hoisted_1 = { class: "auth-wrapper" };

@@ -962,7 +962,7 @@ const _sfc_main$Z = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const routes = [{ "path": "/auth", "component": () => __vitePreload(() => import("./auth.cd05a9b4.js"), true ? ["assets/auth.cd05a9b4.js","assets/auth.3beb8099.css","assets/vendor.32cd07bc.js"] : void 0), "children": [{ "name": "auth", "path": "", "component": () => __vitePreload(() => import("./index.34e397f1.js"), true ? [] : void 0), "props": true, "redirect": { "name": "auth-login" } }, { "name": "auth-login", "path": "login", "component": () => __vitePreload(() => import("./login.b6271948.js"), true ? ["assets/login.b6271948.js","assets/vendor.32cd07bc.js","assets/Auth.af141906.js"] : void 0), "props": true }, { "name": "auth-signup", "path": "signup", "component": () => __vitePreload(() => import("./signup.0f02633f.js"), true ? ["assets/signup.0f02633f.js","assets/vendor.32cd07bc.js"] : void 0), "props": true }], "props": true }, { "path": "/app", "component": () => __vitePreload(() => import("./app.028723fe.js"), true ? ["assets/app.028723fe.js","assets/AppLayout.46013c7b.js","assets/AppLayout.d058e740.css","assets/vendor.32cd07bc.js","assets/Auth.af141906.js","assets/sidebarLayoutState.b3cee4ce.js"] : void 0), "children": [{ "name": "app", "path": "", "component": () => __vitePreload(() => import("./index.8f42c5fc.js"), true ? ["assets/index.8f42c5fc.js","assets/index.2a38b33c.css","assets/vendor.32cd07bc.js","assets/sidebarLayoutState.b3cee4ce.js"] : void 0), "props": true }], "props": true, "meta": { "requiresAuth": true } }, { "name": "index", "path": "/", "component": _sfc_main$Z, "props": true }, { "name": "pages-service-endpoint", "path": "/pages/:service/:endpoint", "component": () => __vitePreload(() => import("./index.bb26a04f.js"), true ? ["assets/index.bb26a04f.js","assets/AppLayout.46013c7b.js","assets/AppLayout.d058e740.css","assets/vendor.32cd07bc.js","assets/Auth.af141906.js","assets/sidebarLayoutState.b3cee4ce.js"] : void 0), "props": true }, { "name": "all", "path": "/:all(.*)*", "component": () => __vitePreload(() => import("./[...all].aa990024.js"), true ? ["assets/[...all].aa990024.js","assets/[...all].cd05e41e.css","assets/vendor.32cd07bc.js"] : void 0), "props": true }];
+const routes = [{ "path": "/auth", "component": () => __vitePreload(() => import("./auth.efdd44e8.js"), true ? ["assets/auth.efdd44e8.js","assets/auth.3beb8099.css","assets/vendor.32cd07bc.js"] : void 0), "children": [{ "name": "auth", "path": "", "component": () => __vitePreload(() => import("./index.34e397f1.js"), true ? [] : void 0), "props": true, "redirect": { "name": "auth-login" } }, { "name": "auth-login", "path": "login", "component": () => __vitePreload(() => import("./login.05224b8f.js"), true ? ["assets/login.05224b8f.js","assets/vendor.32cd07bc.js","assets/Auth.801fc8fa.js"] : void 0), "props": true }, { "name": "auth-signup", "path": "signup", "component": () => __vitePreload(() => import("./signup.ccfd6c5f.js"), true ? ["assets/signup.ccfd6c5f.js","assets/vendor.32cd07bc.js"] : void 0), "props": true }], "props": true }, { "path": "/app", "component": () => __vitePreload(() => import("./app.7e11408c.js"), true ? ["assets/app.7e11408c.js","assets/AppLayout.3214db8e.js","assets/AppLayout.d058e740.css","assets/vendor.32cd07bc.js","assets/Auth.801fc8fa.js","assets/sidebarLayoutState.b3cee4ce.js"] : void 0), "children": [{ "name": "app", "path": "", "component": () => __vitePreload(() => import("./index.7bc86c13.js"), true ? ["assets/index.7bc86c13.js","assets/index.2a38b33c.css","assets/vendor.32cd07bc.js","assets/sidebarLayoutState.b3cee4ce.js"] : void 0), "props": true }], "props": true, "meta": { "requiresAuth": true } }, { "name": "index", "path": "/", "component": _sfc_main$Z, "props": true }, { "name": "pages-service-endpoint", "path": "/pages/:service/:endpoint", "component": () => __vitePreload(() => import("./index.e6fff384.js"), true ? ["assets/index.e6fff384.js","assets/AppLayout.3214db8e.js","assets/AppLayout.d058e740.css","assets/vendor.32cd07bc.js","assets/Auth.801fc8fa.js","assets/sidebarLayoutState.b3cee4ce.js"] : void 0), "props": true }, { "name": "all", "path": "/:all(.*)*", "component": () => __vitePreload(() => import("./[...all].abbd4cc4.js"), true ? ["assets/[...all].abbd4cc4.js","assets/[...all].cd05e41e.css","assets/vendor.32cd07bc.js"] : void 0), "props": true }];
 function createRouter() {
   const router = createRouter$1({
     history: createWebHistory("/auth/dash"),
@@ -1017,7 +1017,7 @@ const useUserSession = defineStore("userSession", () => {
 const apiSymbol = Symbol();
 function provideApi() {
   const api = axios.create({
-    baseURL: "http://bet.whatsnew.gr"
+    baseURL: "http://bet.whatsnew.gr/auth"
   });
   api.interceptors.request.use((config) => {
     const userSession = useUserSession();
@@ -3219,7 +3219,7 @@ const _sfc_main$B = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues
 }));
 class Api {
   constructor(name, authorized = true, session = useUserSession()) {
-    let server = "http://bet.whatsnew.gr";
+    let server = "http://bet.whatsnew.gr/auth";
     console.log(server);
     this.server = server;
     this.endpoint = `${name}`;
