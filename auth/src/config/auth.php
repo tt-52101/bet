@@ -1,4 +1,5 @@
 <?php
+use App\Core\Auth\Models\RefreshToken;
 
 return [
 
@@ -39,7 +40,7 @@ return [
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
-            'refresh' => App\Core\Auth\Models\RefreshToken::class,
+            'refresh' => RefreshToken::class,
         ],
         'web' => [
             'driver' => 'session',

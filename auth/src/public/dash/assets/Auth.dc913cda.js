@@ -1,4 +1,4 @@
-import { A as Api } from "./index.4023ea6a.js";
+import { A as Api } from "./index.34cdef1e.js";
 const default_server = "http://localhost/auth";
 class Auth {
   login(username, password) {

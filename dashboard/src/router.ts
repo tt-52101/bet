@@ -1,5 +1,5 @@
 import {
-  createRouter as createClientRouter,
+  createRouter as createClientRouter, createWebHashHistory,
   createWebHistory,
 } from 'vue-router'
 import * as NProgress from 'nprogress'
@@ -54,7 +54,7 @@ export function createRouter() {
      * and update "base" config in vite.config.ts
      */
     // history: createWebHistory('my-subdirectory'),
-    history: createWebHistory('/auth/dash'),
+    history: createWebHashHistory('/auth/dash'),
     routes,
   })
 

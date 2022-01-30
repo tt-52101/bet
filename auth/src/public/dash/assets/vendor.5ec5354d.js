@@ -8367,6 +8367,12 @@ function createWebHistory(base) {
   });
   return routerHistory;
 }
+function createWebHashHistory(base) {
+  base = location.host ? base || location.pathname + location.search : "";
+  if (!base.includes("#"))
+    base += "#";
+  return createWebHistory(base);
+}
 function isRouteLocation(route) {
   return typeof route === "string" || route && typeof route === "object";
 }
@@ -32946,4 +32952,4 @@ var bb = {
   instance: [],
   plugin: {}
 };
-export { reactive as $, renderSlot as A, useHead as B, createBlock as C, createRouter as D, createWebHistory as E, nprogress as F, defineStore as G, axios as H, provide as I, useCssVars as J, h as K, v as L, Module$1 as M, Notyf as N, n as O, useI18n as P, toDisplayString$1 as Q, RouterLink as R, createCommentVNode as S, Transition$1 as T, createHead as U, VueScrollTo as V, createPinia as W, createApp as X, RouterView as Y, resolveDynamicComponent as Z, _$1 as _, useRouter as a, onMounted as a0, renderList as a1, Fragment as a2, createSlots as a3, createStore as a4, watch as a5, onClickOutside as a6, normalizeProps as a7, guardReactiveProps as a8, vModelText as a9, withKeys as aa, onUnmounted as ab, useRoute as ac, Teleport as ad, TransitionGroup as ae, mergeProps as af, toHandlers as ag, bb as ah, nextTick as ai, gauge as aj, withScopeId as ak, toRefs as al, isReactive as am, getCurrentInstance as an, isVNode as ao, render as ap, toRef as aq, inject as ar, onBeforeUnmount as as, warn$1 as at, readonly as au, markRaw as av, commonjsGlobal as aw, resolveDirective as ax, vModelRadio as ay, watchPostEffect as az, createElementBlock as b, createI18n as c, defineComponent as d, createBaseVNode as e, popScopeId as f, useMediaQuery as g, usePreferredDark as h, computed as i, useWindowScroll as j, resolveComponent as k, withModifiers as l, unref as m, normalizeClass as n, openBlock as o, pushScopeId as p, createVNode as q, ref as r, withCtx as s, withDirectives as t, useStorage as u, vModelCheckbox as v, watchEffect as w, isRef as x, createTextVNode as y, createStaticVNode as z };
+export { reactive as $, renderSlot as A, useHead as B, createBlock as C, createRouter as D, createWebHashHistory as E, nprogress as F, defineStore as G, axios as H, provide as I, useCssVars as J, h as K, v as L, Module$1 as M, Notyf as N, n as O, useI18n as P, toDisplayString$1 as Q, RouterLink as R, createCommentVNode as S, Transition$1 as T, createHead as U, VueScrollTo as V, createPinia as W, createApp as X, RouterView as Y, resolveDynamicComponent as Z, _$1 as _, useRouter as a, onMounted as a0, renderList as a1, Fragment as a2, createSlots as a3, createStore as a4, watch as a5, onClickOutside as a6, normalizeProps as a7, guardReactiveProps as a8, vModelText as a9, withKeys as aa, onUnmounted as ab, useRoute as ac, Teleport as ad, TransitionGroup as ae, mergeProps as af, toHandlers as ag, bb as ah, nextTick as ai, gauge as aj, withScopeId as ak, toRefs as al, isReactive as am, getCurrentInstance as an, isVNode as ao, render as ap, toRef as aq, inject as ar, onBeforeUnmount as as, warn$1 as at, readonly as au, markRaw as av, commonjsGlobal as aw, resolveDirective as ax, vModelRadio as ay, watchPostEffect as az, createElementBlock as b, createI18n as c, defineComponent as d, createBaseVNode as e, popScopeId as f, useMediaQuery as g, usePreferredDark as h, computed as i, useWindowScroll as j, resolveComponent as k, withModifiers as l, unref as m, normalizeClass as n, openBlock as o, pushScopeId as p, createVNode as q, ref as r, withCtx as s, withDirectives as t, useStorage as u, vModelCheckbox as v, watchEffect as w, isRef as x, createTextVNode as y, createStaticVNode as z };

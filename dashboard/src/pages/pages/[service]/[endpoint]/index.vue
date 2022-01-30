@@ -43,7 +43,8 @@ onMounted(() => {
 
 const getPage = async () => {
   const endpoint = props.endpoint.replaceAll('_','/')
-  get(`http://localhost/${props.service}/api/page/${endpoint}`).then((response: any) => {
+  let domain = import.meta.env.VITE_API_DOMAIN;
+  get(`${domain}/${props.service}/api/page/${endpoint}`).then((response: any) => {
     page.data = response.data
     page.render++
   })
