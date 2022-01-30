@@ -181,6 +181,7 @@ class Championship extends Model
             $bets[] = [
                 'user_id' => $user_id,
                 'championship_id' => $this->id,
+                'points' => 0,
                 'odd_id' => $id
             ];
         }
